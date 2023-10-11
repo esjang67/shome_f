@@ -1,7 +1,29 @@
-.App {
-  text-align: center;
+ .App {
+  /* text-align: center; */
 }
 
+/* .home-container {
+  height: 1500px;
+  min-height: calc(100% - 60px);
+} */
+
+footer {
+  /* height: 60px;
+  position: relative;
+  transform: translateY(0%);
+  border-top: 1px solid blue;
+
+  display: flex;
+  align-items: center;
+  justify-content: center; */
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  background-color: skyblue;
+}
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +57,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
