@@ -1,0 +1,8 @@
+.Header {
+  height: 3em;
+  display:flex;
+  border: 1px solid red;
+}
+
+.Header .userIcon {
+}

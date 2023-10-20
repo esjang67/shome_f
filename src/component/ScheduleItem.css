@@ -1,0 +1,7 @@
+.ScheduleItem {
+  border: 1px solid blue;
+}
+
+.ScheduleItem .item {
+  border: 1px solid blue;
+}

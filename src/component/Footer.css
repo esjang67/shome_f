@@ -1,0 +1,23 @@
+.Footer {
+
+
+}
+
+.Footer ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Footer ul li {
+  list-style: none;
+  text-align: center;
+  
+}
+
+.Footer ul li .menu {
+  /* display: flex; */
+}
+
+.Footer .menuicon {
+  font-size: large;
+}
