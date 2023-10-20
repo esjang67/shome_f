@@ -12,7 +12,7 @@ function ScheduleItem({stdate, eddate}){
 
   // list 요청
   useEffect(()=> {
-
+    console.log("list 요청")
     axioxC.get("/schdule/all", 
               {
                 "startDate":stdate,
