@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 커스텀 axios
-const axioxC = axios.create({
+const axiosC = axios.create({
   baseURL:`${process.env.REACT_APP_SERVER_URL}`,
   headers: {
       'Content-Type':'application/json; charset=utf-8'
@@ -18,10 +18,10 @@ const axioxC = axios.create({
 // }
 
 // 요청전 인터셉트할것
-axioxC.interceptors.request.use(
+axiosC.interceptors.request.use(
   // (config) => addJwtToRequest(config),
   (error)  => Promise.reject(error)
 );
 
-export default axioxC;
+export default axiosC;
 

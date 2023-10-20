@@ -1,45 +1,23 @@
-import axioxC from '../util/axiosC';
-import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getFormettedDate } from '../util/util_date';
-
 import "./ScheduleItem.css"
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
-function ScheduleItem({stdate, eddate}){
+function ScheduleItem({list}){
   
-  const [list, setList] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+// console.log(list);
 
-  // list 요청
-  useEffect(()=> {
-    console.log("list 요청")
-    axioxC.get("/schdule/all", 
-              {
-                "startDate":stdate,
-                "endDate":eddate
-              })
-      .then(response => {
-        console.log("schdule/all" + response.data);
-        setList(response.data);
-        setIsLoading(false);
-        
-      }).catch(error => {
-        console.log(error);
-      })
-  }, [])
+  useEffect(()=>{
+  
+  
+  })
 
   function onRowHandler(e) {
     const getID = e.target.parentNode.dataset.id;
     alert(getID);
-    //navigate("/schedule/" + getID);
+    navigate("/schedule/" + getID);
   }
-
-  // if(list===null){
-  //   return
-  // }
-
-  if(isLoading)
-    return(<></>)
 
   return (
     <div className="ScheduleItem">

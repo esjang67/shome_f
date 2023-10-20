@@ -11,6 +11,7 @@ import { faCalendarPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-i
 import { getFormettedDate } from "../util/util_date";
 import axioxC from "../util/axiosC";
 import axios from "axios";
+import ReactDatePicker from "react-datepicker";
 
 function Schedule() {
 
@@ -18,88 +19,71 @@ function Schedule() {
   const [eddate, setEddate] = useState(getFormettedDate(new Date()));
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const navigator = useNavigate();
 
-  // list 요청
-  // useEffect(()=> {
-  //   console.log("list 요청")
-  //   const tmpStDate = new Date(stdate).getTime();
-  //   const tmpEdDate = new Date(eddate).getTime();
-  //   console.log(tmpStDate + "/" + tmpEdDate);
+  //list 요청
+  useEffect(()=> {
+    getList();
+  }, [])
 
-  //   const data = {
-  //     "startDate": tmpStDate,
-  //     "endDate": tmpEdDate
-  //   }
-  //   console.log(data);
+  function getList(){
 
-  //   fetch(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, {
-  //     method:'get',
-  //     headers:{
-  //       'Content-Type':'application/json; charset=utf-8'
-  //       },
-  //     body:JSON.stringify(data)})
-  //     .then(res=> {
-  //       console.log(res);
-  //     }).catch(e=> {
-  //       console.log(e);
-  //     })
+    const tmpStDate = new Date(stdate).getTime();
+    const tmpEdDate = new Date(eddate).getTime();
+    
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, 
+      {params: {"startDate": tmpStDate, "endDate": tmpEdDate}})
+      .then(response => {
+      console.log(response.data);
+      setList(response.data);
+      setIsLoading(false);
 
-    // axios.get(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, data)
-    //   .then(response => {
-    //     console.log("schdule/all" + response.data);
-    //     setList(response.data);
-    //     setIsLoading(false);
-        
-    //   }).catch(error => {
-    //     console.log(error);
-    //   })
-  // }, [])
+      }).catch(error => {
+      console.log(error);
+      })
+  
+  }
+
+  const pickDateHandler = (type, date) => {
+    if(type === "st"){
+      setStdate(date);
+    }
+    if(type === "ed"){
+      setEddate(date);
+    }
+  };
 
   // var timestamp = 1476508607 * 1000;
   // var date = new Date(timestamp);
   // console.log('year is ' + date.getFullYear());
+  if(isLoading)
+    return(<>...</>)
 
   return (
     <div className="Schedule">
       <div className="P-menu">
         {/* <Link to={"/schedule/new"}>일정 +</Link>  */}
         <button onClick={()=> {navigator("/schedule/new")}}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </button>
-
         <button onClick={()=> {
-
-          const tmpStDate = new Date(stdate).getTime();
-          const tmpEdDate = new Date(eddate).getTime();
-
-          const data = {
-            "startDate": tmpStDate,
-            "endDate": tmpEdDate
-          }
-          console.log(data);
-      
-          fetch(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, {
-            method:'get',
-            headers:{
-              'Content-Type':'application/json; charset=utf-8'
-              },
-            body:JSON.stringify(data)})
-            .then(res=> {
-              console.log(res);
-            }).catch(e=> {
-              console.log(e);
-            })
-        
-        }}>server</button>
+        alert(stdate + "/" + eddate)
+        }}>날짜변경?</button>
       </div>
       <div className="preiod">
-        <DatePickerC selDate={stdate}/> ~ <DatePickerC selDate={eddate}/> 
-        <button onClick={()=> {
-          console.log(getFormettedDate(new Date("2023-10-19")));
-          console.log(getFormettedDate(new Date()));
-        
-        }} > <FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+        {/* <DatePickerC selDate={stdate} setSelDate={setStdate}/> ~ 
+        <DatePickerC selDate={eddate} setSelDate={setEddate}/>  */}
+
+        <ReactDatePicker id="pickdate-st" dateFormat="yyyy-MM-dd"
+            selected={new Date(stdate)}
+            onChange={(date) => pickDateHandler("st", date)} /> ~ 
+        <ReactDatePicker id="pickdate-ed" dateFormat="yyyy-MM-dd"
+            selected={new Date(eddate)}
+            onChange={(date) => pickDateHandler("ed", date)} />            
+
+
+        <button onClick={getList} > <FontAwesomeIcon icon={faMagnifyingGlass} /></button>
       </div>
 
-      {/* <ScheduleItem stdate={stdate} eddate={eddate}/> */}
+      <ScheduleItem list={list} />
 
     </div>
     );
