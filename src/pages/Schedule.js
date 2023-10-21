@@ -4,22 +4,26 @@ import ScheduleItem from "../component/ScheduleItem";
 import "./Schedule.css";
 
 // import { getFormettedDate } from "../util/util_date";
-import { Link, useNavigate } from "react-router-dom";
-import DatePickerC from "../component/DatePickerC";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { getFormettedDate } from "../util/util_date";
-import axioxC from "../util/axiosC";
 import axios from "axios";
 import ReactDatePicker from "react-datepicker";
+import { Button, Offcanvas } from "react-bootstrap";
+import ScheduleDetail from "../component/ScheduleDetail";
 
 function Schedule() {
 
-  const [stdate, setStdate] = useState(getFormettedDate(new Date("2023-10-01")));
-  const [eddate, setEddate] = useState(getFormettedDate(new Date()));
+  const [stdate, setStdate] = useState(new Date("2023-10-01 00:00:00"));
+  const [eddate, setEddate] = useState(new Date(getFormettedDate(new Date()) + " 23:59:59"));
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const navigator = useNavigate();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   //list 요청
   useEffect(()=> {
@@ -66,7 +70,7 @@ function Schedule() {
         <button onClick={()=> {navigator("/schedule/new")}}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </button>
         <button onClick={()=> {
         alert(stdate + "/" + eddate)
-        }}>날짜변경?</button>
+        }}>날짜변경확인</button>
       </div>
       <div className="preiod">
         {/* <DatePickerC selDate={stdate} setSelDate={setStdate}/> ~ 

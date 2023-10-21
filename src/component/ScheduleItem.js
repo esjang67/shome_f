@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { getFormettedDate } from '../util/util_date';
 import "./ScheduleItem.css"
 import { useEffect } from 'react';
+import Card from 'react-bootstrap/Card';
 
 function ScheduleItem({list}){
   
@@ -25,10 +26,14 @@ function ScheduleItem({list}){
       {
         list.map((data) => {
           return (
-            <div className='item' key={data.id} data-id={data.id} onClick={onRowHandler}>
-              <p>{getFormettedDate(new Date(data.basedate))}</p>
-              <p>{data.content}</p>
-            </div>
+            
+              <Card className='item' key={data.id} data-id={data.id} onClick={onRowHandler}>
+                <Card.Header>{getFormettedDate(new Date(data.basedate))}</Card.Header>
+                <Card.Body>
+                  <Card.Text>{data.content}</Card.Text>
+                </Card.Body>
+              </Card>
+            
           );
         })
       }
