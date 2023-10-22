@@ -23,7 +23,9 @@ function Footer(){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary">
+            <Button variant="outline-primary" onClick={()=>{
+              navigate("/doit");
+            }}>
               <div className="menuicon"><FontAwesomeIcon icon={faClipboard} /></div>
               <span className="menutext">Do It</span>
             </Button>

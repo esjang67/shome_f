@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useState } from "react";
+import { getFormettedDate } from "../util/util_date";
 
-function Header(){
+function Header({user}){
   
   const [today, setToday] = useState(Date);
   // const td = new Date();
@@ -11,8 +12,9 @@ function Header(){
   return(
     <div className="Header">
       <button onClick={()=> {navigate("/")}}>home</button>
-      <div className="userIcon">사용자</div>
-      <div className="todayStr">{today}</div>
+      <button onClick={()=> {navigate("/login")}}>login</button>
+      <div className="userIcon">{user.name}</div>
+      <div className="todayStr">{getFormettedDate(new Date(today))}</div>
     </div>
   );
 

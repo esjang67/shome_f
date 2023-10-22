@@ -68,9 +68,9 @@ function Schedule() {
       <div className="P-menu">
         {/* <Link to={"/schedule/new"}>일정 +</Link>  */}
         <button onClick={()=> {navigator("/schedule/new")}}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </button>
-        <button onClick={()=> {
+        {/* <button onClick={()=> {
         alert(stdate + "/" + eddate)
-        }}>날짜변경확인</button>
+        }}>날짜변경확인</button> */}
       </div>
       <div className="preiod">
         {/* <DatePickerC selDate={stdate} setSelDate={setStdate}/> ~ 
