@@ -13,8 +13,11 @@ function DoitBatchDetail(props) {
   })
 
   useEffect(()=> {
+    if (!props.modalShow) 
+      return;
+
     if(props.id !== null){
-      alert(props.id); 
+      console.log(props.id); 
       
       axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, 
         {params: {"id": props.id}})
@@ -74,20 +77,14 @@ function DoitBatchDetail(props) {
   }
   
   return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           할일
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      {/* checked={...batch.user.userid === 'DO'}  
-      checked={...batch.user.userid === 'MIN'} */}
+      {/* checked={batch.user.userid ==="MIN" ? false : true}  */}
         <div className="userid-radio">    
           <input type="radio" className="btn-check" id="min" name="user.userid" value="MIN" onChange={selData} />
           <label className="btn btn-outline-primary" for="min">민찬</label>
@@ -126,15 +123,15 @@ function DoitBatchDetail(props) {
 
         <Button variant="outline-warning" onClick={()=>{
           console.log(batch);
-          const setdata = {
-            ...batch
-            // user:{userid:batch.userid}
-          }
-          axios.post(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, setdata)
+          // const setdata = {
+          //   ...batch
+          //   // user:{userid:batch.userid}
+          // }
+          axios.post(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, batch)
           .then(response => {
             alert(response.data);
-            props.setIsChange(false)
-            {props.onHide()}
+            props.setIsChange(true);
+            props.onHide();
             
           }).catch(error => {
             console.log(error);
@@ -145,8 +142,8 @@ function DoitBatchDetail(props) {
           axios.delete(`${process.env.REACT_APP_SERVER_URL}/doitbatch/{batch.id}`)
           .then(response => {
             alert(response.data);
-            props.setIsChange(false)
-            {props.onHide()}
+            props.setIsChange(true);
+            props.onHide();
             
           }).catch(error => {
             console.log(error);

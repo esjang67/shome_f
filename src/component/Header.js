@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useState } from "react";
 import { getFormettedDate } from "../util/util_date";
+import { Button } from "react-bootstrap";
 
 function Header({user}){
   
@@ -11,10 +12,9 @@ function Header({user}){
 
   return(
     <div className="Header">
-      <button onClick={()=> {navigate("/")}}>home</button>
-      <button onClick={()=> {navigate("/login")}}>login</button>
-      <div className="userIcon">{user.name}</div>
+      <div className="index"><Button variant="outline-info" onClick={()=> {navigate("/")}}>home</Button></div>
       <div className="todayStr">{getFormettedDate(new Date(today))}</div>
+      <div className="login"><Button variant="outline-info" onClick={()=> {navigate("/login")}}>{user.name===''? 'login' : user.name}</Button></div>
     </div>
   );
 

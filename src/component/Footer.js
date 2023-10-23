@@ -5,9 +5,10 @@ import "./Footer.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function Footer(){
+function Footer({user}){
   const navigate = useNavigate();
-
+//   console.log("footer" + user.userid ? 'false' : 'true')
+// console.log(user);
   return(
     <div className="Footer">
       <ul>
@@ -23,7 +24,7 @@ function Footer(){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" onClick={()=>{
+            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
               navigate("/doit");
             }}>
               <div className="menuicon"><FontAwesomeIcon icon={faClipboard} /></div>
@@ -33,7 +34,7 @@ function Footer(){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary">
+            <Button variant="outline-primary" disabled={user.userid ? false : true}>
             <div className="menuicon"><FontAwesomeIcon icon={faBookOpenReader} /></div>
             <span className="menutext">menu</span>
             </Button>
@@ -41,7 +42,7 @@ function Footer(){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary">
+            <Button variant="outline-primary" disabled={user.userid ? false : true}>
               <div className="menuicon"><FontAwesomeIcon icon={faStar} /></div>
               <span className="menutext">menu</span>
             </Button>
@@ -49,7 +50,7 @@ function Footer(){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary">
+            <Button variant="outline-primary" disabled={user.userid ? false : true}>
               <div className="menuicon"><FontAwesomeIcon icon={faDice} /></div>
               <span className="menutext">menu</span>
             </Button>

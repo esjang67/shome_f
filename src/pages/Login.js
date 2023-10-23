@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Button, ButtonGroup, Card, CardBody, CardHeader, CardSubtitle } from "react-bootstrap";
+import { Cookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 function Login({user, setUser}) {
@@ -11,7 +12,7 @@ function Login({user, setUser}) {
       ...user,
       [e.target.name]: e.target.value
     })
-		// console.log(user);
+		 console.log(user);
 	})
 
 	return (
@@ -22,12 +23,15 @@ function Login({user, setUser}) {
 					</CardHeader>
 					<CardBody>
 						<div className="userid">
-							<ButtonGroup>
-								<Button className="btn btn-primary" name="userid" value="DAD" onClick={fnSetUser}>DAD</Button>
-								<Button className="btn btn-primary" name="userid" value="MOM" onClick={fnSetUser}>MOM</Button>
-								<Button className="btn btn-primary" name="userid" value="MIN" onClick={fnSetUser}>MIN</Button>
-								<Button className="btn btn-primary" name="userid" value="DO" onClick={fnSetUser}>DO</Button>
-							</ButtonGroup>
+							<input type="radio" className="btn-check" id="min" name="userid" value="MIN" onChange={fnSetUser} />
+							<label className="btn btn-outline-primary" for="min">민찬</label>
+							<input type="radio" className="btn-check" id="do" name="userid" value="DO" onChange={fnSetUser} />
+							<label className="btn btn-outline-danger" for="do">도현</label>
+							<br/>
+							<input type="radio" className="btn-check" id="mom" name="userid" value="MOM" onChange={fnSetUser} />
+							<label className="btn btn-outline-success" for="mom">엄마</label>
+							<input type="radio" className="btn-check" id="dad" name="userid" value="DAD" onChange={fnSetUser} />
+							<label className="btn btn-outline-warning" for="dad">아빠</label>
 						</div>
 						<br/>
 						<div className="password">
@@ -41,7 +45,7 @@ function Login({user, setUser}) {
 								.then(response => {
 									setUser(response.data);
 									sessionStorage.setItem("user", JSON.stringify(user))
-									alert(user.name + " 로그인 완료!");
+									alert("로그인 완료!");
 									navigate("/");
 								}).catch(error => {
 								console.log(error);

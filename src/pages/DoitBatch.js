@@ -9,20 +9,22 @@ function DoitBatch(){
   const [isChange, setIsChange] = useState(true);
   const [selid, setSelid] = useState('');
     
+  console.log("isChange " + isChange);
   return (
     <div className="DoitBatch">
 
-      <div>
+      <div className="doitbatch-popup">
         <Button variant="primary" onClick={() => {
           setSelid('')
           setModalShow(true)
+          setIsChange(false)
         }}>할일 추가</Button>
-        <DoitBatchDetail show={modalShow} onHide={() => setModalShow(false)} setIsChange={setIsChange} id={selid}/>
+        <DoitBatchDetail show={modalShow} onHide={() => setModalShow(false)} isChange={isChange} setIsChange={setIsChange} id={selid}/>
       </div>
 
       <hr/>
       <ListGroup>
-        <DoitBatchList setIsChange={setIsChange} setSelid={setSelid} setModalShow={setModalShow}/> 
+        <DoitBatchList isChange={isChange} setIsChange={setIsChange} setSelid={setSelid} setModalShow={setModalShow}/> 
       </ListGroup>
     </div>
   )

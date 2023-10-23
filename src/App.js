@@ -15,10 +15,17 @@ import Login from './pages/Login';
 import { Suspense } from 'react';
 import Loading from './pages/Loading';
 import DoitBatch from './pages/DoitBatch';
+import { Cookies, useCookies } from 'react-cookie';
 
 function App() {
+  // const [user, setUser] = useCookies({
+  //   userid:'',
+  //   password:'',
+  //   name:'',
+  //   grade:''
+  // });
 
-  // const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
     userid:'',
     password:'',
@@ -28,6 +35,7 @@ function App() {
 
   useEffect(()=> {
     const tmp = JSON.parse(sessionStorage.getItem("user"))
+    // const tmp = Cookies.get("user");
     if(tmp !== null){
       setUser(tmp);
       // setIsLogin(true); 
@@ -44,7 +52,7 @@ function App() {
         <article>
           <div className='App-Main'>
             <Routes>
-              <Route path="/" element={<Schedule />} />
+              <Route path="/" element={<Schedule grade={user.grade} />} />
               <Route path="/login" element={<Login user={user} setUser={setUser} />} />
               <Route path="/doit" element={<Doit user={user} />} />
               <Route path="/doit/batch" element={<DoitBatch user={user} />} />
@@ -57,7 +65,7 @@ function App() {
           </div>
         </article>
         <footer>
-          <Footer />
+          <Footer user={user} />
         </footer>
       </Suspense>
     </div>

@@ -4,8 +4,8 @@ import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function DoitBatchList({setIsChange, setSelid, setModalShow}){
+  console.log("DoitBatchList")
   const [isLoading, setIsLoading] = useState(true);
- 
   const [list, setList] = useState();
 
   function getList(){
@@ -19,12 +19,13 @@ function DoitBatchList({setIsChange, setSelid, setModalShow}){
       }).catch(error => {
       console.log(error);
       })
-  
+      console.log("DoitBatchList getList")
   }
 
   useEffect(()=> {
+    console.log("DoitBatchList useEffect")
     getList();
-  }, [])
+  },[isLoading])
 
   
   function onRowHandler(e) {
@@ -36,10 +37,12 @@ function DoitBatchList({setIsChange, setSelid, setModalShow}){
 
   if(isLoading)
     return(<>...</>)
-
+// console.log(list)
+  if(list===undefined){
+    return
+  }
   return (
     <div className="DoitBatchList">
-
       {
         list.map((data) => {
           return (

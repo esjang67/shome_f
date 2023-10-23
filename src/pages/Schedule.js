@@ -1,29 +1,26 @@
 import { useEffect, useState } from "react";
-// import Preiod from "../component/Preiod";
 import ScheduleItem from "../component/ScheduleItem";
 import "./Schedule.css";
-
-// import { getFormettedDate } from "../util/util_date";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { getFormettedDate } from "../util/util_date";
 import axios from "axios";
 import ReactDatePicker from "react-datepicker";
-import { Button, Offcanvas } from "react-bootstrap";
-import ScheduleDetail from "../component/ScheduleDetail";
+import { Button } from "react-bootstrap";
+import DatePreiod from "../component/DatePreiod";
 
-function Schedule() {
+function Schedule({grade}) {
 
-  const [stdate, setStdate] = useState(new Date("2023-10-01 00:00:00"));
+  let startdate = new Date("2023-10-01 00:00:00");
+  startdate.setDate(1);
+  
+  const [stdate, setStdate] = useState(startdate);
   const [eddate, setEddate] = useState(new Date(getFormettedDate(new Date()) + " 23:59:59"));
+  
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const navigator = useNavigate();
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   //list 요청
   useEffect(()=> {
@@ -48,43 +45,20 @@ function Schedule() {
   
   }
 
-  const pickDateHandler = (type, date) => {
-    if(type === "st"){
-      setStdate(date);
-    }
-    if(type === "ed"){
-      setEddate(date);
-    }
-  };
-
-  // var timestamp = 1476508607 * 1000;
-  // var date = new Date(timestamp);
-  // console.log('year is ' + date.getFullYear());
   if(isLoading)
     return(<>...</>)
 
   return (
     <div className="Schedule">
+      
       <div className="P-menu">
-        {/* <Link to={"/schedule/new"}>일정 +</Link>  */}
-        <button onClick={()=> {navigator("/schedule/new")}}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </button>
-        {/* <button onClick={()=> {
-        alert(stdate + "/" + eddate)
-        }}>날짜변경확인</button> */}
+        {grade === 'P' ? 
+          <Button onClick={()=> {navigator("/schedule/new")}}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </Button>
+        :''}  
       </div>
+
       <div className="preiod">
-        {/* <DatePickerC selDate={stdate} setSelDate={setStdate}/> ~ 
-        <DatePickerC selDate={eddate} setSelDate={setEddate}/>  */}
-
-        <ReactDatePicker id="pickdate-st" dateFormat="yyyy-MM-dd"
-            selected={new Date(stdate)}
-            onChange={(date) => pickDateHandler("st", date)} /> ~ 
-        <ReactDatePicker id="pickdate-ed" dateFormat="yyyy-MM-dd"
-            selected={new Date(eddate)}
-            onChange={(date) => pickDateHandler("ed", date)} />            
-
-
-        <button onClick={getList} > <FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+        <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       </div>
 
       <ScheduleItem list={list} />

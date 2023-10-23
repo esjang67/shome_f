@@ -4,23 +4,25 @@ import { useNavigate } from "react-router-dom";
 function Doit({user}) {
 
   const navigate = useNavigate();
+  const usebatch = {...user.grade ? true : false }
 
-  function loginCheck() {
-    if(user.userid === '') {
-      alert(" login first");
-      navigate("/");
-      return;
-    }
-  }
+  // function loginCheck() {
+  //   if(user.userid === '') {
+  //     alert(" login first");
+  //     navigate("/");
+  //     return;
+  //   }
+  // }
 
     return (
       <div className="Doit">
-          {loginCheck()}
+          {/* {loginCheck()} */}
 
           <div>할일</div>
-          <Button onClick={()=> {
-            navigate("/doit/batch")
-          }}>할일등록</Button>
+          {usebatch ? 
+            <Button onClick={()=> { navigate("/doit/batch")}}>할일등록</Button> 
+            : '' }
+          
 
 
       </div>
