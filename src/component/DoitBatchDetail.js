@@ -23,15 +23,10 @@ function DoitBatchDetail() {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, 
         {params: {"id": id}})
       .then(response => {
-        console.log("data get");
         console.log(response.data)
         setBatch(response.data);
-        console.log(batch);
-        setKids(batch.user.userid);
+        setKids(response.data.batch.user.userid);
         setIsLoading(true);
-      })
-      .then(()=> {
-        console.log(batch);
       }).catch(error => {
         console.log(error);
         alert(error);
@@ -41,7 +36,6 @@ function DoitBatchDetail() {
   
   useEffect(()=> {
     getBatch();
-    
   }, [])
   
   function findDay(str){

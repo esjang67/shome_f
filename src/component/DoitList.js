@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 
 function DoitList({kids}){
   const [isLoading, setIsLoading] = useState(true);
@@ -26,18 +25,22 @@ function DoitList({kids}){
   },[kids])
   
   function onRowHandler(e) {
-// console.log(e);
+console.log(e);
     const getID = e.target.parentNode.parentNode.dataset.id;
     // alert(getID)
-    if(window.confirm("완료했나요?? ^___^:")){
-      axios.put(`${process.env.REACT_APP_SERVER_URL}/doit/` + getID)
-      .then(response => {
-        console.log(response.data);
-        alert(response.data)
-        getList();
-      }).catch(error => {
-        console.log(error);
-      })
+
+    const chk = e.target.checked;
+    if(chk) {
+      if(window.confirm("완료했나요?? ^___^:")){
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/doit/` + getID)
+        .then(response => {
+          console.log(response.data);
+          alert(response.data)
+          getList();
+        }).catch(error => {
+          console.log(error);
+        })
+      }
     }
   }
 
@@ -70,7 +73,9 @@ function DoitList({kids}){
                 <td>{data.user.userid} {data.user.name}</td>
                 <td>{data.content}</td>
                 <td>
-                  <input type="checkbox" name="done" value={data.done} defaultChecked={data.done==="Y"? true : false} checked={data.done==="Y"? true : false} onClick={onRowHandler} />
+                  <input type="checkbox" name="done" value={data.done} 
+                          defaultChecked={data.done==="Y"? true : false} 
+                          onChange={onRowHandler} />
                 </td>
               </tr>
             );

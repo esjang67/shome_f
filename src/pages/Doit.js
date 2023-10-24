@@ -7,11 +7,11 @@ import SelectKids from "../component/SelectKids";
 function Doit({user}) {
 
   const navigate = useNavigate();
-  const usebatch = {...user.grade ? true : false }
+  // const usebatch = {...user.grade === 'P' ? true : false }
   const [kids, setKids] = useState("MIN");
   
   useEffect(()=> {
-    if(!usebatch){
+    if((user.grade === 'K')){
       setKids(user.userid);
     }
   },[])
@@ -22,11 +22,12 @@ function Doit({user}) {
         {/* {loginCheck()} */}
 
         <h1>할일</h1>
-        {usebatch ? 
-          <Button onClick={()=> { navigate("/doit/batch")}}>배치등록</Button> 
+        {(user.grade === 'P') ? 
+          <Button onClick={()=> { navigate("/doit/batch")}}>배치등록</Button>
           : '' }
-
+        {(user.grade === 'P') ? 
         <SelectKids kids={kids} setKids={setKids}/>
+        : ''}
 
         <DoitList user={user} kids={kids} />
     </div>
