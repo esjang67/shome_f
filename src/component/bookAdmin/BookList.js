@@ -21,8 +21,39 @@ function BookList({collectId}){
     getList();
   }, [])
 
+  function onRowHandler(e) {
+    const getID = e.target.parentNode.dataset.id;
+    // alert(getID);
+    // navigator("/doit/batch/" + getID);
+  }
+
   return(
     <div className="BookList">
+
+      <table >
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>userid</th>
+            <th>이름</th>
+            <th>요일</th>
+            <th>내용</th>
+          </tr>
+        </thead>
+        <tbody>
+        {
+          list.map((data) => {
+            return (
+              <tr key={data.id} data-id={data.id} onClick={onRowHandler}>
+                <td>{data.id}</td>
+                <td>{data.name}</td>
+                <td>{data.delyn}</td>
+              </tr>
+            );
+          })
+        }
+        </tbody>
+      </table> 
 
     </div>
   )

@@ -1,16 +1,16 @@
 import axios from "axios";
 
-export function fnCollectList() {
+async function fnCollectList() {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/collect/all`)
+    console.log(response.data)
+    return response.data
 
-  let list = null;
-  axios.get(`${process.env.REACT_APP_SERVER_URL}/collect/all`)
-  .then(response => {
-    console.log("fnCollectList")
-    console.log(response.data);
-    // setList(response.data)
-    return response.data;
-  }).catch(error => {
-    console.log(error);
-  })
+  } catch(err) {
+    
+    throw(err)
 
+  }
 }
+
+export default fnCollectList;
