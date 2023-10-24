@@ -18,7 +18,7 @@ function Footer({user}){
               navigate("/");
             }}>
               <div className="menuicon"><FontAwesomeIcon icon={faCalendar} /></div>
-              <span className="menutext">Schedule</span>
+              {/* <span className="menutext">Schedule</span> */}
             </Button>
           </div>
         </li>
@@ -28,7 +28,7 @@ function Footer({user}){
               navigate("/doit");
             }}>
               <div className="menuicon"><FontAwesomeIcon icon={faClipboard} /></div>
-              <span className="menutext">Do It</span>
+              {/* <span className="menutext">Do It</span> */}
             </Button>
           </div>
         </li>
@@ -36,7 +36,7 @@ function Footer({user}){
           <div className="menu">
             <Button variant="outline-primary" disabled={user.userid ? false : true}>
             <div className="menuicon"><FontAwesomeIcon icon={faBookOpenReader} /></div>
-            <span className="menutext">menu</span>
+            {/* <span className="menutext">menu</span> */}
             </Button>
           </div>
         </li>
@@ -44,7 +44,7 @@ function Footer({user}){
           <div className="menu">
             <Button variant="outline-primary" disabled={user.userid ? false : true}>
               <div className="menuicon"><FontAwesomeIcon icon={faStar} /></div>
-              <span className="menutext">menu</span>
+              {/* <span className="menutext">menu</span> */}
             </Button>
           </div>
         </li>
@@ -52,7 +52,7 @@ function Footer({user}){
           <div className="menu">
             <Button variant="outline-primary" disabled={user.userid ? false : true}>
               <div className="menuicon"><FontAwesomeIcon icon={faDice} /></div>
-              <span className="menutext">menu</span>
+              {/* <span className="menutext">menu</span> */}
             </Button>
           </div>
         </li>

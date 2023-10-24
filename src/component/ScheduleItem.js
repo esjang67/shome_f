@@ -1,22 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { getFormettedDate } from '../util/util_date';
 import "./ScheduleItem.css"
-import { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 
 function ScheduleItem({list}){
   
   const navigate = useNavigate();
-// console.log(list);
-
-  useEffect(()=>{
-  
-  
-  })
 
   function onRowHandler(e) {
-    const getID = e.target.parentNode.dataset.id;
-    alert(getID);
+    const getID = e.target.dataset.id;
+    // alert(getID);
     navigate("/schedule/" + getID);
   }
 

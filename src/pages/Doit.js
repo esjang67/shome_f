@@ -1,32 +1,36 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import DoitList from "../component/DoitList";
+import { useEffect, useState } from "react";
+import SelectKids from "../component/SelectKids";
 
 function Doit({user}) {
 
   const navigate = useNavigate();
   const usebatch = {...user.grade ? true : false }
+  const [kids, setKids] = useState("MIN");
+  
+  useEffect(()=> {
+    if(!usebatch){
+      setKids(user.userid);
+    }
+  },[])
 
-  // function loginCheck() {
-  //   if(user.userid === '') {
-  //     alert(" login first");
-  //     navigate("/");
-  //     return;
-  //   }
-  // }
+  console.log(kids)
+  return (
+    <div className="Doit">
+        {/* {loginCheck()} */}
 
-    return (
-      <div className="Doit">
-          {/* {loginCheck()} */}
+        <h1>할일</h1>
+        {usebatch ? 
+          <Button onClick={()=> { navigate("/doit/batch")}}>배치등록</Button> 
+          : '' }
 
-          <div>할일</div>
-          {usebatch ? 
-            <Button onClick={()=> { navigate("/doit/batch")}}>할일등록</Button> 
-            : '' }
-          
+        <SelectKids kids={kids} setKids={setKids}/>
 
-
-      </div>
-    )
+        <DoitList user={user} kids={kids} />
+    </div>
+  )
 
 }
 

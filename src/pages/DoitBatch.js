@@ -1,31 +1,26 @@
-import { useEffect, useState } from "react";
-import { Button, ListGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import DoitBatchList from "../component/DoitBatchList";
-import DoitBatchDetail from "../component/DoitBatchDetail";
 import "./DoitBatch.css"
+import { useNavigate } from "react-router-dom";
 
 function DoitBatch(){
-  const [modalShow, setModalShow] = useState(false);
-  const [isChange, setIsChange] = useState(true);
-  const [selid, setSelid] = useState('');
     
-  console.log("isChange " + isChange);
+  const navigator = useNavigate();
+
   return (
     <div className="DoitBatch">
 
       <div className="doitbatch-popup">
         <Button variant="primary" onClick={() => {
-          setSelid('')
-          setModalShow(true)
-          setIsChange(false)
-        }}>할일 추가</Button>
-        <DoitBatchDetail show={modalShow} onHide={() => setModalShow(false)} isChange={isChange} setIsChange={setIsChange} id={selid}/>
+          navigator("/doit/batch/new");
+        }}>배치 추가</Button>
+
       </div>
 
       <hr/>
-      <ListGroup>
-        <DoitBatchList isChange={isChange} setIsChange={setIsChange} setSelid={setSelid} setModalShow={setModalShow}/> 
-      </ListGroup>
+      
+      <DoitBatchList /> 
+
     </div>
   )
 }

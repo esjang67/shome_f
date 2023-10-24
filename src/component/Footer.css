@@ -1,11 +1,11 @@
 .Footer {
-
-
 }
 
 .Footer ul {
   display: flex;
   justify-content: space-around;
+  margin: 0;
+  padding: 0;
 }
 
 .Footer ul li {
@@ -14,10 +14,15 @@
   
 }
 
-.Footer ul li .menu {
-  /* display: flex; */
+.Footer ul li .menu Button {
+  /* border: 1px solid red; */
+  width: 100%;
 }
 
 .Footer .menuicon {
-  font-size: large;
+  font-size: x-large;
+}
+
+.Footer .menutext {
+  font-size: small;
 }

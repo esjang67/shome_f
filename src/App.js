@@ -16,6 +16,7 @@ import { Suspense } from 'react';
 import Loading from './pages/Loading';
 import DoitBatch from './pages/DoitBatch';
 import { Cookies, useCookies } from 'react-cookie';
+import DoitBatchDetail from './component/DoitBatchDetail';
 
 function App() {
   // const [user, setUser] = useCookies({
@@ -56,6 +57,8 @@ function App() {
               <Route path="/login" element={<Login user={user} setUser={setUser} />} />
               <Route path="/doit" element={<Doit user={user} />} />
               <Route path="/doit/batch" element={<DoitBatch user={user} />} />
+              <Route path="/doit/batch/new" element={<DoitBatchDetail />} />
+              <Route path='/doit/batch/:id' element={<DoitBatchDetail />} />
               <Route path="/book" element={<Main />} />
               <Route path="/suggest" element={<Main />} />
               <Route path="/coupon" element={<Main />} />

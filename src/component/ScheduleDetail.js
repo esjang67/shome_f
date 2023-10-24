@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactDatePicker from "react-datepicker";
+import { Button } from "react-bootstrap";
 
 function ScheduleDetail(){
 
@@ -14,8 +15,6 @@ function ScheduleDetail(){
       content:''
   });
   const [isLoading, setIsLoading] = useState(true);
-
-  console.log("detail " + id);
 
   useEffect(()=> {
     if(id === undefined)
@@ -64,11 +63,11 @@ function ScheduleDetail(){
             selected={new Date(schedule.basedate)}
             onChange={(date) => pickDateHandler(date)} /><br/>
         내용 : <br/>
-        <textarea placeholder="일정등록 요청!!!" name="content" onChange={changeHandler} defaultValue={schedule.content}/><br/>
+        <textarea placeholder="일정을 등록하세요" name="content" onChange={changeHandler} defaultValue={schedule.content}/><br/>
         
         {
           id !== undefined ? 
-          <button onClick={()=>{
+          <Button onClick={()=>{
             axios.delete(`${process.env.REACT_APP_SERVER_URL}/schedule/` + id)
             .then(response => {
               alert(response.data);
@@ -77,10 +76,10 @@ function ScheduleDetail(){
               console.log(error);
             })
           
-          }}>삭제</button> : <></>
+          }}>삭제</Button> : <></>
         }
 
-        <button onClick={()=>{
+        <Button onClick={()=>{
           axios.post(`${process.env.REACT_APP_SERVER_URL}/schedule`, schedule)
           .then(response => {
             alert(response.data);
@@ -88,7 +87,7 @@ function ScheduleDetail(){
           }).catch(error => {
             console.log(error);
           })
-        }}>{id === undefined ? "등록" : "수정"}</button>
+        }}>{id === undefined ? "등록" : "수정"}</Button>
 
       </div>
     </div>
