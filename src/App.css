@@ -78,3 +78,49 @@ tr:last-child td:first-child {
 tr:last-child td:last-child {
   border-bottom-right-radius: 10px;
 } */
+
+/* -------------------------------------- */
+.Header {
+  /* height: 3em; */
+  display:flex;
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.Header .index, .todayStr, .login {
+  height: 100%;
+  align-items: center;
+}
+
+/* -------------------------------------- */
+
+.Footer {
+}
+
+.Footer ul {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+.Footer ul li {
+  list-style: none;
+  text-align: center;
+  
+}
+
+.Footer ul li .menu Button {
+  /* border: 1px solid red; */
+  width: 100%;
+}
+
+.Footer .menuicon {
+  font-size: x-large;
+}
+
+.Footer .menutext {
+  font-size: small;
+}

@@ -1,7 +1,5 @@
 import { faCalendar, faClipboard, faBookOpenReader, faStar, faDice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import "./Footer.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +32,14 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true}>
+            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
+              if(user.grade === "P"){
+                navigate("/book/admin")
+              } else {
+                navigate("/book")
+              } 
+              
+            }}>
             <div className="menuicon"><FontAwesomeIcon icon={faBookOpenReader} /></div>
             {/* <span className="menutext">menu</span> */}
             </Button>

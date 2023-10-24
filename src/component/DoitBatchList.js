@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ListGroup from 'react-bootstrap/ListGroup';
 import { useNavigate } from "react-router-dom";
 
 function DoitBatchList(){
@@ -38,18 +37,6 @@ function DoitBatchList(){
   }
   return (
     <div className="DoitBatchList">
-      {/* <ListGroup>
-      {
-        list.map((data) => {
-          return (
-              <ListGroup.Item action variant={data.user.userid ==="MIN" ? "primary" : "danger"} 
-                      key={data.id} data-id={data.id} 
-                      onClick={onRowHandler}>{data.user.name} : {data.defineday} : {data.content}</ListGroup.Item>
-            );
-          })
-      }
-      </ListGroup> */}
-
       <table >
         <thead>
           <tr>

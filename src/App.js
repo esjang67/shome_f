@@ -2,8 +2,8 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Main from './pages/Main';
-import Header from './component/Header';
-import Footer from './component/Footer';
+import Header from './component/main/Header';
+import Footer from './component/main/Footer';
 import Schedule from './pages/Schedule';
 import { useState } from 'react';
 import ScheduleDetail from './component/ScheduleDetail';
@@ -15,8 +15,13 @@ import Login from './pages/Login';
 import { Suspense } from 'react';
 import Loading from './pages/Loading';
 import DoitBatch from './pages/DoitBatch';
-import { Cookies, useCookies } from 'react-cookie';
+// import { Cookies, useCookies } from 'react-cookie';
 import DoitBatchDetail from './component/DoitBatchDetail';
+import Book from './pages/Book';
+import BookAdmin from './pages/BookAdmin';
+import Library from './component/bookAdmin/Library';
+import Collect from './component/bookAdmin/Collect';
+import CollectDetail from './component/bookAdmin/CollectDetail';
 
 function App() {
   // const [user, setUser] = useCookies({
@@ -26,7 +31,7 @@ function App() {
   //   grade:''
   // });
 
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
     userid:'',
     password:'',
@@ -54,17 +59,24 @@ function App() {
           <div className='App-Main'>
             <Routes>
               <Route path="/" element={<Schedule grade={user.grade} />} />
+              <Route path="/schedule/new" element={<ScheduleDetail />} />
+              <Route path='/schedule/:id' element={<ScheduleDetail />} />
               <Route path="/login" element={<Login user={user} setUser={setUser} />} />
               <Route path="/doit" element={<Doit user={user} />} />
               <Route path="/doit/batch" element={<DoitBatch user={user} />} />
               <Route path="/doit/batch/new" element={<DoitBatchDetail />} />
               <Route path='/doit/batch/:id' element={<DoitBatchDetail />} />
-              <Route path="/book" element={<Main />} />
+              <Route path="/book" element={<Book />} />
+              <Route path="/book/admin" element={<BookAdmin />} />
+              <Route path="/book/admin/library" element={<Library />} />
+              <Route path="/book/admin/library/collect" element={<Collect />} />
+              <Route path="/book/admin/library/collect/new" element={<CollectDetail />} />
+              <Route path="/book/admin/library/collect/:id" element={<CollectDetail />} />
               <Route path="/suggest" element={<Main />} />
               <Route path="/coupon" element={<Main />} />
-              <Route path="/schedule/new" element={<ScheduleDetail />} />
-              <Route path='/schedule/:id' element={<ScheduleDetail />} />
             </Routes>
+              {/* <Route path='/board/:id' element={
+                    isAuth ? <BoardDetail userInfo={userInfo} /> : <LoginMsg /> }/> */}
           </div>
         </article>
         <footer>

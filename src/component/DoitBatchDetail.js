@@ -17,7 +17,7 @@ function DoitBatchDetail() {
     content:''
   })
 
-  function getBatch(){
+  function getData(){
     if(id !== undefined){
       console.log("get list id " + id);
       axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, 
@@ -25,7 +25,7 @@ function DoitBatchDetail() {
       .then(response => {
         console.log(response.data)
         setBatch(response.data);
-        setKids(response.data.batch.user.userid);
+        setKids(response.data.user.userid);
         setIsLoading(true);
       }).catch(error => {
         console.log(error);
@@ -35,8 +35,36 @@ function DoitBatchDetail() {
   }
   
   useEffect(()=> {
-    getBatch();
+    getData();
   }, [])
+  
+  function saveData(){
+    const reqBatch = {
+      ...batch,
+      user: {userid : kids }
+    }
+    console.log(reqBatch)
+
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, reqBatch)
+    .then(response => {
+      alert(response.data);
+      navigator(-1)
+      
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  function deleteData(){
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/doitbatch/` + batch.id)
+    .then(response => {
+      alert(response.data);
+      navigator(-1)
+      
+    }).catch(error => {
+      console.log(error);
+    })
+  }
   
   function findDay(str){
     const day = [...batch.defineday];
@@ -77,7 +105,7 @@ function DoitBatchDetail() {
   
 if(!isLoading){
   <div>...</div>
-  return;
+  return
 }
 
   return (
@@ -107,38 +135,14 @@ if(!isLoading){
         <textarea style={{ width: '100%' }} name="content" defaultValue={batch.content} onChange={selData} />
       </div>
 
-        <Button variant="outline-warning" onClick={()=>{
-          const reqBatch = {
-            ...batch,
-            user: {userid : kids }
-          }
-          console.log(reqBatch)
-
-          axios.post(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, reqBatch)
-          .then(response => {
-            alert(response.data);
-            navigator(-1)
-            
-          }).catch(error => {
-            console.log(error);
-          })
-        }}>저장</Button>{' '}
-
-        <Button variant="outline-danger" onClick={()=>{
-          axios.delete(`${process.env.REACT_APP_SERVER_URL}/doitbatch/` + batch.id)
-          .then(response => {
-            alert(response.data);
-            navigator("-1")
-            
-          }).catch(error => {
-            console.log(error);
-          })
-        }}>삭제</Button>{' '}
+      {id !== undefined ? 
+        <Button variant="outline-danger" onClick={deleteData}>삭제</Button>: ''}
+      {' '}
+      <Button variant="outline-warning" onClick={saveData}>저장</Button>{' '}
+      <Button variant="outline-success" onClick={()=>{
         
-        <Button variant="outline-success" onClick={()=>{
-          
-          navigator(-1)
-        }}>목록</Button>
+        navigator(-1)
+      }}>목록</Button>
 
     </div>  
   );

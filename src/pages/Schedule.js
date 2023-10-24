@@ -3,20 +3,18 @@ import ScheduleItem from "../component/ScheduleItem";
 import "./Schedule.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { getFormettedDate } from "../util/util_date";
+import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import ReactDatePicker from "react-datepicker";
 import { Button } from "react-bootstrap";
 import DatePreiod from "../component/DatePreiod";
 
 function Schedule({grade}) {
 
-  let startdate = new Date("2023-10-01 00:00:00");
+  let startdate = new Date() // new Date("2023-10-01 00:00:00");
   startdate.setDate(1);
   
   const [stdate, setStdate] = useState(startdate);
-  const [eddate, setEddate] = useState(new Date(getFormettedDate(new Date()) + " 23:59:59"));
+  const [eddate, setEddate] = useState(new Date());
   
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
