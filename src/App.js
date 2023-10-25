@@ -17,11 +17,12 @@ import Loading from './pages/Loading';
 import DoitBatch from './pages/DoitBatch';
 // import { Cookies, useCookies } from 'react-cookie';
 import DoitBatchDetail from './component/DoitBatchDetail';
-import Book from './pages/Book';
-import BookAdmin from './pages/BookAdmin';
-import Library from './component/bookAdmin/Library';
 import Collect from './component/bookAdmin/Collect';
 import CollectDetail from './component/bookAdmin/CollectDetail';
+import LibraryAdmin from './pages/LibraryAdmin';
+import Library from './pages/Library';
+import Books from './component/bookAdmin/Books';
+import BookDetail from './component/bookAdmin/BookDetail';
 
 function App() {
   // const [user, setUser] = useCookies({
@@ -66,12 +67,14 @@ function App() {
               <Route path="/doit/batch" element={<DoitBatch user={user} />} />
               <Route path="/doit/batch/new" element={<DoitBatchDetail />} />
               <Route path='/doit/batch/:id' element={<DoitBatchDetail />} />
-              <Route path="/book" element={<Book />} />
-              <Route path="/book/admin" element={<BookAdmin />} />
-              <Route path="/book/admin/library" element={<Library />} />
-              <Route path="/book/admin/library/collect" element={<Collect />} />
-              <Route path="/book/admin/library/collect/new" element={<CollectDetail />} />
-              <Route path="/book/admin/library/collect/:id" element={<CollectDetail />} />
+              <Route path="/library" element={<Library />} />
+              <Route path="/library/admin" element={<LibraryAdmin />} />
+              <Route path="/library/admin/books" element={<Books />} />
+              <Route path="/library/admin/books/new/:colid" element={<BookDetail />} />
+              <Route path="/library/admin/books/:id/:colid" element={<BookDetail />} />
+              <Route path="/library/admin/collect" element={<Collect />} />
+              <Route path="/library/admin/collect/new" element={<CollectDetail />} />
+              <Route path="/library/admin/collect/:id" element={<CollectDetail />} />
               <Route path="/suggest" element={<Main />} />
               <Route path="/coupon" element={<Main />} />
             </Routes>

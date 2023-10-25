@@ -124,3 +124,12 @@ tr:last-child td:last-child {
 .Footer .menutext {
   font-size: small;
 }
+
+.Books .bookSelect-menu{
+  display: flex;
+  justify-content: space-around;
+
+}
+.Books .collectCombobox {
+  width: 20em;
+}

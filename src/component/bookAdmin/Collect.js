@@ -10,10 +10,10 @@ function Collect(){
     <div className="Collect">
       <h1> 전집</h1>
       <Button onClick={()=> {
-        navigate("/book/admin/library");
+        navigate("/library/admin/books");
       }}>책 목록</Button>{' '}
       <Button onClick={()=> {
-        navigate("/book/admin/library/collect/new");
+        navigate("/library/admin/collect/new");
       }}>전집추가</Button>
 
       <br/><hr/><br/>

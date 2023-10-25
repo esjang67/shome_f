@@ -1,8 +1,8 @@
 import Accordion from 'react-bootstrap/Accordion';
 
-function Book(){
+function Library(){
   return (
-    <div className="Book">
+    <div className="Library">
 
         <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
@@ -17,4 +17,4 @@ function Book(){
   )
 }
 
-export default Book;
+export default Library;

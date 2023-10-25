@@ -1,43 +1,35 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fnCollectList } from "./fnCollectList";
+import fnCollectList from "./fnCollectList"
 
 // 전집리스트 가져오기
 function CollectList(){
 
   const navigator = useNavigate();
   const [list, setList] = useState();
-  // const [isLoading, setIsLoading] = useState(false);
-
-  function getList(){
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/collect/all`)
-      .then(response => {
-        console.log(response.data);
-        setList(response.data);
-
-      }).catch(error => {
-        console.log(error);
-      })
-  }
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(()=> {
-    getList();
-    // setList(fnCollectList());
+    fnCollectList()
+    .then(result => {
+      // console.log(result);
+      setList(result)
+      setIsLoading(false);
+    }).catch(error => {
+      console.log(error);
+    })
   }, [])
 
   function onRowHandler(e) {
     const getID = e.target.parentNode.dataset.id;
     // alert(getID);
-    navigator("/book/admin/library/collect/" + getID);
+    navigator("/library/admin/collect/" + getID);
   }
   
-  if(list === undefined || list === null){
-    <div>...</div>
-    return
-  }
-  console.log(CollectList)
-  console.log(list)
+  if(isLoading)
+    return(<>...</>)
+
   return(
     <div className="CollectList">
       <table>

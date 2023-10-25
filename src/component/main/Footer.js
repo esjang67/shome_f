@@ -34,9 +34,9 @@ function Footer({user}){
           <div className="menu">
             <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
               if(user.grade === "P"){
-                navigate("/book/admin")
+                navigate("/library/admin")
               } else {
-                navigate("/book")
+                navigate("/library")
               } 
               
             }}>

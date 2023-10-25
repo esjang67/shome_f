@@ -5,7 +5,7 @@ import DatePreiod from "../component/DatePreiod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function BookAdmin(){
+function LibraryAdmin(){
 
   const navigate = useNavigate();
   const [stdate, setStdate] = useState(new Date());
@@ -37,12 +37,12 @@ function BookAdmin(){
     return(<>...</>)
     
   return(
-    <div className="BookAdmin">
-      <h1>북 관리자</h1>
+    <div className="LibraryAdmin">
+      <h1>Book Report List</h1>
 
       <div className="book">
         <Button onClick={()=> {
-          navigate("/book/admin/library")
+          navigate("/library/admin/books")
         }}>책 관리자</Button>
       </div>
       <br/><hr/><br/>
@@ -58,4 +58,4 @@ function BookAdmin(){
   )
 }
 
-export default BookAdmin;
+export default LibraryAdmin;
