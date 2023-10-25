@@ -24,6 +24,8 @@ import Library from './pages/Library';
 import Books from './component/bookAdmin/Books';
 import BookDetail from './component/bookAdmin/BookDetail';
 import Report from './component/book/Report';
+import Suggest from './pages/Suggest';
+import SuggestDetail from './component/suggest/SuggestDetail';
 
 function App() {
   // const [user, setUser] = useCookies({
@@ -61,9 +63,9 @@ function App() {
           <div className='App-Main'>
             <Routes>
               <Route path="/" element={<Schedule grade={user.grade} />} />
+              <Route path="/login" element={<Login user={user} setUser={setUser} />} />
               <Route path="/schedule/new" element={<ScheduleDetail />} />
               <Route path='/schedule/:id' element={<ScheduleDetail />} />
-              <Route path="/login" element={<Login user={user} setUser={setUser} />} />
               <Route path="/doit" element={<Doit user={user} />} />
               <Route path="/doit/batch" element={<DoitBatch user={user} />} />
               <Route path="/doit/batch/new" element={<DoitBatchDetail />} />
@@ -77,7 +79,9 @@ function App() {
               <Route path="/library/admin/collect" element={<Collect />} />
               <Route path="/library/admin/collect/new" element={<CollectDetail />} />
               <Route path="/library/admin/collect/:id" element={<CollectDetail />} />
-              <Route path="/suggest" element={<Main />} />
+              <Route path="/suggest" element={<Suggest user={user} />} />
+              <Route path="/suggest/new" element={<SuggestDetail user={user} />} />
+              <Route path="/suggest/:id" element={<SuggestDetail user={user} />} />
               <Route path="/coupon" element={<Main />} />
             </Routes>
               {/* <Route path='/board/:id' element={

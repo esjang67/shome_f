@@ -47,7 +47,9 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true}>
+            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
+              navigate("/suggest")
+            }}>
               <div className="menuicon"><FontAwesomeIcon icon={faStar} /></div>
               {/* <span className="menutext">menu</span> */}
             </Button>

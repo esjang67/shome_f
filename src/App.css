@@ -133,3 +133,29 @@ tr:last-child td:last-child {
 .Books .collectCombobox {
   width: 20em;
 }
+
+/* -------------------------------------- */
+
+.Suggest {
+}
+
+.Suggest .suggest {
+  /* display: flex;
+  width: 80%; */
+}
+
+.Suggest .suggest > div {
+  /* border: 1px solid red; */
+}
+
+.Suggest .suggest .card-icon {
+  width: 20%;
+}
+
+.Suggest .suggest .card-content {
+  width: 60%;
+}
+
+.Suggest .suggest .card-ok {
+  width: 20%;
+}
