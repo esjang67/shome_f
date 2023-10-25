@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button, ButtonGroup, Card, CardBody, CardHeader, CardSubtitle } from "react-bootstrap";
+import { Button, Card, CardBody, CardHeader } from "react-bootstrap";
 import { Cookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -15,11 +15,25 @@ function Login({user, setUser}) {
 		 console.log(user);
 	})
 
+	function login(){
+		axios.get(`${process.env.REACT_APP_SERVER_URL}/login`, 
+			{params: {"userid": user.userid, "password": user.password}})
+		.then(response => {
+			setUser(response.data);
+			sessionStorage.setItem("user", JSON.stringify(response.data))
+			alert("로그인 완료!");
+			navigate("/");
+		}).catch(error => {
+		console.log(error);
+			alert(error);
+		})
+	}
+
 	return (
 			<div className="Login">
 				<Card bg={'Light'} style={{ width: '18rem' }} className="mb-2">
 					<CardHeader>
-						<h1 className="h3 mb-3 fw-normal">Login</h1>
+						<h1>Login</h1>
 					</CardHeader>
 					<CardBody>
 						<div className="userid">
@@ -39,22 +53,8 @@ function Login({user, setUser}) {
 						</div>
 						<br/>
 						<div className="col-12">
-							<Button className="btn btn-primary w-100" onClick={()=> {
-								axios.get(`${process.env.REACT_APP_SERVER_URL}/login`, 
-									{params: {"userid": user.userid, "password": user.password}})
-								.then(response => {
-									setUser(response.data);
-									sessionStorage.setItem("user", JSON.stringify(user))
-									alert("로그인 완료!");
-									navigate("/");
-								}).catch(error => {
-								console.log(error);
-									alert(error);
-								})
-							}}>Login</Button>
+							<Button className="btn btn-primary w-100" onClick={login}>Login</Button>
 						</div>
-							
-						
 					</CardBody>
 				</Card>
 					

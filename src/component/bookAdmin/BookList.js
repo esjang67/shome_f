@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // 전집코드로 조회한 책 리스트 가져오기
-function BookList({collectId}){
+function BookList({collectId, clickUser}){
 
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const navigator = useNavigate();
-
-  console.log("BookList")
 
   function getList(){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/book/all`, {params: {"colid": collectId}})
@@ -24,13 +22,19 @@ function BookList({collectId}){
 
   useEffect(()=> {
     getList();
-    console.log("BookList effect")
   }, [collectId])
 
   function onRowHandler(e) {
     const getID = e.target.parentNode.dataset.id;
-    alert(getID);
-    navigator("/library/admin/books/" + getID + "/" + collectId);
+    // alert(getID + "  " + clickUser);
+    if(clickUser===undefined){
+      navigator("/library/admin/books/" + getID + "/" + collectId);
+    } else {
+      // 오늘 쓴 독후감이 있으면 수정할 수 있음(오늘쓴 독후감은 화면에 표시해야함)
+      if(window.confirm("재미있었어? 독후감을 써볼까?")){
+        navigator("/library/report/" + getID + "/" + clickUser.userid);
+      }      
+    }
   }
   if(isLoading)
   return(<>...</>)

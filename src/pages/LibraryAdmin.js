@@ -1,9 +1,10 @@
 import { Button } from "react-bootstrap";
-import Report from "../component/bookAdmin/Report";
 import { useEffect, useState } from "react";
 import DatePreiod from "../component/DatePreiod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ReportList from "../component/bookAdmin/ReportList";
+import { getFormettedDate } from "../util/util_date";
 
 function LibraryAdmin(){
 
@@ -14,8 +15,8 @@ function LibraryAdmin(){
   const [list, setList] = useState();
 
   function getList(){
-    const tmpStDate = new Date(stdate).getTime();
-    const tmpEdDate = new Date(eddate).getTime();
+    const tmpStDate = getFormettedDate(stdate);
+    const tmpEdDate = getFormettedDate(eddate);
     
     axios.get(`${process.env.REACT_APP_SERVER_URL}/report/all`, 
       {params: {"startDate": tmpStDate, "endDate": tmpEdDate}})
@@ -52,7 +53,7 @@ function LibraryAdmin(){
       </div>
 
       <div className="report-list">
-        <Report list={list} />
+        <ReportList list={list} />
       </div>
     </div>
   )

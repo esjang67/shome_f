@@ -9,8 +9,6 @@ function Header({user}){
 
   // 한글을 사용하는 요일을 위해서는 추가적으로 배열을 만들어서 사용합니다.
   let day = ['일', '월', '화', '수', '목', '금', '토'];
-
-  // 작성일은 2022년 5월 19일 기준입니다.
   let today = new Date();
 
   //1번 포맷
@@ -28,12 +26,16 @@ function Header({user}){
   //     '-' + ( (date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()) );
   //   return dateFormat2;
   // }
+
+  function loginBtn(){
+    navigate("/login");
+  }
   
   return(
     <div className="Header">
       <div className="index"><Button variant="outline-info" onClick={()=> {navigate("/")}}>home</Button></div>
       <div className="todayStr">{dateFormat1}</div>
-      <div className="login"><Button variant="outline-info" onClick={()=> {navigate("/login")}}>{user.name===''? 'login' : user.name}</Button></div>
+      <div className="login"><Button variant="outline-info" onClick={loginBtn}>{user.name===''? 'login' : user.name}</Button></div>
     </div>
   );
 

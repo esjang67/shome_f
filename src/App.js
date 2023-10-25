@@ -23,6 +23,7 @@ import LibraryAdmin from './pages/LibraryAdmin';
 import Library from './pages/Library';
 import Books from './component/bookAdmin/Books';
 import BookDetail from './component/bookAdmin/BookDetail';
+import Report from './component/book/Report';
 
 function App() {
   // const [user, setUser] = useCookies({
@@ -67,7 +68,8 @@ function App() {
               <Route path="/doit/batch" element={<DoitBatch user={user} />} />
               <Route path="/doit/batch/new" element={<DoitBatchDetail />} />
               <Route path='/doit/batch/:id' element={<DoitBatchDetail />} />
-              <Route path="/library" element={<Library />} />
+              <Route path="/library" element={<Library user={user} />} />
+              <Route path="/library/report/:id/:userid" element={<Report user={user} />} />  {/* 선택한 책id */}
               <Route path="/library/admin" element={<LibraryAdmin />} />
               <Route path="/library/admin/books" element={<Books />} />
               <Route path="/library/admin/books/new/:colid" element={<BookDetail />} />
