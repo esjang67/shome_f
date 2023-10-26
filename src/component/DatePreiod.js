@@ -9,11 +9,11 @@ function DatePreiod({stdate, setStdate, eddate, setEddate, getList}){
   const pickDateHandler = (type, date) => {
     if(type === "st"){
 
-      setStdate(new Date(getFormettedDate(new Date(date)) + " 00:00:00"));
+      setStdate(getFormettedDate(new Date(date)));
       console.log(stdate)
     }
     if(type === "ed"){
-      setEddate(new Date(getFormettedDate(new Date(date)) + " 23:59:59"));
+      setEddate(getFormettedDate(new Date(date)));
       console.log(eddate)
     }
   };

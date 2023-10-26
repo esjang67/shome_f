@@ -7,14 +7,16 @@ import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import DatePreiod from "../component/DatePreiod";
+import { getFormettedDate } from "../util/util_date";
 
 function Schedule({grade}) {
 
-  let startdate = new Date() // new Date("2023-10-01 00:00:00");
-  startdate.setDate(1);
+  let startdate = new Date().setDate(1); 
+  let enddate = new Date().setMonth((new Date().getMonth()) + 1);
+  enddate = new Date(enddate).setDate(0); 
   
-  const [stdate, setStdate] = useState(startdate);
-  const [eddate, setEddate] = useState(new Date());
+  const [stdate, setStdate] = useState(getFormettedDate(new Date(startdate)));
+  const [eddate, setEddate] = useState(getFormettedDate(new Date(enddate)));
   
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -26,12 +28,9 @@ function Schedule({grade}) {
   }, [])
 
   function getList(){
-
-    const tmpStDate = new Date(stdate).getTime();
-    const tmpEdDate = new Date(eddate).getTime();
     
     axios.get(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, 
-      {params: {"startDate": tmpStDate, "endDate": tmpEdDate}})
+      {params: {"startDate": stdate, "endDate": eddate}})
       .then(response => {
       console.log(response.data);
       setList(response.data);

@@ -9,17 +9,15 @@ import { getFormettedDate } from "../util/util_date";
 function LibraryAdmin(){
 
   const navigate = useNavigate();
-  const [stdate, setStdate] = useState(new Date());
-  const [eddate, setEddate] = useState(new Date());
+  const [stdate, setStdate] = useState(getFormettedDate(new Date()));
+  const [eddate, setEddate] = useState(getFormettedDate(new Date()));
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
 
   function getList(){
-    const tmpStDate = getFormettedDate(stdate);
-    const tmpEdDate = getFormettedDate(eddate);
     
     axios.get(`${process.env.REACT_APP_SERVER_URL}/report/all`, 
-      {params: {"startDate": tmpStDate, "endDate": tmpEdDate}})
+      {params: {"startDate": stdate, "endDate": eddate}})
       .then(response => {
       console.log(response.data);
       setList(response.data);
