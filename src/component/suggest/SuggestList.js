@@ -1,4 +1,4 @@
-import { faFaceLaugh, faFaceMehBlank, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import ReactDatePicker from 'react-datepicker';
@@ -87,8 +87,7 @@ function SuggestList({ grade }){
       <div className="preiod">
         <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       </div>
-      <br/><hr/><br/>
-
+      
       <table>
         <thead>
           <tr>

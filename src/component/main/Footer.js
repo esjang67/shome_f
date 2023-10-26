@@ -57,7 +57,14 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true}>
+            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
+              if(user.grade === "P"){
+                navigate("/coupon/admin")
+              } else {
+                navigate("/coupon")
+              } 
+              
+            }}>
               <div className="menuicon"><FontAwesomeIcon icon={faDice} /></div>
               {/* <span className="menutext">menu</span> */}
             </Button>
