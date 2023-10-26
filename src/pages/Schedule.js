@@ -1,64 +1,34 @@
-import { useEffect, useState } from "react";
-import ScheduleItem from "../component/ScheduleItem";
-import "./Schedule.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { Button } from "react-bootstrap";
-import DatePreiod from "../component/DatePreiod";
-import { getFormettedDate } from "../util/util_date";
-
+import { Button } from "@mui/material";
+import ScheduleList from "../component/schedule/ScheduleList";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import dayjs from 'dayjs';
+import { useState } from "react";
 function Schedule({grade}) {
-
-  let startdate = new Date().setDate(1); 
-  let enddate = new Date().setMonth((new Date().getMonth()) + 1);
-  enddate = new Date(enddate).setDate(0); 
-  
-  const [stdate, setStdate] = useState(getFormettedDate(new Date(startdate)));
-  const [eddate, setEddate] = useState(getFormettedDate(new Date(enddate)));
-  
-  const [list, setList] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+ 
   const navigator = useNavigate();
-
-  //list 요청
-  useEffect(()=> {
-    getList();
-  }, [])
-
-  function getList(){
-    
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, 
-      {params: {"startDate": stdate, "endDate": eddate}})
-      .then(response => {
-      console.log(response.data);
-      setList(response.data);
-      setIsLoading(false);
-
-      }).catch(error => {
-      console.log(error);
-      })
-  
+  const [value, setValue] = useState(dayjs('2022-04-17'));
+  function scheduleAdd(){
+    navigator("/schedule/new");
   }
-
-  if(isLoading)
-    return(<>...</>)
 
   return (
     <div className="Schedule">
-      
       <div className="P-menu">
         {grade === 'P' ? 
-          <Button onClick={()=> {navigator("/schedule/new")}}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </Button>
+          <Button variant="outlined" color="primary" onClick={scheduleAdd}>일정 <FontAwesomeIcon icon={faCalendarPlus} /> </Button>
         :''}  
       </div>
+      <br/><hr/><br/>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar defaultValue={dayjs('2022-04-17')} value={value} onChange={(newValue) => setValue(newValue)}/>
+      </LocalizationProvider>
 
-      <div className="preiod">
-        <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
-      </div>
-
-      <ScheduleItem list={list} />
+      <ScheduleList />
 
     </div>
     );

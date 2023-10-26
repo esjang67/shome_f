@@ -13,7 +13,6 @@ function CouponList({ grade, userid }){
   const [eddate, setEddate] = useState(getFormettedDate(new Date()));
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
-  const [seldate, setSeldate] = useState(getFormettedDate(new Date()));
 
   function getList(){
     if(grade === "P"){

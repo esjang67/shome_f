@@ -1,57 +1,24 @@
-import { Button } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import DatePreiod from "../component/DatePreiod";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReportList from "../component/bookAdmin/ReportList";
-import { getFormettedDate } from "../util/util_date";
+import { Button } from "@mui/material";
 
 function LibraryAdmin(){
 
   const navigate = useNavigate();
-  const [stdate, setStdate] = useState(getFormettedDate(new Date()));
-  const [eddate, setEddate] = useState(getFormettedDate(new Date()));
-  const [isLoading, setIsLoading] = useState(true);
-  const [list, setList] = useState();
-
-  function getList(){
-    
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/report/all`, 
-      {params: {"startDate": stdate, "endDate": eddate}})
-      .then(response => {
-      console.log(response.data);
-      setList(response.data);
-      setIsLoading(false);
-
-      }).catch(error => {
-      console.log(error);
-      })
-  }
-
-  useEffect(()=> {
-    getList();
-  }, [])
-
-  if(isLoading)
-    return(<>...</>)
     
   return(
     <div className="LibraryAdmin">
       <h1>Book Report List</h1>
 
       <div className="book">
-        <Button onClick={()=> {
+        <Button variant="outlined" color="primary" onClick={()=> {
           navigate("/library/admin/books")
         }}>책 관리자</Button>
       </div>
       <br/><hr/><br/>
 
-      <div className="preiod">
-        <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
-      </div>
-
       <div className="report-list">
-        <ReportList list={list} />
+        <ReportList />
       </div>
     </div>
   )

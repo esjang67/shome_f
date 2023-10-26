@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactDatePicker from "react-datepicker";
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 
 function ScheduleDetail(){
 
@@ -64,10 +64,10 @@ function ScheduleDetail(){
             onChange={(date) => pickDateHandler(date)} /><br/>
         내용 : <br/>
         <textarea placeholder="일정을 등록하세요" name="content" onChange={changeHandler} defaultValue={schedule.content}/><br/>
-        
+        <Button variant="outlined" color="error" onClick={()=>{navigator("/")}}>취소</Button>
         {
           id !== undefined ? 
-          <Button onClick={()=>{
+          <Button variant="outlined" color="primary" onClick={()=>{
             axios.delete(`${process.env.REACT_APP_SERVER_URL}/schedule/` + id)
             .then(response => {
               alert(response.data);
@@ -79,7 +79,7 @@ function ScheduleDetail(){
           }}>삭제</Button> : <></>
         }
 
-        <Button onClick={()=>{
+        <Button variant="outlined" color="primary" onClick={()=>{
           axios.post(`${process.env.REACT_APP_SERVER_URL}/schedule`, schedule)
           .then(response => {
             alert(response.data);

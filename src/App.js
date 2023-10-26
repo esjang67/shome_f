@@ -5,7 +5,6 @@ import Header from './component/main/Header';
 import Footer from './component/main/Footer';
 import Schedule from './pages/Schedule';
 import { useState } from 'react';
-import ScheduleDetail from './component/ScheduleDetail';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Doit from './pages/Doit';
@@ -27,6 +26,13 @@ import Suggest from './pages/Suggest';
 import SuggestDetail from './component/suggest/SuggestDetail';
 import Coupon from './pages/Coupon';
 import CouponAdmin from './pages/CouponAdmin';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import ScheduleDetail from './component/schedule/ScheduleDetail';
+
 
 function App() {
   // const [user, setUser] = useCookies({

@@ -1,6 +1,6 @@
 import { faCalendar, faClipboard, faBookOpenReader, faStar, faDice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Footer({user}){
@@ -12,9 +12,7 @@ function Footer({user}){
       <ul>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" onClick={()=>{
-              navigate("/");
-            }}>
+            <Button variant="outlined" color="primary" onClick={()=>{navigate("/")}}>
               <div className="menuicon"><FontAwesomeIcon icon={faCalendar} /></div>
               {/* <span className="menutext">Schedule</span> */}
             </Button>
@@ -22,9 +20,7 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
-              navigate("/doit");
-            }}>
+            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{navigate("/doit")}}>
               <div className="menuicon"><FontAwesomeIcon icon={faClipboard} /></div>
               {/* <span className="menutext">Do It</span> */}
             </Button>
@@ -32,13 +28,12 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
+            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{
               if(user.grade === "P"){
                 navigate("/library/admin")
               } else {
                 navigate("/library")
               } 
-              
             }}>
             <div className="menuicon"><FontAwesomeIcon icon={faBookOpenReader} /></div>
             {/* <span className="menutext">menu</span> */}
@@ -47,7 +42,7 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
+            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{
               navigate("/suggest")
             }}>
               <div className="menuicon"><FontAwesomeIcon icon={faStar} /></div>
@@ -57,13 +52,12 @@ function Footer({user}){
         </li>
         <li>
           <div className="menu">
-            <Button variant="outline-primary" disabled={user.userid ? false : true} onClick={()=>{
+            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{
               if(user.grade === "P"){
                 navigate("/coupon/admin")
               } else {
                 navigate("/coupon")
               } 
-              
             }}>
               <div className="menuicon"><FontAwesomeIcon icon={faDice} /></div>
               {/* <span className="menutext">menu</span> */}
