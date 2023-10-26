@@ -23,11 +23,13 @@ function Doit({user}) {
 
         <h1>할일</h1>
         {(user.grade === 'P') ? 
-          <Button onClick={()=> { navigate("/doit/batch")}}>배치등록</Button>
+          <Button onClick={()=> { navigate("/doit/batch")}}>배치관리</Button>
           : '' }
+        <br/><hr/><br/>
         {(user.grade === 'P') ? 
         <SelectKids kids={kids} setKids={setKids}/>
-        : ''}
+        : <h4>오늘의 할일 확인해봐</h4>}
+        <br/><hr/><br/>
 
         <DoitList user={user} kids={kids} />
     </div>

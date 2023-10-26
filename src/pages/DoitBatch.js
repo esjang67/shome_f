@@ -11,6 +11,8 @@ function DoitBatch(){
     <div className="DoitBatch">
 
       <div className="doitbatch-popup">
+      <Button onClick={()=> { navigator("/doit")}}>할일목록</Button>{'  '}
+
         <Button variant="primary" onClick={() => {
           navigator("/doit/batch/new");
         }}>배치 추가</Button>

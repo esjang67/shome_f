@@ -1,7 +1,6 @@
 // import logo from './logo.svg';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Main from './pages/Main';
 import Header from './component/main/Header';
 import Footer from './component/main/Footer';
 import Schedule from './pages/Schedule';
@@ -26,6 +25,8 @@ import BookDetail from './component/bookAdmin/BookDetail';
 import Report from './component/book/Report';
 import Suggest from './pages/Suggest';
 import SuggestDetail from './component/suggest/SuggestDetail';
+import Coupon from './pages/Coupon';
+import CouponAdmin from './pages/CouponAdmin';
 
 function App() {
   // const [user, setUser] = useCookies({
@@ -81,8 +82,8 @@ function App() {
               <Route path="/library/admin/collect/:id" element={<CollectDetail />} />
               <Route path="/suggest" element={<Suggest user={user} />} />
               <Route path="/suggest/new" element={<SuggestDetail user={user} />} />
-              <Route path="/suggest/:id" element={<SuggestDetail user={user} />} />
-              <Route path="/coupon" element={<Main />} />
+              <Route path="/coupon" element={<Coupon user={user} />} />
+              <Route path="/coupon/admin" element={<CouponAdmin />} />
             </Routes>
               {/* <Route path='/board/:id' element={
                     isAuth ? <BoardDetail userInfo={userInfo} /> : <LoginMsg /> }/> */}

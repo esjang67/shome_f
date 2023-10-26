@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { getFormettedDate } from '../util/util_date';
 
 function DoitList({kids}){
   const [isLoading, setIsLoading] = useState(true);
@@ -8,7 +9,7 @@ function DoitList({kids}){
   function getList(){
     console.log("getlist " + kids)
     axios.get(`${process.env.REACT_APP_SERVER_URL}/doit`, 
-      {params: {"userid": kids, "basedate": new Date().getTime()}})
+      {params: {"userid": kids, "basedate": getFormettedDate(new Date())}})
       .then(response => {
         console.log(response.data);
         // alert(response.data)
