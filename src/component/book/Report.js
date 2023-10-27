@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Card, CardBody, CardFooter, CardHeader } from "react-bootstrap";
+import { Card, CardBody, CardFooter, CardHeader } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFormettedDate } from "../../util/util_date";
+import { Button } from "@mui/material";
 
 function Report(){
   const {id, userid} = useParams();
@@ -60,8 +61,7 @@ function Report(){
           <textarea className="content" name="content"></textarea>
         </CardBody>
         <CardFooter>
-          <Button onClick={writeDone
-          }>다썼어요 :)</Button>
+          <Button variant="outlined" color="primary"  onClick={writeDone}>다썼어요 :)</Button>
         </CardFooter>
       </Card>
     </div>

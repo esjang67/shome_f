@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getFormettedDate } from "../../util/util_date";
+import { Button } from "@mui/material";
 
 
 function SuggestDetail({user}){
@@ -41,7 +42,7 @@ const navigator = useNavigate();
       <br/>
 
       <input type="text" className="content" name="content" /><br/>
-      <button onClick={writeSave}>저장</button>
+      <Button variant="outlined" color="primary" onClick={writeSave}>저장</Button>
     </div>
   )
 }

@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ReactDatePicker from "react-datepicker";
-import { Button } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Input, TextField, TextareaAutosize } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import { getFormettedDate } from "../../util/util_date";
 
 function ScheduleDetail(){
 
@@ -15,6 +18,7 @@ function ScheduleDetail(){
       content:''
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [selDate, setSeltDate] = useState(dayjs(new Date()))
 
   useEffect(()=> {
     if(id === undefined)
@@ -25,6 +29,7 @@ function ScheduleDetail(){
         .then(res => {
           console.log(res.data)
           setSchedule(res.data)
+          setSeltDate(res.data.basedate)
           setIsLoading(false);
         }).catch(err => {
           console.log(err);
@@ -37,59 +42,62 @@ function ScheduleDetail(){
       ...schedule,
       [e.target.name]: e.target.value
     })
+    console.log(e.target.value)
   }
 
-  const pickDateHandler = (date) => {
-    alert(date);
-    setSchedule({
-      ...schedule,
-      basedate:date
+  function deleteData() {
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/schedule/` + id)
+    .then(response => {
+      alert(response.data);
+      navigator("/")
+    }).catch(error => {
+      console.log(error);
     })
-    
-    console.log(schedule)
-  };
+  }
+
+  function saveData(){
+    const sendSchedule =({
+      ...schedule,
+      basedate:getFormettedDate(selDate)
+    })
+
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/schedule`, sendSchedule)
+    .then(response => {
+      alert(response.data);
+      navigator("/");
+    }).catch(error => {
+      console.log(error);
+    })    
+  }
 
   if(isLoading)
     return(<>...</>)
 
   return(
     <div className="ScheduleDetail">
-      <h1>일정</h1>
-      
-      <div>
-        id : <span>{id}</span><br/>
-        일자 : 
-        <ReactDatePicker id="pickdate" dateFormat="yyyy-MM-dd"
-            selected={new Date(schedule.basedate)}
-            onChange={(date) => pickDateHandler(date)} /><br/>
-        내용 : <br/>
-        <textarea placeholder="일정을 등록하세요" name="content" onChange={changeHandler} defaultValue={schedule.content}/><br/>
-        <Button variant="outlined" color="error" onClick={()=>{navigator("/")}}>취소</Button>
-        {
-          id !== undefined ? 
-          <Button variant="outlined" color="primary" onClick={()=>{
-            axios.delete(`${process.env.REACT_APP_SERVER_URL}/schedule/` + id)
-            .then(response => {
-              alert(response.data);
-              navigator("/")
-            }).catch(error => {
-              console.log(error);
-            })
+      <br/>
+      <Card sx={{ maxWidth: 345 }}>
+				<CardHeader title="일정 관리" />
+
+				<CardContent>
+
+          <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker format="YYYY-MM-DD" defaultValue={dayjs(selDate)} label="일자선택"
+                  onChange={(stValue)=> setSeltDate(stValue)}/>
+            </LocalizationProvider>  
+
+            <TextField id="outlined-basic" label="일정" variant="outlined" onChange={changeHandler} defaultValue={schedule.content} />
+          </Box>
           
-          }}>삭제</Button> : <></>
-        }
+          <Button variant="outlined" color="success" onClick={()=>{navigator("/")}}>목록</Button>{' '}
+          {id !== undefined ? 
+            <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
+          <Button variant="outlined" color="primary" onClick={saveData}>{id === undefined ? "등록" : "수정"}</Button>
 
-        <Button variant="outlined" color="primary" onClick={()=>{
-          axios.post(`${process.env.REACT_APP_SERVER_URL}/schedule`, schedule)
-          .then(response => {
-            alert(response.data);
-            navigator("/");
-          }).catch(error => {
-            console.log(error);
-          })
-        }}>{id === undefined ? "등록" : "수정"}</Button>
-
-      </div>
+				</CardContent>
+			</Card>
     </div>
   );
 

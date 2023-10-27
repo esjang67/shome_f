@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 import CollectList from "./CollectList";
 import { useNavigate } from "react-router-dom";
 
@@ -9,19 +9,13 @@ function Collect(){
   return(
     <div className="Collect">
       <h1> 전집</h1>
-      <Button onClick={()=> {
-        navigate("/library/admin/books");
-      }}>책 목록</Button>{' '}
-      <Button onClick={()=> {
-        navigate("/library/admin/collect/new");
-      }}>전집추가</Button>
+      <Button variant="outlined" color="primary" onClick={()=> {navigate("/library/admin/books")}}>책 목록</Button>{' '}
+      <Button variant="outlined" color="primary" onClick={()=> {navigate("/library/admin/collect/new")}}>전집추가</Button>
 
       <br/><hr/><br/>
 
       <CollectList  />
       
-
-
     </div>
     )
 }

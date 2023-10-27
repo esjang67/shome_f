@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import SelectKids from './SelectKids';
+import { Button } from 'react-bootstrap';
 
 function DoitBatchDetail() {
 
@@ -136,10 +136,10 @@ if(!isLoading){
       </div>
 
       {id !== undefined ? 
-        <Button variant="outline-danger" onClick={deleteData}>삭제</Button>: ''}
+        <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button>: ''}
       {' '}
-      <Button variant="outline-warning" onClick={saveData}>저장</Button>{' '}
-      <Button variant="outline-success" onClick={()=>{
+      <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>{' '}
+      <Button variant="outlined" color="primary"  onClick={()=>{
         
         navigator(-1)
       }}>목록</Button>

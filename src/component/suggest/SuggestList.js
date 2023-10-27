@@ -5,6 +5,7 @@ import ReactDatePicker from 'react-datepicker';
 import { getFormettedDate } from '../../util/util_date';
 import { useEffect, useState } from "react";
 import DatePreiod from "../DatePreiod";
+import { Button } from "@mui/material";
 
 function SuggestList({ grade }){
   
@@ -113,13 +114,13 @@ function SuggestList({ grade }){
                 <td>
                   {data.okflag === "Y"? 
                       <FontAwesomeIcon icon={faThumbsUp} /> : ''}
-                  {data.okflag === "N"? <button onClick={deleteData}>삭제</button> : ''}                      
+                  {data.okflag === "N"? <Button variant="outlined" color="primary" onClick={deleteData}>삭제</Button> : ''}                      
                 </td>
                 {grade === 'P'? 
                   <td>
                     <ReactDatePicker id="pickdate" dateFormat="yyyy-MM-dd" selected={new Date(seldate)}
                         onChange={(date) => setSeldate(getFormettedDate(new Date(date)))} />
-                    <button onClick={scheduleAdd}>일정등록</button>
+                    <Button variant="outlined" color="primary" onClick={scheduleAdd}>일정등록</Button>
                   </td>
                 :''}
               </tr>

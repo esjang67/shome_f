@@ -1,8 +1,8 @@
-import { Button } from "react-bootstrap";
 import BookList from "./BookList";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CollectCombo from "./CollectCombo";
+import { Button } from "@mui/material";
 
 function Books(){
 
@@ -30,10 +30,10 @@ function Books(){
       <h1> 책 관리자</h1>
       <br/><hr/><br/>
       <div className="bookSelect-menu">
-        <Button onClick={goReport}>독후활동</Button>{' '}
-        <Button onClick={collectAdd}>전집등록</Button>{' '}
+        <Button variant="outlined" color="primary" onClick={goReport}>독후활동</Button>{' '}
+        <Button variant="outlined" color="primary" onClick={collectAdd}>전집등록</Button>{' '}
         <CollectCombo collectId={collectId} setCollectId={setCollectId} />{' '}
-        <Button onClick={bookControll}>책추가</Button>
+        <Button variant="outlined" color="primary" onClick={bookControll}>책추가</Button>
       </div>
 
       <br/><hr/><br/>

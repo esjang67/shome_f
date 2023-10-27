@@ -1,19 +1,20 @@
 // import logo from './logo.svg';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { Suspense } from 'react';
+// import { Cookies, useCookies } from 'react-cookie';
+
 import Header from './component/main/Header';
 import Footer from './component/main/Footer';
+
 import Schedule from './pages/Schedule';
-import { useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ScheduleDetail from './component/schedule/ScheduleDetail';
 import Doit from './pages/Doit';
-import { useEffect } from 'react';
 import Login from './pages/Login';
-import { Suspense } from 'react';
 import Loading from './pages/Loading';
 import DoitBatch from './pages/DoitBatch';
-// import { Cookies, useCookies } from 'react-cookie';
 import DoitBatchDetail from './component/DoitBatchDetail';
 import Collect from './component/bookAdmin/Collect';
 import CollectDetail from './component/bookAdmin/CollectDetail';
@@ -27,11 +28,13 @@ import SuggestDetail from './component/suggest/SuggestDetail';
 import Coupon from './pages/Coupon';
 import CouponAdmin from './pages/CouponAdmin';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'react-datepicker/dist/react-datepicker.css';
+
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import ScheduleDetail from './component/schedule/ScheduleDetail';
 
 
 function App() {
@@ -42,7 +45,6 @@ function App() {
   //   grade:''
   // });
 
-  // const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
     userid:'',
     password:'',

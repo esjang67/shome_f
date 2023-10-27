@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 import DoitBatchList from "../component/DoitBatchList";
 import "./DoitBatch.css"
 import { useNavigate } from "react-router-dom";
@@ -9,16 +9,8 @@ function DoitBatch(){
 
   return (
     <div className="DoitBatch">
-
-      <div className="doitbatch-popup">
-      <Button onClick={()=> { navigator("/doit")}}>할일목록</Button>{'  '}
-
-        <Button variant="primary" onClick={() => {
-          navigator("/doit/batch/new");
-        }}>배치 추가</Button>
-
-      </div>
-
+      <Button variant="outlined" color="primary" onClick={()=> { navigator("/doit")}}>할일목록</Button>{'  '}
+      <Button variant="outlined" color="secondary" onClick={() => {navigator("/doit/batch/new")}}>배치 추가</Button>
       <hr/>
       
       <DoitBatchList /> 

@@ -1,6 +1,7 @@
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Card, CardBody, CardFooter } from "react-bootstrap";
+import { Card, CardBody, CardFooter } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
 function CollectDetail(){
@@ -86,11 +87,11 @@ function CollectDetail(){
         </CardBody>
         <CardFooter>
         {id !== undefined ? 
-          <Button onClick={deleteData}>삭제</Button>
+          <Button variant="outlined" color="primary" onClick={deleteData}>삭제</Button>
           :'' }{' '}
           
-          <Button onClick={saveData}>저장</Button>{' '}
-          <Button onClick={()=> navigate(-1)}>목록</Button>
+          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>{' '}
+          <Button variant="outlined" color="primary" onClick={()=> navigate(-1)}>목록</Button>
         </CardFooter> 
       </Card>      
     </div>

@@ -8,18 +8,16 @@ import { getFormettedDate } from "../../util/util_date";
 import { useEffect, useState } from "react";
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id', headerName: 'ID', width: 50 },
   {
     field: 'basedate',
-    headerName: 'basedate',
-    width: 150,
-    editable: true,
+    headerName: '기준일자',
+    width: 100,
   },
   {
     field: 'content',
-    headerName: 'content',
-    width: 150,
-    editable: true,
+    headerName: '일정',
+    width: 250,
   },
 ];
 
@@ -37,7 +35,7 @@ export default function ScheduleList() {
   const [isLoading, setIsLoading] = useState(true);
 
   function onRowHandler(e) {
-    console.log(e.id);
+    // console.log(e.id);
     // // alert(getID);
     navigate("/schedule/" + e.id);
   }
@@ -45,9 +43,9 @@ export default function ScheduleList() {
   function getList(){
     
     axios.get(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, 
-      {params: {"startDate": stdate, "endDate": eddate}})
+      {params: {"startDate": getFormettedDate(new Date(stdate)), "endDate": getFormettedDate(new Date(eddate))}})
       .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       setList(response.data);
       setIsLoading(false);
 
@@ -70,8 +68,8 @@ export default function ScheduleList() {
       <div className="preiod">
         <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       </div>
-      <br/><hr/><br/>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <br/>
+      <Box sx={{ width: '80%' }}>
         <DataGrid rows={list} columns={columns} 
           initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
           pageSizeOptions={[5]}

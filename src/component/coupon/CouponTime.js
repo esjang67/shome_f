@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -51,7 +52,8 @@ function CouponTime(){
             return (
               <div key={data.id} data-id={data.id}>
               <span>{data.user.name} : {data.totaltime}</span>
-              <input type="text" name="time" /><button onClick={useTime}>사용</button> 
+              <input type="text" name="time" />
+              <Button variant="outlined" color="primary" onClick={useTime}>사용</Button> 
               </div>
             );
           })

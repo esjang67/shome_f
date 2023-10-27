@@ -49,11 +49,11 @@ function Login({user, setUser}) {
 						</ToggleButtonGroup>
 						<br/><br/>
 						
-						<TextField id="outlined-password-input" size="small" label="Password" 
+						<TextField id="outlined-password-input" label="Password" variant="outlined"
 												type="password" autoComplete="current-password" onChange={handleChange2} />
 						<br/><br/>
 
-					<Button variant="outlined" color="error" onClick={()=> navigate("/")}>Cancel</Button>{'  '}
+					<Button variant="outlined" color="warning" onClick={()=> navigate("/")}>Cancel</Button>{'  '}
 					<Button variant="outlined" color="primary" onClick={login}>Login</Button>
 				</CardContent>
 			</Card>
