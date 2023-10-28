@@ -30,10 +30,10 @@ function Books(){
       <h1> 책 관리자</h1>
       <br/><hr/><br/>
       <div className="bookSelect-menu">
-        <Button variant="outlined" color="primary" onClick={goReport}>독후활동</Button>{' '}
-        <Button variant="outlined" color="primary" onClick={collectAdd}>전집등록</Button>{' '}
+        <Button variant="outlined" color="secondary" onClick={goReport}>독후활동</Button>{' '}
+        <Button variant="outlined" color="secondary" onClick={collectAdd}>전집등록</Button>{' '}
         <CollectCombo collectId={collectId} setCollectId={setCollectId} />{' '}
-        <Button variant="outlined" color="primary" onClick={bookControll}>책추가</Button>
+        <Button variant="outlined" color="secondary" onClick={bookControll}>책추가</Button>
       </div>
 
       <br/><hr/><br/>

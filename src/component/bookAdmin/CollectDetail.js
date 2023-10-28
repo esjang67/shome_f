@@ -1,12 +1,13 @@
-import { Button } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, CardBody, CardFooter } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
 function CollectDetail(){
+
   const {id} = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [collect, setCollect] = useState({
     id:'',
@@ -15,7 +16,6 @@ function CollectDetail(){
   })
 
   function saveData(){
-    // const id = document.querySelector("#input-id");
     axios.post(`${process.env.REACT_APP_SERVER_URL}/collect`, collect)
     .then(response => {
       alert(response.data);
@@ -31,7 +31,7 @@ function CollectDetail(){
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/collect/` + id)
       .then(response => {
         alert(response.data);
-        navigator(-1)
+        navigate(-1)
         
       }).catch(error => {
         console.log(error);
@@ -57,12 +57,10 @@ function CollectDetail(){
   // 데이터 가져오기
   function getData(){
     if(id !== undefined){
-      console.log("get list id " + id);
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/collect`, 
-        {params: {"id": id}})
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/collect`, {params: {"id": id}})
       .then(response => {
-        console.log(response.data)
         setCollect(response.data);
+        setIsLoading(false);
       }).catch(error => {
         console.log(error);
         alert(error);
@@ -74,26 +72,32 @@ function CollectDetail(){
     getData();
   }, [])
 
+  if(isLoading)
+  return(<>...</>)
+
   return(
     <div className="CollectDetail">
-      <h1> 전집 등록</h1>
-
-      <Card>
-        <CardBody>
-          <input type="text" className="input-id" name="id" defaultValue={collect.id} /><br/>
-          이름 : <input type="text" className="input-name" name="name" defaultValue={collect.name} onChange={changeHandler}/><br/>
-          삭제 : <input type="checkbox" className="input-name" name="delyn" defaultChecked={collect.delyn === "Y" ? true: false}
+      <Card sx={{ maxWidth: 345 }}>
+				<CardHeader title="전집 관리" />
+				<CardContent>
+          <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
+            <TextField id="outlined-basic" label="이름" variant="outlined" name="name" 
+                  onChange={changeHandler} defaultValue={collect.name} />
+            <Typography> 
+              사용안함 : 
+              <Checkbox name="delyn" color="error" checked={collect.delyn === "Y" ? true: false}
                               onChange={changeHandler}/>
-        </CardBody>
-        <CardFooter>
-        {id !== undefined ? 
-          <Button variant="outlined" color="primary" onClick={deleteData}>삭제</Button>
-          :'' }{' '}
+            </Typography>
+          </Box>
           
-          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>{' '}
-          <Button variant="outlined" color="primary" onClick={()=> navigate(-1)}>목록</Button>
-        </CardFooter> 
-      </Card>      
+          <Button variant="outlined" color="success" onClick={()=>{navigate("/")}}>목록</Button>{' '}
+          {id !== undefined ? 
+            <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
+          <Button variant="outlined" color="primary" onClick={saveData}>{id === undefined ? "등록" : "수정"}</Button>
+
+				</CardContent>
+			</Card>
+
     </div>
     )
 }

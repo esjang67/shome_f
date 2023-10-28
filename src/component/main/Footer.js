@@ -1,10 +1,12 @@
 import { faCalendar, faClipboard, faBookOpenReader, faStar, faDice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Footer({user}){
   const navigate = useNavigate();
+  const [page, setPage] = useState('schedule');
 //   console.log("footer" + user.userid ? 'false' : 'true')
 // console.log(user);
   return(
@@ -12,55 +14,58 @@ function Footer({user}){
       <ul>
         <li>
           <div className="menu">
-            <Button variant="outlined" color="primary" onClick={()=>{navigate("/")}}>
+            <Button variant="outlined" color={page === 'schedule'? "secondary": "primary"} 
+                    onClick={()=>{navigate("/"); setPage("schedule")}}>
               <div className="menuicon"><FontAwesomeIcon icon={faCalendar} /></div>
-              {/* <span className="menutext">Schedule</span> */}
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{navigate("/doit")}}>
+            <Button variant="outlined" color={page === 'doit'? "secondary": "primary"} 
+                    disabled={user.userid ? false : true} 
+                    onClick={()=>{navigate("/doit"); setPage("doit")}}>
               <div className="menuicon"><FontAwesomeIcon icon={faClipboard} /></div>
-              {/* <span className="menutext">Do It</span> */}
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{
+            <Button variant="outlined" color={page === 'library'? "secondary": "primary"} 
+                    disabled={user.userid ? false : true} onClick={()=>{
               if(user.grade === "P"){
                 navigate("/library/admin")
               } else {
                 navigate("/library")
               } 
+              setPage("library")
             }}>
             <div className="menuicon"><FontAwesomeIcon icon={faBookOpenReader} /></div>
-            {/* <span className="menutext">menu</span> */}
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{
-              navigate("/suggest")
-            }}>
+            <Button variant="outlined" color={page === 'suggest'? "secondary": "primary"} 
+                    disabled={user.userid ? false : true} 
+                    onClick={()=>{navigate("/suggest"); ; setPage("suggest")}}>
               <div className="menuicon"><FontAwesomeIcon icon={faStar} /></div>
-              {/* <span className="menutext">menu</span> */}
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color="primary"  disabled={user.userid ? false : true} onClick={()=>{
-              if(user.grade === "P"){
-                navigate("/coupon/admin")
-              } else {
-                navigate("/coupon")
-              } 
-            }}>
+            <Button variant="outlined" color={page === 'coupon'? "secondary": "primary"} 
+                    disabled={user.userid ? false : true} 
+                    onClick={()=>{
+                if(user.grade === "P"){
+                  navigate("/coupon/admin")
+                } else {
+                  navigate("/coupon")
+                } 
+                setPage("coupon")
+              }}>
               <div className="menuicon"><FontAwesomeIcon icon={faDice} /></div>
-              {/* <span className="menutext">menu</span> */}
             </Button>
           </div>
         </li>

@@ -34,7 +34,7 @@ function Library({user}){
 
   return (
     <div className="Library">
-      <h3>독후감을 써보자</h3>
+      <h1>독후감을 써보자</h1>
       <br/><hr/><br/>
       <h5>오늘 쓴 독후감</h5>
       {

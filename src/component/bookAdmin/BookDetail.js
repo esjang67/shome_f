@@ -1,14 +1,13 @@
-import { Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, CardBody, CardFooter } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { Box, Button, Card, CardContent, CardHeader, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
 
 function BookDetail(){
+
   const {id, colid} = useParams();
   const navigate = useNavigate();
-
-  console.log("BookDetail " + id + "/" + colid)
+  const [isLoading, setIsLoading] = useState(true);
 
   const [book, setBook] = useState({
     id:'',
@@ -17,13 +16,7 @@ function BookDetail(){
     bookcollect:{id:'', name:''}
   })
 
-  console.log(book.name)
-  console.log(book.bookcollect.name)
-
   function saveData(){
-    // const id = document.querySelector("#input-id");
-    console.log("savedata");
-    console.log(book);
     axios.post(`${process.env.REACT_APP_SERVER_URL}/book`, book)
     .then(response => {
       alert(response.data);
@@ -48,7 +41,6 @@ function BookDetail(){
   }  
 
   function changeHandler(e) {
-    // console.log( e.target.checked)
     if(e.target.name ==='delyn'){
       setBook({
         ...book,
@@ -65,7 +57,6 @@ function BookDetail(){
   // 데이터 가져오기
   function getData(){
     if(id !== undefined){
-      console.log("get list id " + id);
       axios.get(`${process.env.REACT_APP_SERVER_URL}/book`, {params: {"id": id}})
       .then(response => {
         console.log(response.data)
@@ -93,28 +84,33 @@ function BookDetail(){
   useEffect(()=> {
     getData();
   }, [])
-console.log(book);
+
+  if(isLoading)
+  return(<>...</>)
 
   return(
     <div className="BookDetail">
-      <h1>[{book.bookcollect.name}] 책 {id === undefined ? "등록" : "수정"}</h1>
 
-      <Card>
-        <CardBody>
-          <input type="text" className="input-id" name="id" defaultValue={book.id} /><br/>
-          이름 : <input type="text" className="input-name" name="name" defaultValue={book.name} onChange={changeHandler}/><br/>
-          삭제 : <input type="checkbox" className="input-name" name="delyn" defaultChecked={book.delyn === "Y" ? true: false}
+      <Card sx={{ maxWidth: 345 }}>
+				<CardHeader title={`[${book.bookcollect.name}] 책 관리`} />
+				<CardContent>
+          <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
+            <TextField id="outlined-basic" label="이름" variant="outlined" name="name" 
+                  onChange={changeHandler} defaultValue={book.name} />
+            <Typography> 
+              사용안함 : 
+              <Checkbox name="delyn" color="error" checked={book.delyn === "Y" ? true: false}
                               onChange={changeHandler}/>
-        </CardBody>
-        <CardFooter>
-        {id !== undefined ? 
-          <Button variant="outlined" color="primary" onClick={deleteData}>삭제</Button>
-          :'' }{' '}
+            </Typography>
+          </Box>
           
+          <Button variant="outlined" color="success" onClick={()=>{navigate("/")}}>목록</Button>{' '}
+          {id !== undefined ? 
+            <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
           <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>{' '}
-          <Button variant="outlined" color="primary" onClick={()=> navigate(-1)}>목록</Button>
-        </CardFooter> 
-      </Card>      
+
+				</CardContent>
+			</Card>
     </div>
     )
 }

@@ -10,7 +10,7 @@ function Collect(){
     <div className="Collect">
       <h1> 전집</h1>
       <Button variant="outlined" color="primary" onClick={()=> {navigate("/library/admin/books")}}>책 목록</Button>{' '}
-      <Button variant="outlined" color="primary" onClick={()=> {navigate("/library/admin/collect/new")}}>전집추가</Button>
+      <Button variant="outlined" color="secondary" onClick={()=> {navigate("/library/admin/collect/new")}}>전집추가</Button>
 
       <br/><hr/><br/>
 

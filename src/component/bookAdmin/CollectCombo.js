@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
 import fnCollectList from "./fnCollectList";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function CollectCombo({collectId, setCollectId}){
-  console.log("CollectCombo")
+
   const [colList, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleSelect = (e) => {
+  const handleChange = (e) => {
     setCollectId(e.target.value);
   };
 
@@ -25,19 +25,35 @@ function CollectCombo({collectId, setCollectId}){
   
   if(isLoading)
     return(<>...</>)
-console.log(colList);
 
   return (
-    <Form.Select className="collectCombobox" onChange={handleSelect} value={collectId}>
-          <option>전집 선택</option>
+
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">전집 선택</InputLabel>
+        <Select value={collectId} onChange={handleChange} >
           {
             colList.map((data) => {
               return (
-                <option key={data.id} value={data.id}>{data.name}</option>
+                <MenuItem key={data.id} value={data.id}>{data.name}</MenuItem>
               );
             })
-          }
-        </Form.Select>
+          }          
+        </Select>
+      </FormControl>
+    </Box>
+
+
+    // <Form.Select className="collectCombobox" onChange={handleSelect} value={collectId}>
+    //       <option>전집 선택</option>
+    //       {
+    //         colList.map((data) => {
+    //           return (
+    //             <option key={data.id} value={data.id}>{data.name}</option>
+    //           );
+    //         })
+    //       }
+    //     </Form.Select>
   )
 }
 

@@ -2,6 +2,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import fnCollectList from "./fnCollectList"
+import { Box } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+
+const columns = [
+  { field: 'id', headerName: 'ID', width: 50 },
+  {
+    field: 'name',
+    headerName: '이름',
+    width: 150,
+  },
+  {
+    field: 'delyn',
+    headerName: '사용',
+    width: 50,
+  },
+];
 
 // 전집리스트 가져오기
 function CollectList(){
@@ -22,7 +38,7 @@ function CollectList(){
   }, [])
 
   function onRowHandler(e) {
-    const getID = e.target.parentNode.dataset.id;
+    const getID = e.row.id;
     // alert(getID);
     navigator("/library/admin/collect/" + getID);
   }
@@ -32,28 +48,15 @@ function CollectList(){
 
   return(
     <div className="CollectList">
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>이름</th>
-            <th>삭제</th>
-          </tr>
-        </thead>
-        <tbody>
-        {
-          list.map((data) => {
-            return (
-              <tr key={data.id} data-id={data.id} onClick={onRowHandler}>
-                <td>{data.id}</td>
-                <td>{data.name}</td>
-                <td>{data.delyn}</td>
-              </tr>
-            );
-          })
-        }
-        </tbody>
-      </table> 
+      <Box sx={{ width: '80%' }}>
+        <DataGrid rows={list} columns={columns} 
+          initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+          onRowClick={onRowHandler}
+          />
+      </Box>
+
     </div>
   )
 }

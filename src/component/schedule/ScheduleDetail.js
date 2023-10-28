@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Button, Card, CardContent, CardHeader, Input, TextField, TextareaAutosize } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -38,6 +38,7 @@ function ScheduleDetail(){
   }, [])
 
   const changeHandler = (e) => {
+    console.log(e);
     setSchedule({
       ...schedule,
       [e.target.name]: e.target.value
@@ -56,11 +57,12 @@ function ScheduleDetail(){
   }
 
   function saveData(){
+    console.log(getFormettedDate(new Date(selDate)))
     const sendSchedule =({
       ...schedule,
-      basedate:getFormettedDate(selDate)
+      basedate:getFormettedDate(new Date(selDate))
     })
-
+    console.log(sendSchedule);
     axios.post(`${process.env.REACT_APP_SERVER_URL}/schedule`, sendSchedule)
     .then(response => {
       alert(response.data);
@@ -78,7 +80,6 @@ function ScheduleDetail(){
       <br/>
       <Card sx={{ maxWidth: 345 }}>
 				<CardHeader title="일정 관리" />
-
 				<CardContent>
 
           <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
@@ -88,7 +89,7 @@ function ScheduleDetail(){
                   onChange={(stValue)=> setSeltDate(stValue)}/>
             </LocalizationProvider>  
 
-            <TextField id="outlined-basic" label="일정" variant="outlined" onChange={changeHandler} defaultValue={schedule.content} />
+            <TextField id="outlined-basic" label="일정" variant="outlined" name="content" onChange={changeHandler} defaultValue={schedule.content} />
           </Box>
           
           <Button variant="outlined" color="success" onClick={()=>{navigator("/")}}>목록</Button>{' '}
