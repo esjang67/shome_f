@@ -1,21 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { getFormettedDate } from '../util/util_date';
+import { getFormettedDate } from '../../util/util_date';
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
-  {
-    field: 'basedate',
-    headerName: '기준일자',
-    width: 100,
-  },
-  {
-    field: 'username',
-    headerName: '이름',
-    width: 80,
-  },
   {
     field: 'content',
     headerName: '할일',
@@ -36,20 +26,7 @@ function DoitList({kids}){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/doit`, 
     {params: {"userid": kids, "basedate": getFormettedDate(new Date())}})
     .then(response => {
-      // console.log(response.data);
-      const result = response.data;
-      let setData = [];
-      result.forEach(data => {
-        setData.push({
-          id:data.id,
-          basedate:data.basedate,
-          userid:data.user.userid,
-          username:data.user.name,
-          content:data.content,
-          done:data.done
-        })
-      });
-      setList(setData)
+      setList(response.data)
       setIsLoading(false);
 
     }).catch(error => {
@@ -73,7 +50,7 @@ function DoitList({kids}){
       axios.put(`${process.env.REACT_APP_SERVER_URL}/doit/` + getID)
       .then(response => {
         console.log(response.data);
-        alert(response.data)
+        alert("잘했어~~~~ ^^")
         getList();
       }).catch(error => {
         console.log(error);
@@ -92,8 +69,8 @@ function DoitList({kids}){
       
       <Box sx={{ width: '100%' }}>
         <DataGrid rows={list} columns={columns} 
-          initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
-          pageSizeOptions={[5]}
+          initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
+          pageSizeOptions={[10]}
           disableRowSelectionOnClick
           onRowClick={onRowHandler}
           />

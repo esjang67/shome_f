@@ -11,13 +11,13 @@ const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   {
     field: 'basedate',
-    headerName: '기준일자',
+    headerName: '일자',
     width: 100,
   },
   {
     field: 'content',
     headerName: '일정',
-    width: 250,
+    width: 200,
   },
 ];
 
@@ -35,8 +35,6 @@ export default function ScheduleList() {
   const [isLoading, setIsLoading] = useState(true);
 
   function onRowHandler(e) {
-    // console.log(e.id);
-    // // alert(getID);
     navigate("/schedule/" + e.id);
   }
 
@@ -68,11 +66,11 @@ export default function ScheduleList() {
       <div className="preiod">
         <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       </div>
-      <br/>
-      <Box sx={{ width: '80%' }}>
+      <hr/>
+      <Box sx={{ width: '100%' }}>
         <DataGrid rows={list} columns={columns} 
-          initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
-          pageSizeOptions={[5]}
+          initialState={{pagination: {paginationModel: {pageSize: 8,},},}}
+          pageSizeOptions={[8]} rowSelection={true}
           disableRowSelectionOnClick
           onRowClick={onRowHandler}
           />

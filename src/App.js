@@ -15,7 +15,7 @@ import Doit from './pages/Doit';
 import Login from './pages/Login';
 import Loading from './pages/Loading';
 import DoitBatch from './pages/DoitBatch';
-import DoitBatchDetail from './component/DoitBatchDetail';
+
 import Collect from './component/bookAdmin/Collect';
 import CollectDetail from './component/bookAdmin/CollectDetail';
 import LibraryAdmin from './pages/LibraryAdmin';
@@ -35,6 +35,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import DoitBatchDetail from './component/doit/DoitBatchDetail';
 
 
 function App() {
@@ -52,6 +53,8 @@ function App() {
     grade:''
   });
 
+  const [page, setPage] = useState('schedule');
+
   useEffect(()=> {
     const tmp = JSON.parse(sessionStorage.getItem("user"))
     // const tmp = Cookies.get("user");
@@ -65,14 +68,14 @@ function App() {
 
     <div className="App">
       <Suspense fallback={ <Loading /> }>
-        <header>
+        {/* <header> */}
           <Header user={user} />
-        </header>
+        {/* </header> */}
         <article>
           <div className='App-Main'>
             <Routes>
               <Route path="/" element={<Schedule grade={user.grade} />} />
-              <Route path="/login" element={<Login user={user} setUser={setUser} />} />
+              <Route path="/login" element={<Login user={user} setUser={setUser} setPage={setPage} />} />
               <Route path="/schedule/new" element={<ScheduleDetail />} />
               <Route path='/schedule/:id' element={<ScheduleDetail />} />
               <Route path="/doit" element={<Doit user={user} />} />
@@ -97,9 +100,9 @@ function App() {
                     isAuth ? <BoardDetail userInfo={userInfo} /> : <LoginMsg /> }/> */}
           </div>
         </article>
-        <footer>
-          <Footer user={user} />
-        </footer>
+        {/* <footer> */}
+          <Footer user={user} page={page} setPage={setPage} />
+        {/* </footer> */}
       </Suspense>
     </div>
   );

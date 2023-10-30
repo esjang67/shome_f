@@ -3,14 +3,10 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import SelectKids from '../SelectKids';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
-  {
-    field: 'username',
-    headerName: '이름',
-    width: 80,
-  },
   {
     field: 'defineday',
     headerName: '요일',
@@ -24,26 +20,17 @@ const columns = [
 ];
 
 function DoitBatchList(){
+
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
   const navigator = useNavigate();
+  const [kids, setKids] = useState("MIN");
 
   function getList(){
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch/all`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch/all/user`, {params: {"userid": kids}})
       .then(response => {
         console.log(response.data);
-        const result = response.data;
-        let setData = [];
-        result.forEach(data => {
-          setData.push({
-            id:data.id,
-            defineday:data.defineday,
-            userid:data.user.userid,
-            username:data.user.name,
-            content:data.content
-          })
-        });
-        setList(setData);
+        setList(response.data);
         setIsLoading(false);
       }).catch(error => {
       console.log(error);
@@ -52,7 +39,7 @@ function DoitBatchList(){
 
   useEffect(()=> {
     getList();
-  },[])
+  },[kids])
   
   function onRowHandler(e) {
     const getID = e.row.id;
@@ -67,7 +54,8 @@ function DoitBatchList(){
   }
   return (
     <div className="DoitBatchList">
-
+      <SelectKids kids={kids} setKids={setKids}/>
+      <hr/>
       <Box sx={{ width: '100%' }}>
         <DataGrid rows={list} columns={columns} 
           initialState={{pagination: {paginationModel: {pageSize: 5,},},}}

@@ -19,9 +19,8 @@ function Header({user}){
   
   return(
     <div className="Header">
-      <div className="index"><Button variant="outlined" color="primary" onClick={()=> {navigate("/")}}>home</Button></div>
-      <div className="todayStr"><Typography>{dateFormat1}</Typography></div>
       <div className="login"><Button variant="outlined" color="primary" onClick={loginBtn}>{user.name===''? 'login' : user.name}</Button></div>
+      <div className="todayStr"><Typography>{dateFormat1}</Typography></div>
     </div>
   );
 

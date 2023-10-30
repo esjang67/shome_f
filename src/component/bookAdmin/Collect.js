@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import CollectList from "./CollectList";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 function Collect(){
   
@@ -8,14 +10,10 @@ function Collect(){
 
   return(
     <div className="Collect">
-      <h1> 전집</h1>
-      <Button variant="outlined" color="primary" onClick={()=> {navigate("/library/admin/books")}}>책 목록</Button>{' '}
-      <Button variant="outlined" color="secondary" onClick={()=> {navigate("/library/admin/collect/new")}}>전집추가</Button>
-
-      <br/><hr/><br/>
-
+      <Button color="success" onClick={()=> {navigate("/library/admin/books")}}>책목록</Button>{' '}
+      <Button color="secondary" onClick={()=> {navigate("/library/admin/collect/new")}}>전집<FontAwesomeIcon icon={faSquarePlus} /></Button>
+      <hr/>
       <CollectList  />
-      
     </div>
     )
 }

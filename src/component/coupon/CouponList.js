@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getFormettedDate } from '../../util/util_date';
 import { useEffect, useState } from "react";
 import DatePreiod from "../DatePreiod";
+import { Box, Card, CardContent, Typography } from '@mui/material';
 
 // coupon, couponAdmin에서 공용으로 사용
 function CouponList({ grade, userid }){
@@ -47,42 +48,26 @@ function CouponList({ grade, userid }){
   
   return (
     <div className="CouponList">
-      <div className="preiod">
-        <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
-      </div>
-      
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>기준일자</th>
-            {grade === 'P'? 
-              <th>이름</th>
-              :''}
-            <th>타입</th>
-            <th>내용</th>
-            <th>쿠폰시간</th>
-          </tr>
-        </thead>
-        <tbody>
+      <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
+
+      <Box sx={{ width: '100%' }}>
         {
           list.map((data) => {
             return (
-              <tr key={data.id}>
-                <td>{data.id}</td>
-                <td>{data.basedate}</td>
-                {grade === 'P'? 
-                  <td>{data.user.name}</td>
-                :''}
-                <td>{data.type}</td>
-                <td>{data.content}</td>
-                <td>{data.playtime}</td>
-              </tr>
+              <Card variant="outlined" sx={{ minWidth: 275, m:1 }} key={data.id} > 
+                <CardContent>
+                  <Typography variant="body1">[{data.type}] {data.content}</Typography>
+                  <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>{data.basedate} </Typography>
+                  {grade === 'P'?
+                  <Typography sx={{ fontSize: 14 }}>{data.user.name}</Typography> : ''}
+                  <Typography variant="body2">쿠폰시간 : {data.playtime}</Typography>
+                </CardContent>
+              </Card>
             );
           })
         }
-        </tbody>
-      </table>
+      </Box>
+
     </div>
     )
 }

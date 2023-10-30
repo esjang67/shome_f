@@ -35,7 +35,7 @@ function ScheduleDetail(){
           console.log(err);
         })
     }
-  }, [])
+  }, [id])
 
   const changeHandler = (e) => {
     console.log(e);
@@ -77,28 +77,22 @@ function ScheduleDetail(){
 
   return(
     <div className="ScheduleDetail">
-      <br/>
-      <Card sx={{ maxWidth: 345 }}>
-				<CardHeader title="일정 관리" />
-				<CardContent>
-
+      <Card sx={{ maxWidth: 345 }} variant="outlined" >
+        <CardHeader title="일정 관리" />
+        <CardContent>
           <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
-
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker format="YYYY-MM-DD" defaultValue={dayjs(selDate)} label="일자선택"
                   onChange={(stValue)=> setSeltDate(stValue)}/>
             </LocalizationProvider>  
-
             <TextField id="outlined-basic" label="일정" variant="outlined" name="content" onChange={changeHandler} defaultValue={schedule.content} />
           </Box>
-          
           <Button variant="outlined" color="success" onClick={()=>{navigator("/")}}>목록</Button>{' '}
           {id !== undefined ? 
             <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
-          <Button variant="outlined" color="primary" onClick={saveData}>{id === undefined ? "등록" : "수정"}</Button>
-
-				</CardContent>
-			</Card>
+          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>
+        </CardContent>
+      </Card>
     </div>
   );
 

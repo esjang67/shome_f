@@ -1,5 +1,5 @@
 
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 import SuggestList from "../component/suggest/SuggestList";
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +9,8 @@ function Suggest({user}){
 
   return(
     <div className="Suggest">
-      <Button onClick={()=> {navigator("/suggest/new")}}>추가</Button>
-      <br/><hr/><br/>
+      <Button variant="outlined" color="primary" onClick={()=> {navigator("/suggest/new")}}>등록하기</Button>
+      <hr/>
       <SuggestList grade={user.grade}/>
     </div>
   )

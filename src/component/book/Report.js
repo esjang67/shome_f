@@ -31,7 +31,7 @@ function Report(){
   
   }, [id])
 
-  function writeDone(){
+  function saveData(){
     const content = document.querySelector('.content');
     const report = {
       id:'',
@@ -43,7 +43,7 @@ function Report(){
     console.log(report)
     axios.post(`${process.env.REACT_APP_SERVER_URL}/report`, report)
     .then(response => {
-      alert(response.data)
+      alert("독후감을 쓰다니 박수 짝짝~!!!")
       navigator(-1)
     }).catch(error => {
       console.log(error);
@@ -61,7 +61,7 @@ function Report(){
           <textarea className="content" name="content"></textarea>
         </CardBody>
         <CardFooter>
-          <Button variant="outlined" color="primary"  onClick={writeDone}>다썼어요 :)</Button>
+          <Button variant="outlined" color="primary" onClick={saveData}>다썼어요 :)</Button>
         </CardFooter>
       </Card>
     </div>

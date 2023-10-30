@@ -8,10 +8,7 @@ function LibraryAdmin(){
     
   return(
     <div className="LibraryAdmin">
-      <h1>Book Report List</h1>
-
-      <Button variant="outlined" color="secondary" onClick={()=> {navigate("/library/admin/books")}}>책 관리자</Button>
-      <hr/>
+      <Button color="secondary" onClick={()=> {navigate("/library/admin/books")}}>책 관리자</Button>
       <ReportList />
     </div>
   )

@@ -4,11 +4,10 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Footer({user}){
+function Footer({user, page, setPage}){
   const navigate = useNavigate();
-  const [page, setPage] = useState('schedule');
-//   console.log("footer" + user.userid ? 'false' : 'true')
-// console.log(user);
+  // const [page, setPage] = useState('schedule');
+
   return(
     <div className="Footer">
       <ul>

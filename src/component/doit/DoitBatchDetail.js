@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import SelectKids from './SelectKids';
-import { Button } from 'react-bootstrap';
+import SelectKids from '../SelectKids';
+import { Button, TextField } from '@mui/material';
 
 function DoitBatchDetail() {
 
@@ -19,24 +19,24 @@ function DoitBatchDetail() {
 
   function getData(){
     if(id !== undefined){
-      console.log("get list id " + id);
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, 
-        {params: {"id": id}})
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, {params: {"id": id}})
       .then(response => {
         console.log(response.data)
         setBatch(response.data);
         setKids(response.data.user.userid);
-        setIsLoading(true);
+        setIsLoading(false);
       }).catch(error => {
         console.log(error);
         alert(error);
       })
+    } else {
+      setIsLoading(false);
     }
   }
   
   useEffect(()=> {
     getData();
-  }, [])
+  }, [isLoading])
   
   function saveData(){
     const reqBatch = {
@@ -78,19 +78,15 @@ function DoitBatchDetail() {
   }
 
   function selData(e){
-
-    console.log(e.target.name )
     if(e.target.name === "defineday"){
       let day='';
       // 요일 다체크할것
       const check = document.querySelectorAll('.defineday')
       check.forEach((d)=>{
-        // console.log(d.value + "/" + d.checked);
         if(d.checked){
           day = day + d.value;
         }
       })
-      // console.log(day);
       setBatch({
         ...batch,
         defineday: day
@@ -102,11 +98,9 @@ function DoitBatchDetail() {
       })
     }
   }
-  
-if(!isLoading){
-  <div>...</div>
-  return
-}
+console.log(batch)  
+  if(isLoading)
+    return(<>...</>)
 
   return (
     <div className='DoitBatchDetail'>
@@ -132,17 +126,14 @@ if(!isLoading){
           <label className="btn btn-outline-warning" htmlFor="sun">일</label>
         </div>
         <br/>
-        <textarea style={{ width: '100%' }} name="content" defaultValue={batch.content} onChange={selData} />
+        <TextField id="outlined-basic" label="할일" variant="outlined" name="content" onChange={selData} defaultValue={batch.content} />
       </div>
+<br/>
 
+      <Button variant="outlined" color="success" onClick={()=>{navigator(-1)}}>목록</Button>{' '}
       {id !== undefined ? 
-        <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button>: ''}
-      {' '}
-      <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>{' '}
-      <Button variant="outlined" color="primary"  onClick={()=>{
-        
-        navigator(-1)
-      }}>목록</Button>
+        <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
+      <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>
 
     </div>  
   );

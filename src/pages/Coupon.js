@@ -5,8 +5,8 @@ import CouponList from "../component/coupon/CouponList";
 function Coupon({user}){
 
   const [isLoading, setIsLoading] = useState(true);
-
   const [totalTime, setTotalTime] = useState();
+
   // 총 적립시간(사용자별) 가져오기
   function getTotalTime(){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, 
@@ -31,9 +31,8 @@ function Coupon({user}){
 
   return(
     <div className="Coupon">
-      <h2>총 적립시간 {totalTime}분</h2>
-      <br/><hr/><br/>
-      <h2>쿠폰 리스트</h2>
+      <h3>총 적립시간 {totalTime}분</h3>
+      <hr/>
       <CouponList grade={user.grade} userid={user.userid} />
 
     </div>

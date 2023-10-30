@@ -1,6 +1,17 @@
+import { Box } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const columns = [
+  { field: 'id', headerName: 'ID', width: 50 },
+  {
+    field: 'name',
+    headerName: '책이름',
+    width: 250,
+  },
+];
 
 // 전집코드로 조회한 책 리스트 가져오기
 function BookList({collectId, clickUser}){
@@ -25,7 +36,7 @@ function BookList({collectId, clickUser}){
   }, [collectId])
 
   function onRowHandler(e) {
-    const getID = e.target.parentNode.dataset.id;
+    const getID = e.row.id;
     // alert(getID + "  " + clickUser);
     if(clickUser===undefined){
       navigator("/library/admin/books/" + getID + "/" + collectId);
@@ -41,30 +52,14 @@ function BookList({collectId, clickUser}){
 
   return(
     <div className="BookList">
-
-      <table >
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>이름</th>
-            <th>삭제</th>
-          </tr>
-        </thead>
-        <tbody>
-        {
-          list.map((data) => {
-            return (
-              <tr key={data.id} data-id={data.id} onClick={onRowHandler}>
-                <td>{data.id}</td>
-                <td>{data.name}</td>
-                <td>{data.delyn}</td>
-              </tr>
-            );
-          })
-        }
-        </tbody>
-      </table> 
-
+      <Box sx={{ width: '100%' }}>
+        <DataGrid rows={list} columns={columns} density="compact"
+          initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+          onRowClick={onRowHandler}
+          />
+      </Box>
     </div>
   )
 }

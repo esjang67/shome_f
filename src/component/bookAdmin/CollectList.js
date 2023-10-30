@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import fnCollectList from "./fnCollectList"
@@ -48,8 +47,8 @@ function CollectList(){
 
   return(
     <div className="CollectList">
-      <Box sx={{ width: '80%' }}>
-        <DataGrid rows={list} columns={columns} 
+      <Box sx={{ width: '100%' }}>
+        <DataGrid rows={list} columns={columns} density="compact"
           initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
           pageSizeOptions={[5]}
           disableRowSelectionOnClick

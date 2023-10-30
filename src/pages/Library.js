@@ -5,7 +5,7 @@ import { getFormettedDate } from "../util/util_date";
 import axios from "axios";
 
 function Library({user}){
-  const [collectId, setCollectId] = useState("전집 선택");
+  const [collectId, setCollectId] = useState('');
   const [todayList, setTodayList] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,9 +34,9 @@ function Library({user}){
 
   return (
     <div className="Library">
-      <h1>독후감을 써보자</h1>
-      <br/><hr/><br/>
-      <h5>오늘 쓴 독후감</h5>
+      <h5>독후감을 써보자</h5>
+      <hr/>
+      <h6>오늘 썼어요</h6>
       {
           todayList.map((data) => {
             return (
@@ -46,15 +46,11 @@ function Library({user}){
             );
           })
         }
-
-      <p></p>
-      <br/><hr/><br/>
+      <hr/>
       <CollectCombo collectId={collectId} setCollectId={setCollectId} />{' '}
-      <h5>book list</h5>
-      {collectId !== "전집 선택" ? <BookList collectId={collectId} clickUser={user} /> : ''}
-        {/* 
-        책리스트 선택 -> 다읽었어요 메시지 -> 레포트화면으로 이동 */}
-          
+      
+      {collectId !== '' ? <BookList collectId={collectId} clickUser={user} /> : ''}
+       
     </div>
   )
 }

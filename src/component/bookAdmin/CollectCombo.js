@@ -28,8 +28,8 @@ function CollectCombo({collectId, setCollectId}){
 
   return (
 
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+    <Box sx={{ mb:1 }}>
+      <FormControl sx={{ width: '60%' }} size="small">
         <InputLabel id="demo-simple-select-label">전집 선택</InputLabel>
         <Select value={collectId} onChange={handleChange} >
           {
@@ -42,18 +42,6 @@ function CollectCombo({collectId, setCollectId}){
         </Select>
       </FormControl>
     </Box>
-
-
-    // <Form.Select className="collectCombobox" onChange={handleSelect} value={collectId}>
-    //       <option>전집 선택</option>
-    //       {
-    //         colList.map((data) => {
-    //           return (
-    //             <option key={data.id} value={data.id}>{data.name}</option>
-    //           );
-    //         })
-    //       }
-    //     </Form.Select>
   )
 }
 

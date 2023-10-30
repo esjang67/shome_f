@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Cookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-function Login({user, setUser}) {
+function Login({user, setUser, setPage}) {
 	
 	const [alignment, setAlignment] = useState('');
 	const [password, setPassword] = useState('');
@@ -28,6 +28,8 @@ function Login({user, setUser}) {
 			sessionStorage.setItem("user", JSON.stringify(response.data))
 			alert("로그인 완료!");
 			navigate("/");
+			setPage('schedule');
+
 		}).catch(error => {
 		console.log(error);
 			alert(error);
@@ -39,7 +41,6 @@ function Login({user, setUser}) {
 			<br/>
 			<Card sx={{ maxWidth: 345 }}>
 				<CardHeader title="LOGIN" />
-
 				<CardContent>
 					<ToggleButtonGroup variant="outlined" exclusive value={alignment} aria-label="Platform" onChange={handleChange} >
 							<ToggleButton size="large" color="primary" name="userid" value="MIN">민찬</ToggleButton>

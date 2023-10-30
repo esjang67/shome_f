@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, CardHeader, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Checkbox, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,9 +18,8 @@ function CollectDetail(){
   function saveData(){
     axios.post(`${process.env.REACT_APP_SERVER_URL}/collect`, collect)
     .then(response => {
-      alert(response.data);
+      alert("저장했습니다.");
       navigate(-1)
-      
     }).catch(error => {
       console.log(error);
     })
@@ -30,9 +29,8 @@ function CollectDetail(){
     if(window.confirm("[경고] DATABASE에서 삭제됩니다. 삭제 하시겠습니까?")){
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/collect/` + id)
       .then(response => {
-        alert(response.data);
+        alert("삭제 되었습니다.");
         navigate(-1)
-        
       }).catch(error => {
         console.log(error);
       })    
@@ -65,6 +63,8 @@ function CollectDetail(){
         console.log(error);
         alert(error);
       })
+    } else {
+      setIsLoading(false);
     }
   }
   
@@ -77,7 +77,7 @@ function CollectDetail(){
 
   return(
     <div className="CollectDetail">
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345 }} variant="outlined">
 				<CardHeader title="전집 관리" />
 				<CardContent>
           <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
@@ -93,7 +93,7 @@ function CollectDetail(){
           <Button variant="outlined" color="success" onClick={()=>{navigate("/")}}>목록</Button>{' '}
           {id !== undefined ? 
             <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
-          <Button variant="outlined" color="primary" onClick={saveData}>{id === undefined ? "등록" : "수정"}</Button>
+          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>
 
 				</CardContent>
 			</Card>

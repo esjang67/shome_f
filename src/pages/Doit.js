@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import DoitList from "../component/DoitList";
+import DoitList from "../component/doit/DoitList";
 import { useEffect, useState } from "react";
 import SelectKids from "../component/SelectKids";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 function Doit({user}) {
 
@@ -15,19 +15,13 @@ function Doit({user}) {
     }
   },[])
 
-  console.log(kids)
   return (
     <div className="Doit">
-      <h1>오늘의 할일</h1>
+      {/* P : 배치관리, 민/도 선택 */}
+      {(user.grade === 'P') ? 
+        <Button variant="outlined" color="secondary" onClick={()=> { navigate("/doit/batch")}}>배치관리</Button>: <h5>오늘의 할일</h5> }
+      {(user.grade === 'P') ? <SelectKids kids={kids} setKids={setKids}/> :<h6>끝났으면 완료하기!!</h6> }
       
-      {(user.grade === 'P') ? 
-        <Button variant="outlined" color="secondary" onClick={()=> { navigate("/doit/batch")}}>배치관리</Button>: '' }
-      <hr/>
-      {(user.grade === 'P') ? 
-      <SelectKids kids={kids} setKids={setKids}/>
-      : <h4>다 했으면 완료 체크하기!!</h4>}
-      <hr/>
-
       <DoitList user={user} kids={kids} />
     </div>
   )
