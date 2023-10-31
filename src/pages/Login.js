@@ -1,7 +1,6 @@
 import { Button, Card, CardContent, CardHeader, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { Cookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 function Login({user, setUser, setPage}) {

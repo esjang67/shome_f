@@ -1,10 +1,8 @@
-// import logo from './logo.svg';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Suspense } from 'react';
-// import { Cookies, useCookies } from 'react-cookie';
 
 import Header from './component/main/Header';
 import Footer from './component/main/Footer';
@@ -48,10 +46,8 @@ function App() {
 
   useEffect(()=> {
     const tmp = JSON.parse(sessionStorage.getItem("user"))
-    // const tmp = Cookies.get("user");
     if(tmp !== null){
       setUser(tmp);
-      // setIsLogin(true); 
     }
   }, [])
 
