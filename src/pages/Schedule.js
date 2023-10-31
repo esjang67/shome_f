@@ -20,7 +20,7 @@ function Schedule({grade}) {
         onClick={scheduleAdd}>일정</Button>
         :''}  
 
-      <ScheduleList />
+      <ScheduleList grade={grade}/>
 
     </div>
     );

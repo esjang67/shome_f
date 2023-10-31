@@ -21,7 +21,7 @@ const columns = [
   },
 ];
 
-export default function ScheduleList() {
+export default function ScheduleList({grade}) {
 
   const navigate = useNavigate();
   let startdate = new Date().setDate(1);
@@ -34,7 +34,8 @@ export default function ScheduleList() {
   const [isLoading, setIsLoading] = useState(true);
 
   function onRowHandler(e) {
-    navigate("/schedule/" + e.id);
+    if(grade === "P")
+      navigate("/schedule/" + e.id);
   }
 
   function getList(){
