@@ -28,9 +28,6 @@ import SuggestDetail from './component/suggest/SuggestDetail';
 import Coupon from './pages/Coupon';
 import CouponAdmin from './pages/CouponAdmin';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'react-datepicker/dist/react-datepicker.css';
-
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -39,12 +36,6 @@ import DoitBatchDetail from './component/doit/DoitBatchDetail';
 
 
 function App() {
-  // const [user, setUser] = useCookies({
-  //   userid:'',
-  //   password:'',
-  //   name:'',
-  //   grade:''
-  // });
 
   const [user, setUser] = useState({
     userid:'',
@@ -68,9 +59,9 @@ function App() {
 
     <div className="App">
       <Suspense fallback={ <Loading /> }>
-        {/* <header> */}
-          <Header user={user} />
-        {/* </header> */}
+        
+        <Header user={user} />
+
         <article>
           <div className='App-Main'>
             <Routes>
@@ -100,9 +91,9 @@ function App() {
                     isAuth ? <BoardDetail userInfo={userInfo} /> : <LoginMsg /> }/> */}
           </div>
         </article>
-        {/* <footer> */}
-          <Footer user={user} page={page} setPage={setPage} />
-        {/* </footer> */}
+
+        <Footer user={user} page={page} setPage={setPage} />
+
       </Suspense>
     </div>
   );

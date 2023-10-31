@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SelectKids from '../SelectKids';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 
 function DoitBatchDetail() {
 
@@ -16,14 +16,18 @@ function DoitBatchDetail() {
     defineday:'',
     content:''
   })
+  const [chkDay, setChkDay] = useState({
+    월:false, 화:false, 수:false, 목:false, 금:false, 토:false, 일:false
+  })
 
   function getData(){
     if(id !== undefined){
       axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, {params: {"id": id}})
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         setBatch(response.data);
         setKids(response.data.user.userid);
+        findDay(response.data.defineday);
         setIsLoading(false);
       }).catch(error => {
         console.log(error);
@@ -34,31 +38,53 @@ function DoitBatchDetail() {
     }
   }
   
+  function findDay(str){
+    let arr = str.split("");
+    let days={};
+    
+    arr.forEach(d => {
+      days[d] = true;
+    })
+
+    setChkDay({
+      ...chkDay,
+      ...days
+    })
+    
+  }  
+
   useEffect(()=> {
     getData();
   }, [isLoading])
   
   function saveData(){
+
+    let day='';
+    for(const [key, value] of Object.entries(chkDay)) {
+      if(value){
+        day += key;
+      }
+    }
+
     const reqBatch = {
       ...batch,
-      user: {userid : kids }
+      user: {userid : kids },
+      defineday: day
     }
-    console.log(reqBatch)
 
     axios.post(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, reqBatch)
     .then(response => {
-      alert(response.data);
+      alert("저장했습니다.");
       navigator(-1)
       
     }).catch(error => {
       console.log(error);
     })
   }
-
   function deleteData(){
     axios.delete(`${process.env.REACT_APP_SERVER_URL}/doitbatch/` + batch.id)
     .then(response => {
-      alert(response.data);
+      alert("삭제했습니다.");
       navigator(-1)
       
     }).catch(error => {
@@ -66,75 +92,53 @@ function DoitBatchDetail() {
     })
   }
   
-  function findDay(str){
-    const day = [...batch.defineday];
-    let f = false;
-    day.forEach(d => {
-      if(d === str){
-        f = true;
-      }
-    });
-    return f
-  }
-
   function selData(e){
-    if(e.target.name === "defineday"){
-      let day='';
-      // 요일 다체크할것
-      const check = document.querySelectorAll('.defineday')
-      check.forEach((d)=>{
-        if(d.checked){
-          day = day + d.value;
-        }
-      })
-      setBatch({
-        ...batch,
-        defineday: day
-      })
-    } else {
-      setBatch({
-        ...batch,
-        [e.target.name]: e.target.value
-      })
-    }
+    setChkDay({
+      ...chkDay,
+      [e.target.value]:e.target.checked
+    })
   }
-console.log(batch)  
+  
   if(isLoading)
     return(<>...</>)
 
+  const {월,화,수,목,금,토,일} = chkDay;
+
   return (
     <div className='DoitBatchDetail'>
-      <h1>할일</h1>
+      <Card sx={{ maxWidth: 345, m:1 }} variant="outlined">
+				<CardHeader title="할일 관리" />
+				<CardContent>
+          {id === undefined ? <SelectKids kids={kids} setKids={setKids} /> : `${batch.user.name}`}
+          <FormGroup aria-label="position" row onChange={selData} >
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="월" checked={월} onChange={selData} />} label="월" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="화" checked={화} onChange={selData} />} label="화" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="수" checked={수} onChange={selData} />} label="수" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="목" checked={목} onChange={selData} />} label="목" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="금" checked={금} onChange={selData} />} label="금" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="토" checked={토} onChange={selData} />} label="토" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="일" checked={일} onChange={selData} />} label="일" labelPlacement="bottom" />
+          </FormGroup>
 
-      <div>
-        <SelectKids kids={kids} setKids={setKids} />
-        <br/>
-        <div className="defineday-checkbox">
-          <input type="checkbox" className="btn-check defineday" id="mon" name="defineday" value="월" checked={findDay("월")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="mon">월</label>
-          <input type="checkbox" className="btn-check defineday" id="tue" name="defineday" value="화" checked={findDay("화")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="tue">화</label>
-          <input type="checkbox" className="btn-check defineday" id="wed" name="defineday" value="수" checked={findDay("수")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="wed">수</label>
-          <input type="checkbox" className="btn-check defineday" id="thu" name="defineday" value="목" checked={findDay("목")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="thu">목</label>
-          <input type="checkbox" className="btn-check defineday" id="fri" name="defineday" value="금" checked={findDay("금")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="fri">금</label>
-          <input type="checkbox" className="btn-check defineday" id="sat" name="defineday" value="토" checked={findDay("토")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="sat">토</label>
-          <input type="checkbox" className="btn-check defineday" id="sun" name="defineday" value="일" checked={findDay("일")} onChange={selData} />
-          <label className="btn btn-outline-warning" htmlFor="sun">일</label>
-        </div>
-        <br/>
-        <TextField id="outlined-basic" label="할일" variant="outlined" name="content" onChange={selData} defaultValue={batch.content} />
-      </div>
-<br/>
+          <Box sx={{ py: 2, display: 'grid', alignItems: 'center' }}>
+            <TextField id="outlined-basic" label="할일" variant="outlined" name="content" size="small"
+                  onChange={(e)=> {
+                    setBatch({
+                      ...batch,
+                      content: e.target.value
+                    })
+                  }} defaultValue={batch.content} />
+            
+          </Box>
+          
+          <Button variant="outlined" color="success" onClick={()=>{navigator(-1)}}>목록</Button>{' '}
+          {id !== undefined ? 
+            <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
+          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>
 
-      <Button variant="outlined" color="success" onClick={()=>{navigator(-1)}}>목록</Button>{' '}
-      {id !== undefined ? 
-        <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
-      <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>
-
+				</CardContent>
+			</Card>
+      
     </div>  
   );
 }

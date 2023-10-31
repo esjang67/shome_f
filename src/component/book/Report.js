@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, CardBody, CardFooter, CardHeader } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFormettedDate } from "../../util/util_date";
-import { Button } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardHeader, TextField, TextareaAutosize } from "@mui/material";
 
 function Report(){
   const {id, userid} = useParams();
   const navigator = useNavigate();
+  const [content, setContent] = useState('');
 
   const [book, setBook] = useState({
     id:'',
@@ -22,7 +22,7 @@ function Report(){
     // BookDetail에서도 사용됨
     axios.get(`${process.env.REACT_APP_SERVER_URL}/book`, {params: {"id": id}})
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setBook(response.data);
     }).catch(error => {
       console.log(error);
@@ -31,16 +31,18 @@ function Report(){
   
   }, [id])
 
+  function changeHandler(e) {
+    setContent(e.target.value)
+  }
+
   function saveData(){
-    const content = document.querySelector('.content');
     const report = {
       id:'',
       basedate: getFormettedDate(new Date()),
       user:{userid:userid},
       book:{id:book.id},
-      content:content.value
+      content:content
     }
-    console.log(report)
     axios.post(`${process.env.REACT_APP_SERVER_URL}/report`, report)
     .then(response => {
       alert("독후감을 쓰다니 박수 짝짝~!!!")
@@ -53,17 +55,20 @@ function Report(){
 
   return(
     <div className="Report">
-      <Card>
-        <CardHeader>
-          [{book.bookcollect.name}] {book.name}
-        </CardHeader>
-        <CardBody>
-          <textarea className="content" name="content"></textarea>
-        </CardBody>
-        <CardFooter>
-          <Button variant="outlined" color="primary" onClick={saveData}>다썼어요 :)</Button>
-        </CardFooter>
-      </Card>
+      <Box>
+        <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
+          <CardHeader title={`${book.name}`} subheader={`${book.bookcollect.name}`}/>
+          <CardContent>
+            <TextField sx={{ fontSize:14, width: '90%' }} id="outlined-multiline-static"
+                label="무슨 장면이 제일 기억에 남아?"
+                multiline rows={4} defaultValue="" onChange={changeHandler}
+              />
+          </CardContent>
+          <CardActions>
+            <Button variant="outlined" color="primary" onClick={saveData}>다썼어요 :)</Button>
+          </CardActions>
+        </Card>
+      </Box>
     </div>
   )
 }

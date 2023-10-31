@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 function Header({user}){
   
   const navigate = useNavigate();
@@ -19,7 +19,10 @@ function Header({user}){
   
   return(
     <div className="Header">
-      <div className="login"><Button variant="outlined" color="primary" onClick={loginBtn}>{user.name===''? 'login' : user.name}</Button></div>
+      <div className="login">
+        <Button variant="outlined" size="small" color="secondary" 
+            onClick={loginBtn}>{user.name===''? 'login' : user.name}</Button>
+      </div>
       <div className="todayStr"><Typography>{dateFormat1}</Typography></div>
     </div>
   );

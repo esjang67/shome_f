@@ -29,7 +29,7 @@ function CollectDetail(){
     if(window.confirm("[경고] DATABASE에서 삭제됩니다. 삭제 하시겠습니까?")){
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/collect/` + id)
       .then(response => {
-        alert("삭제 되었습니다.");
+        alert("삭제했습니다.");
         navigate(-1)
       }).catch(error => {
         console.log(error);
@@ -77,11 +77,11 @@ function CollectDetail(){
 
   return(
     <div className="CollectDetail">
-      <Card sx={{ maxWidth: 345 }} variant="outlined">
+      <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
 				<CardHeader title="전집 관리" />
 				<CardContent>
-          <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
-            <TextField id="outlined-basic" label="이름" variant="outlined" name="name" 
+          <Box sx={{ display: 'grid', alignItems: 'center' }}>
+            <TextField id="outlined-basic" label="이름" variant="outlined" name="name" size="small"
                   onChange={changeHandler} defaultValue={collect.name} />
             <Typography> 
               사용안함 : 

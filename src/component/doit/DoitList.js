@@ -18,7 +18,7 @@ const columns = [
   },
 ];
 
-function DoitList({kids}){
+function DoitList({user, kids}){
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
   
@@ -39,7 +39,9 @@ function DoitList({kids}){
   },[kids])
   
   function onRowHandler(e) {
-    console.log(e.row.done)
+    if(user.grade === "P")
+      return;
+
     const getID = e.row.id;
     const chk = e.row.done;
     if(chk === "Y") {
@@ -49,7 +51,7 @@ function DoitList({kids}){
     if(window.confirm("완료했나요?? ^___^:")){
       axios.put(`${process.env.REACT_APP_SERVER_URL}/doit/` + getID)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         alert("잘했어~~~~ ^^")
         getList();
       }).catch(error => {
@@ -67,10 +69,10 @@ function DoitList({kids}){
   return (
     <div className="DoitList">
       
-      <Box sx={{ width: '100%' }}>
-        <DataGrid rows={list} columns={columns} 
+      <Box sx={{ m:1 }}>
+        <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} 
           initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
-          pageSizeOptions={[10]}
+          pageSizeOptions={[10]} rowSelection={true}
           disableRowSelectionOnClick
           onRowClick={onRowHandler}
           />

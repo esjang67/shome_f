@@ -23,7 +23,7 @@ function BookList({collectId, clickUser}){
   function getList(){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/book/all`, {params: {"colid": collectId}})
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         setList(response.data);
         setIsLoading(false);
       }).catch(error => {
@@ -52,10 +52,10 @@ function BookList({collectId, clickUser}){
 
   return(
     <div className="BookList">
-      <Box sx={{ width: '100%' }}>
-        <DataGrid rows={list} columns={columns} density="compact"
-          initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
-          pageSizeOptions={[5]}
+      <Box sx={{ m:1 }}>
+        <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} density="compact"
+          initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
+          pageSizeOptions={[10]}
           disableRowSelectionOnClick
           onRowClick={onRowHandler}
           />

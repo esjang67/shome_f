@@ -27,7 +27,7 @@ function CouponTime(){
     const time = document.querySelector(".time .MuiInputBase-input").value;
     axios.put(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, {id:id, time:time})
     .then(response => {
-      alert(response.data);
+      alert("쿠폰시간을 사용했습니다.");
       getList();
       e.target.previousSibling.value = '';
       setIsLoading(false);

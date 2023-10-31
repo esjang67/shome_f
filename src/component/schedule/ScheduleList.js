@@ -24,10 +24,9 @@ const columns = [
 export default function ScheduleList() {
 
   const navigate = useNavigate();
-  let startdate = new Date().setDate(1); 
-  let enddate = new Date().setMonth((new Date().getMonth()) + 1);
-  enddate = new Date(enddate).setDate(0); 
-  
+  let startdate = new Date().setDate(1);
+  let enddate = new Date().setMonth((new Date(startdate).getMonth())  );
+
   const [stdate, setStdate] = useState(getFormettedDate(new Date(startdate)));
   const [eddate, setEddate] = useState(getFormettedDate(new Date(enddate)));
   
@@ -63,14 +62,12 @@ export default function ScheduleList() {
 
   return (
     <div className='ScheduleList'>
-      <div className="preiod">
-        <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
-      </div>
-      <hr/>
-      <Box sx={{ width: '100%' }}>
-        <DataGrid rows={list} columns={columns} 
-          initialState={{pagination: {paginationModel: {pageSize: 8,},},}}
-          pageSizeOptions={[8]} rowSelection={true}
+      <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
+      
+      <Box sx={{ m:1 }}>
+        <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} density='compact'
+          initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
+          pageSizeOptions={[10]} rowSelection={true}
           disableRowSelectionOnClick
           onRowClick={onRowHandler}
           />

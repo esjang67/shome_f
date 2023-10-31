@@ -16,8 +16,8 @@ function Schedule({grade}) {
   return (
     <div className="Schedule">
       {grade === 'P' ? 
-        <Button color="secondary" 
-        onClick={scheduleAdd}>일정 <FontAwesomeIcon icon={faSquarePlus}/></Button>
+        <Button color="secondary" endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
+        onClick={scheduleAdd}>일정</Button>
         :''}  
 
       <ScheduleList />

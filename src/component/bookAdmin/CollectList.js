@@ -9,7 +9,7 @@ const columns = [
   {
     field: 'name',
     headerName: '이름',
-    width: 150,
+    width: 200,
   },
   {
     field: 'delyn',
@@ -47,10 +47,10 @@ function CollectList(){
 
   return(
     <div className="CollectList">
-      <Box sx={{ width: '100%' }}>
-        <DataGrid rows={list} columns={columns} density="compact"
-          initialState={{pagination: {paginationModel: {pageSize: 5,},},}}
-          pageSizeOptions={[5]}
+      <Box sx={{ m:1 }}>
+        <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} density="compact"
+          initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
+          pageSizeOptions={[10]}
           disableRowSelectionOnClick
           onRowClick={onRowHandler}
           />

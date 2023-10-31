@@ -8,7 +8,6 @@ import { useState } from "react";
 import { getFormettedDate } from "../util/util_date";
 
 function DatePreiod({stdate, setStdate, eddate, setEddate, getList}){
-  // console.log("DatePreiod " + stdate + " / " + dayjs(stdate))
 
   function ButtonField(props) {
     const {

@@ -8,7 +8,6 @@ function BookDetail(){
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   
-  console.log("colid " + colid)
   const [book, setBook] = useState({
     id:'',
     name: '',
@@ -57,7 +56,7 @@ function BookDetail(){
     if(id !== undefined){
       axios.get(`${process.env.REACT_APP_SERVER_URL}/book`, {params: {"id": id}})
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         setBook(response.data);
         setIsLoading(false)
       }).catch(error => {
@@ -68,7 +67,7 @@ function BookDetail(){
       // 화면출력용 전집정보 가져오기
       axios.get(`${process.env.REACT_APP_SERVER_URL}/collect`, {params: {"id": colid}})
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         setBook({
           ...book,
           bookcollect:response.data
@@ -90,12 +89,11 @@ function BookDetail(){
 
   return(
     <div className="BookDetail">
-
-      <Card sx={{ maxWidth: 345 }} >
+      <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
 				<CardHeader title={`[${book.bookcollect.name}] 책 관리`} />
 				<CardContent>
-          <Box sx={{py: 2,display: 'grid',gap: 2,alignItems: 'center',flexWrap: 'wrap',}}>
-            <TextField id="outlined-basic" label="이름" variant="outlined" name="name" 
+          <Box sx={{ display: 'grid', alignItems: 'center' }}>
+            <TextField id="outlined-basic" label="이름" variant="outlined" name="name" size="small"
                   onChange={changeHandler} defaultValue={book.name} />
             <Typography> 
               사용안함 : 

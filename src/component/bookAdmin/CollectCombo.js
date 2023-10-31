@@ -29,7 +29,7 @@ function CollectCombo({collectId, setCollectId}){
   return (
 
     <Box sx={{ mb:1 }}>
-      <FormControl sx={{ width: '60%' }} size="small">
+      <FormControl sx={{ width: '80%' }} size="small">
         <InputLabel id="demo-simple-select-label">전집 선택</InputLabel>
         <Select value={collectId} onChange={handleChange} >
           {

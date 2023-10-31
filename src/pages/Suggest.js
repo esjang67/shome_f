@@ -2,6 +2,8 @@
 import { Button } from "@mui/material";
 import SuggestList from "../component/suggest/SuggestList";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 function Suggest({user}){
 
@@ -9,9 +11,11 @@ function Suggest({user}){
 
   return(
     <div className="Suggest">
-      <Button variant="outlined" color="primary" onClick={()=> {navigator("/suggest/new")}}>등록하기</Button>
-      <hr/>
-      <SuggestList grade={user.grade}/>
+      <Button sx={{ m:1 }} variant="outlined" color="warning" 
+          endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
+          onClick={()=> {navigator("/suggest/new")}}>새로 등록</Button>
+
+      <SuggestList grade={user.grade} userid={user.userid} />
     </div>
   )
 }

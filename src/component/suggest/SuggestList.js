@@ -6,8 +6,11 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import ClearIcon from '@mui/icons-material/Clear';
 
-function SuggestList({ grade }){
+function SuggestList({ grade, userid }){
   
   let startdate = new Date() 
   startdate.setDate(1);
@@ -23,7 +26,7 @@ function SuggestList({ grade }){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/suggest/all`, 
       {params: {"startDate": stdate, "endDate": eddate}})
       .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       setList(response.data);
       setIsLoading(false);
       }).catch(error => {
@@ -75,10 +78,16 @@ function SuggestList({ grade }){
   }
 
   function deleteData(e){
-    const getID = e.target.parentNode.parentNode.dataset.id;
-    // alert(getID)
 
-    const okflag = e.target.parentNode.parentNode.dataset.okflag;
+    const getID = e.target.parentNode.dataset.id;
+    const selUserid = e.target.parentNode.dataset.userid
+
+    if(userid !== selUserid){
+      alert("다른 사람이 등록한 일정은 삭제할 수 없어요.")
+      return
+    }
+
+    const okflag = e.target.parentNode.dataset.okflag;
     if(okflag === "Y"){
       alert("이미 등록된 일정으로 삭제할 수 없어요.")
       return
@@ -87,8 +96,8 @@ function SuggestList({ grade }){
     if(window.confirm("삭제할까요?")){
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/suggest/` + getID)
       .then(response => {
-        console.log(response.data);
-        alert(response.data)
+        // console.log(response.data);
+        alert("삭제했습니다.")
       }).catch(error => {
         console.log(error);
       })
@@ -98,9 +107,8 @@ function SuggestList({ grade }){
 
   function scheduleAdd(e){
     const getID = e.target.dataset.id;
-    // alert(getID + seldate)
-
     const okflag = e.target.dataset.okflag;
+
     if(okflag === "Y"){
       alert("이미 등록된 일정입니다.")
       return
@@ -110,8 +118,8 @@ function SuggestList({ grade }){
       setIsLoading(false);
       axios.put(`${process.env.REACT_APP_SERVER_URL}/suggest/ok/` + getID, {seldate:seldate})
       .then(response => {
-        console.log(response.data);
-        alert("일정에 등록하였습니다.")
+        // console.log(response.data);
+        alert("일정에 등록했습니다.")
         setIsLoading(true);
       }).catch(error => {
         console.log(error);
@@ -124,17 +132,15 @@ function SuggestList({ grade }){
   
   return (
     <div className="SuggestList">
-      <div className="preiod">
-        <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
-      </div>
-      <hr/>
+      <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
+      
       <Box sx={{ width: '100%' }}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" sx={{ minWidth: 275, display: 'flex' }} key={data.id} >
-                <Box sx={{ width: '60%' }}>
-                  <CardContent>
+              <Card variant="outlined" sx={{ minWidth: 275, m:1, display: 'flex' }} key={data.id} >
+                <Box sx={{ p:1, width: '60%' }}>
+                  {/* <CardContent> */}
                     <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
                       {data.basedate}
                     </Typography>
@@ -144,11 +150,14 @@ function SuggestList({ grade }){
                     <Typography variant="body1">
                       {data.content}
                     </Typography>
-                    {data.okflag === "N"? <Button size="large" color="error" onClick={deleteData}>삭제</Button> : ''}     
-                  </CardContent>
+                    {data.okflag === "N"? 
+                      <Button size="large" color="error" 
+                              data-id={data.id} data-userid={data.user.userid} data-okflag={data.okflag} 
+                              onClick={deleteData}><ClearIcon/></Button> : ''}     
+                  {/* </CardContent> */}
                 </Box>
-                <Box sx={{ width: '40%' }}>
-                  <CardContent>
+                {grade==="P"? 
+                <Box sx={{ p:1, width: '40%' }}>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary">일자선택</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <ButtonDatePicker
@@ -157,9 +166,10 @@ function SuggestList({ grade }){
                         onChange={(stValue)=> setSeldate(stValue) }/>
                     </LocalizationProvider>
                     <Button variant="outlined" color="primary" data-id={data.id} data-okflag={data.okflag} 
-                            onClick={scheduleAdd}>일정등록</Button>
-                  </CardContent>
+                            endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
+                            onClick={scheduleAdd}>일정</Button>
                 </Box>
+                :''}
               </Card>
             );
           })

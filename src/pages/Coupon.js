@@ -32,7 +32,7 @@ function Coupon({user}){
   return(
     <div className="Coupon">
       <h3>총 적립시간 {totalTime}분</h3>
-      <hr/>
+      
       <CouponList grade={user.grade} userid={user.userid} />
 
     </div>

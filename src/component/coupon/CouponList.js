@@ -20,7 +20,7 @@ function CouponList({ grade, userid }){
       axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/all`, 
       {params: {"startDate": stdate, "endDate": eddate}})
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         setList(response.data);
         setIsLoading(false);
       }).catch(error => {
@@ -30,7 +30,7 @@ function CouponList({ grade, userid }){
       axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/all/user`, 
       {params: {"userid": userid, "startDate": stdate, "endDate": eddate}})
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         setList(response.data);
         setIsLoading(false);
       }).catch(error => {
@@ -56,11 +56,11 @@ function CouponList({ grade, userid }){
             return (
               <Card variant="outlined" sx={{ minWidth: 275, m:1 }} key={data.id} > 
                 <CardContent>
-                  <Typography variant="body1">[{data.type}] {data.content}</Typography>
+                  <Typography sx={{ fontSize: 15 }}>[{data.type}] {data.content}</Typography>
                   <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>{data.basedate} </Typography>
                   {grade === 'P'?
                   <Typography sx={{ fontSize: 14 }}>{data.user.name}</Typography> : ''}
-                  <Typography variant="body2">쿠폰시간 : {data.playtime}</Typography>
+                  <Typography sx={{ fontSize: 14 }}>쿠폰시간 : {data.playtime}</Typography>
                 </CardContent>
               </Card>
             );

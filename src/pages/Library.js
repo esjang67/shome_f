@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import BookList from "../component/bookAdmin/BookList";
 import { getFormettedDate } from "../util/util_date";
 import axios from "axios";
+import { Box, Paper, Typography } from "@mui/material";
 
 function Library({user}){
   const [collectId, setCollectId] = useState('');
@@ -16,7 +17,7 @@ function Library({user}){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/report/user`, 
       {params: {"userid": user.userid, "selDate": tmpEdDate}})
       .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       setTodayList(response.data);
       setIsLoading(false);
 
@@ -34,23 +35,26 @@ function Library({user}){
 
   return (
     <div className="Library">
-      <h5>독후감을 써보자</h5>
-      <hr/>
-      <h6>오늘 썼어요</h6>
-      {
+      <h3>독후감을 써보자</h3>
+      <Paper sx={{ m:1 }} elevation={3} >
+      <h5>오늘 썼어요</h5>
+      <Box sx={{ m:1, display: 'flxed' }}>
+        {
           todayList.map((data) => {
             return (
-              <p key={data.id}>
-                [{data.book.name}]
-              </p>
+              <Typography sx={{ fontSize: 14, color: 'text.secondary' }} key={data.id} >
+                [{data.book.name}]{' '}
+              </Typography>
             );
           })
         }
-      <hr/>
-      <CollectCombo collectId={collectId} setCollectId={setCollectId} />{' '}
-      
-      {collectId !== '' ? <BookList collectId={collectId} clickUser={user} /> : ''}
-       
+      </Box>
+      </Paper>
+
+      <Box sx={{ mt:2 }}>
+        <CollectCombo collectId={collectId} setCollectId={setCollectId} />{' '}
+        {collectId !== '' ? <BookList collectId={collectId} clickUser={user} /> : ''}
+       </Box>
     </div>
   )
 }
