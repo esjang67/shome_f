@@ -17,7 +17,7 @@ const columns = [
   {
     field: 'content',
     headerName: '일정',
-    width: 200,
+    width: 180,
   },
 ];
 

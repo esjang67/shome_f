@@ -1,7 +1,5 @@
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { useState } from 'react';
-
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import DoitList from "../component/doit/DoitList";
 import { useEffect, useState } from "react";
 import SelectKids from "../component/SelectKids";
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 
 function Doit({user}) {
 
