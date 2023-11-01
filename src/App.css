@@ -48,7 +48,6 @@ article {
 /* -------------------------------------- */
 .Footer {
   position: fixed;
-  border: 1px solid red;
   left: 0;
   bottom: 0;
   width: 100%;

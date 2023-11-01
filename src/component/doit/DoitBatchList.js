@@ -10,12 +10,12 @@ const columns = [
   {
     field: 'defineday',
     headerName: '요일',
-    width: 120,
+    width: 100,
   },
   {
     field: 'content',
     headerName: '할일',
-    width: 250,
+    width: 180,
   },
 ];
 
