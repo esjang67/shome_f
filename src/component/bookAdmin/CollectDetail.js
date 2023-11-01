@@ -90,7 +90,7 @@ function CollectDetail(){
             </Typography>
           </Box>
           
-          <Button variant="outlined" color="success" onClick={()=>{navigate("/")}}>목록</Button>{' '}
+          <Button variant="outlined" color="success" onClick={()=>{navigate(-1)}}>목록</Button>{' '}
           {id !== undefined ? 
             <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
           <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>

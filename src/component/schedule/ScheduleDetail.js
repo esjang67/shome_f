@@ -58,13 +58,15 @@ function ScheduleDetail(){
   }
 
   function deleteData() {
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}/schedule/` + id)
-    .then(response => {
-      alert("삭제했습니다.");
-      navigator("/")
-    }).catch(error => {
-      console.log(error);
-    })
+    if(window.confirm("삭제할까요?")){
+      axios.delete(`${process.env.REACT_APP_SERVER_URL}/schedule/` + id)
+      .then(response => {
+        alert("삭제했습니다.");
+        navigator("/")
+      }).catch(error => {
+        console.log(error);
+      })
+    }
   }
 
 
@@ -87,7 +89,7 @@ console.log();
                        onChange={changeHandler} defaultValue={schedule.content} />
           </Box>
           
-          <Button variant="outlined" color="success" onClick={()=>{navigator("/")}}>목록</Button>{' '}
+          <Button variant="outlined" color="success" onClick={()=>{navigator(-1)}}>목록</Button>{' '}
           {id !== undefined ? 
             <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
           <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>

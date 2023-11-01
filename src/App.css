@@ -1,54 +1,48 @@
- .App {
+.App {
   text-align: center;
-}
-
-.App .App-Main {
-  text-align: center;
-  overflow: scroll;
+  /* width: 100%; */
 }
 
 /* -------------------------------------- */
 
-.Header {
+.App .Header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   
-  width: 100%;
+  /* width: 100%; */
   height: 45px;
   /* border: 1px solid red; */
   
   display: flex;
   align-items: center;
-  /* justify-content: space-around; */
+  justify-content: space-between;
   margin-bottom: 10px;
-  align-items: center;
+
   background: white;
   z-index: 90;
+
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-.Header .login {
-  position: fixed;
-  /* top: 0; */
-  left: 5px;
-}
-
-.Header .todayStr {
-  position: absolute;
-  width: 60%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  /* border: 1px solid red; */
+.Header .logo {
+  padding: 5px;
+  height: 40px;
+  width: 40px;
 }
 
 /* -------------------------------------- */
 article {
+  margin: 0;
   height: calc(100% - 100px);
   /* border: 1px solid red; */
   overflow: scroll;
   margin-top: 50px;
   margin-bottom: 50px;
+  text-align: center;
+  overflow: scroll;
 }
 /* -------------------------------------- */
 .Footer {
@@ -57,35 +51,25 @@ article {
   bottom: 0;
   width: 100%;
   height: 45px;
-  /* border: 1px solid red; */
   background: white;
 }
 
 .Footer ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
 }
 
 .Footer ul li {
-  list-style: none;
-  text-align: center;
-  
-}
-
-.Footer ul li .menu Button {
   /* border: 1px solid red; */
-  width: 100%;
+  list-style: none;
+  width: 20%;
+  margin: 1px;
+  /* text-align: center; */
 }
 
-.Footer .menuicon {
-  font-size: large;
-}
-
-.Footer .menutext {
-  font-size: small;
-}
+/* -------------------------------------- */
 
 .Books .bookSelect-menu{
   display: flex;

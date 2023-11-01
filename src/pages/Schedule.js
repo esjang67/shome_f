@@ -11,13 +11,12 @@ function Schedule({grade}) {
     navigator("/schedule/new");
   }
 
-
-  // console.log(getFormettedDate(new Date(value)));
   return (
     <div className="Schedule">
       {grade === 'P' ? 
-        <Button color="secondary" endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
-        onClick={scheduleAdd}>일정</Button>
+        <Button color="secondary" 
+                endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
+                onClick={scheduleAdd}>일정</Button>
         :''}  
 
       <ScheduleList grade={grade}/>

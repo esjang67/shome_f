@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
+
 function Header({user}){
   
   const navigate = useNavigate();
@@ -19,11 +19,10 @@ function Header({user}){
   
   return(
     <div className="Header">
-      <div className="login">
-        <Button variant="outlined" size="small" color="secondary" 
+      <img className="logo" src={process.env.PUBLIC_URL + '/android-icon-144x144.png'} alt="SweetHome" />
+      <Typography className="todayStr" sx={{ fontSize:15 }}>{dateFormat1}</Typography>
+      <Button className="login" sx={{ minWidth:"50px" }} variant="contained" size="small" color="secondary" 
             onClick={loginBtn}>{user.name===''? 'login' : user.name}</Button>
-      </div>
-      <div className="todayStr"><Typography>{dateFormat1}</Typography></div>
     </div>
   );
 

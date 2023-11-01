@@ -82,14 +82,16 @@ function DoitBatchDetail() {
     })
   }
   function deleteData(){
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}/doitbatch/` + batch.id)
-    .then(response => {
-      alert("삭제했습니다.");
-      navigator(-1)
-      
-    }).catch(error => {
-      console.log(error);
-    })
+    if(window.confirm("삭제할까요?")){
+      axios.delete(`${process.env.REACT_APP_SERVER_URL}/doitbatch/` + batch.id)
+      .then(response => {
+        alert("삭제했습니다.");
+        navigator(-1)
+        
+      }).catch(error => {
+        console.log(error);
+      })
+    }
   }
   
   function selData(e){

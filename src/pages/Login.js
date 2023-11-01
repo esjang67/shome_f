@@ -34,8 +34,8 @@ function Login({user, setUser, setPage}) {
 			setPage('schedule');
 
 		}).catch(error => {
-		console.log(error);
-			alert(error);
+			console.log(error);
+			alert("비밀번호가 틀렸어~");
 		})
 	}
 

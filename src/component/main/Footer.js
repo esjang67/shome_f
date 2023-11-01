@@ -1,36 +1,34 @@
 import { faCalendar, faClipboard, faBookOpenReader, faStar, faDice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Footer({user, page, setPage}){
   const navigate = useNavigate();
-  // const [page, setPage] = useState('schedule');
 
   return(
     <div className="Footer">
       <ul>
         <li>
           <div className="menu">
-            <Button variant="outlined" color={page === 'schedule'? "secondary": "primary"} 
+            <Button sx={{ height:"43px", fontSize:"22px", minWidth:"40px", maxWidth:"50px" }} variant="outlined" color={page === 'schedule'? "secondary": "primary"} 
                     onClick={()=>{navigate("/"); setPage("schedule")}}>
-              <div className="menuicon"><FontAwesomeIcon icon={faCalendar} /></div>
+              <FontAwesomeIcon icon={faCalendar} />
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color={page === 'doit'? "secondary": "primary"} 
+            <Button sx={{ height:"43px", fontSize:"22px", minWidth:"40px", maxWidth:"50px" }} variant="outlined" color={page === 'doit'? "secondary": "primary"} 
                     disabled={user.userid ? false : true} 
                     onClick={()=>{navigate("/doit"); setPage("doit")}}>
-              <div className="menuicon"><FontAwesomeIcon icon={faClipboard} /></div>
+              <FontAwesomeIcon icon={faClipboard} />
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color={page === 'library'? "secondary": "primary"} 
+            <Button sx={{ height:"43px", fontSize:"22px", minWidth:"40px", maxWidth:"50px" }} variant="outlined" color={page === 'library'? "secondary": "primary"} 
                     disabled={user.userid ? false : true} onClick={()=>{
               if(user.grade === "P"){
                 navigate("/library/admin")
@@ -39,22 +37,22 @@ function Footer({user, page, setPage}){
               } 
               setPage("library")
             }}>
-            <div className="menuicon"><FontAwesomeIcon icon={faBookOpenReader} /></div>
+            <FontAwesomeIcon icon={faBookOpenReader} />
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color={page === 'suggest'? "secondary": "primary"} 
+            <Button sx={{ height:"43px", fontSize:"22px", minWidth:"40px", maxWidth:"50px" }} variant="outlined" color={page === 'suggest'? "secondary": "primary"} 
                     disabled={user.userid ? false : true} 
                     onClick={()=>{navigate("/suggest"); ; setPage("suggest")}}>
-              <div className="menuicon"><FontAwesomeIcon icon={faStar} /></div>
+              <FontAwesomeIcon icon={faStar} />
             </Button>
           </div>
         </li>
         <li>
           <div className="menu">
-            <Button variant="outlined" color={page === 'coupon'? "secondary": "primary"} 
+            <Button sx={{ height:"43px", fontSize:"22px", minWidth:"40px", maxWidth:"50px" }} variant="outlined" color={page === 'coupon'? "secondary": "primary"} 
                     disabled={user.userid ? false : true} 
                     onClick={()=>{
                 if(user.grade === "P"){
@@ -64,7 +62,7 @@ function Footer({user, page, setPage}){
                 } 
                 setPage("coupon")
               }}>
-              <div className="menuicon"><FontAwesomeIcon icon={faDice} /></div>
+              <FontAwesomeIcon icon={faDice} />
             </Button>
           </div>
         </li>

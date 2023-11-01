@@ -30,7 +30,7 @@ function BookDetail(){
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/book/` + id)
       .then(response => {
         alert("삭제했습니다.");
-        navigator(-1)
+        navigate(-1)
       }).catch(error => {
         console.log(error);
       })    
@@ -84,13 +84,52 @@ function BookDetail(){
     getData();
   }, [])
 
+  function create_pTag(){
+
+    // <TextField className="book-add-name" variant="outlined" name="arr-name" size="small"/>
+    let tagArea = document.querySelector('.book-add');
+    let new_pTag = document.createElement('input');
+    
+    // new_pTag.setAttribute('class', 'book-add-name');
+    // new_pTag.setAttribute('type', 'text');
+    // new_pTag.innerHTML = "";
+    new_pTag.classList.add('book-add-name');
+    tagArea.appendChild(new_pTag);
+
+  }
+
+  function saveDataList(){
+
+    // let savecnt = 0;
+    const bookList = document.querySelectorAll('.book-add-name');
+    bookList.forEach(b => {
+      if(b.value !== ''){
+        let booksave={
+          id:'',
+          name: b.value,
+          delyn:'N',
+          bookcollect:{id:colid, name:''}
+        }
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/book`, booksave)
+        .then(response => {
+          // savecnt+=1;
+          // console.log(savecnt)
+        }).catch(error => {
+          console.log(error);
+        })
+      }
+    })
+    alert("저장했습니다.");
+    navigate(-1)
+  }
+ 
   if(isLoading)
   return(<>...</>)
 
   return(
     <div className="BookDetail">
-      <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
-				<CardHeader title={`[${book.bookcollect.name}] 책 관리`} />
+      <Card sx={{ maxWidth: 345, m:1 }} variant="outlined">
+				<CardHeader title={"책 관리"} subheader={`[${book.bookcollect.name}]`} />
 				<CardContent>
           <Box sx={{ display: 'grid', alignItems: 'center' }}>
             <TextField id="outlined-basic" label="이름" variant="outlined" name="name" size="small"
@@ -101,14 +140,23 @@ function BookDetail(){
                               onChange={changeHandler}/>
             </Typography>
           </Box>
-          
+
           <Button variant="outlined" color="success" onClick={()=>{navigate(-1)}}>목록</Button>{' '}
           {id !== undefined ? 
             <Button variant="outlined" color="error" onClick={deleteData}>삭제</Button> : <></> }{' '}
-          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>{' '}
+          <Button variant="outlined" color="primary" onClick={saveData}>저장</Button>
 
 				</CardContent>
 			</Card>
+      <br/>
+      {id === undefined ?
+      <Card sx={{ maxWidth: 345, m:1, p:1 }} variant="outlined" >
+        <Typography>목록으로 저장</Typography><Button color="primary" onClick={create_pTag}>추가</Button>
+        <Box className="book-add">
+        </Box>
+        <Button color="primary" onClick={saveDataList}>저장</Button>
+      </Card>
+      : ''}
     </div>
     )
 }

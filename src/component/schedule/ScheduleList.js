@@ -24,9 +24,10 @@ const columns = [
 export default function ScheduleList({grade}) {
 
   const navigate = useNavigate();
-  let startdate = new Date().setDate(1);
-  let enddate = new Date().setMonth((new Date(startdate).getMonth())  );
-
+  let today = new Date();
+  let startdate = today.setDate(1);
+  let enddate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  
   const [stdate, setStdate] = useState(getFormettedDate(new Date(startdate)));
   const [eddate, setEddate] = useState(getFormettedDate(new Date(enddate)));
   

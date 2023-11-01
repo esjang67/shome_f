@@ -9,7 +9,7 @@ const columns = [
   {
     field: 'content',
     headerName: '할일',
-    width: 250,
+    width: 200,
   },
   {
     field: 'done',

@@ -8,7 +8,6 @@ import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 function Suggest({user}){
 
   const navigator = useNavigate();
-
   return(
     <div className="Suggest">
       <Button sx={{ m:1 }} variant="outlined" color="warning" 
