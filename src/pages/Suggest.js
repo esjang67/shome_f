@@ -10,7 +10,7 @@ function Suggest({user}){
   const navigator = useNavigate();
   return(
     <div className="Suggest">
-      <Button sx={{ m:1 }} variant="outlined" color="warning" 
+      <Button sx={{ m:1 }} color="warning" 
           endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
           onClick={()=> {navigator("/suggest/new")}}>새로 등록</Button>
 

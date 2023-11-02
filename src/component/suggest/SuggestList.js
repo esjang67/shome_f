@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getFormettedDate } from '../../util/util_date';
 import { useEffect, useState } from "react";
 import DatePreiod from "../DatePreiod";
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -134,20 +134,20 @@ function SuggestList({ grade, userid }){
     <div className="SuggestList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%', display: 'flex', alignItems:"center" }}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" sx={{ minWidth: 275, m:1, display: 'flex' }} key={data.id} >
-                <Box sx={{ p:1, width: '60%' }}>
+              <Card variant="outlined" sx={{ m:1, display: 'flex' }} key={data.id} >
+                <Box sx={{ p:1 }}>
                   {/* <CardContent> */}
                     <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
                       {data.basedate}
                     </Typography>
                     <Typography sx={{ fontSize: 14 }}>
-                      {data.user.name}
+                      [{data.type}] {data.user.name}
                     </Typography>
-                    <Typography variant="body1">
+                    <Typography sx={{ fontWeight: 'bold' }} variant="body1">
                       {data.content}
                     </Typography>
                     {data.okflag === "N"? 
@@ -157,7 +157,7 @@ function SuggestList({ grade, userid }){
                   {/* </CardContent> */}
                 </Box>
                 {grade==="P"? 
-                <Box sx={{ p:1, width: '40%' }}>
+                <Box sx={{ p:1, display: 'grid',  }}>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary">일자선택</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <ButtonDatePicker
@@ -165,7 +165,7 @@ function SuggestList({ grade, userid }){
                         value={dayjs(seldate)}
                         onChange={(stValue)=> setSeldate(stValue) }/>
                     </LocalizationProvider>
-                    <Button variant="outlined" color="primary" data-id={data.id} data-okflag={data.okflag} 
+                    <Button color="primary" data-id={data.id} data-okflag={data.okflag} 
                             endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
                             onClick={scheduleAdd}>일정</Button>
                 </Box>

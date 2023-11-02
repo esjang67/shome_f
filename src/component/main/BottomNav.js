@@ -23,12 +23,14 @@ export default function LabelBottomNavigation({user, page, setPage}) {
         icon={<CalendarMonthIcon />} 
         onClick={()=>{navigate("/"); setPage("schedule")}}
         />
-      <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }}
+      <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }} 
+        disabled={user.userid ? false : true}
         label="Do It" value="doit"
         icon={<ChecklistRtlIcon />} 
         onClick={()=>{navigate("/doit"); setPage("doit")}}
       />
-      <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }}
+      <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }} 
+        disabled={user.userid ? false : true}
         label="Library" value="library"
         icon={<AutoStoriesIcon />} 
         onClick={()=>{
@@ -41,11 +43,13 @@ export default function LabelBottomNavigation({user, page, setPage}) {
         }}
       />
       <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }} 
+        disabled={user.userid ? false : true}
         label="Suggest" value="suggest" 
         icon={<ThumbUpOffAltIcon />} 
         onClick={()=>{navigate("/suggest"); ; setPage("suggest")}}
       />
       <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }} 
+        disabled={user.userid ? false : true}
         label="Coupon" value="coupon" 
         icon={<ExtensionIcon />} 
         onClick={()=>{

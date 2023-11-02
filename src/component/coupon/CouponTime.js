@@ -51,8 +51,11 @@ function CouponTime(){
           list.map((data) => {
             return (
               <Box sx={{ display: 'flex' }} key={data.id} data-id={data.id} data-userid={data.user.name} >
-                <Typography sx={{ width: '50%', fontSize: 20, }} variant={'button'}>{data.user.name} : {data.totaltime}</Typography>
-                <TextField  sx={{ width: '25%' }} maxLength={data.totaltime} type="number" variant="outlined" size="small" className="time" />{' '}
+                <Typography sx={{ width: '50%', fontSize: 20, }} variant={'button'}>
+                  {data.user.name} : {data.totaltime}
+                </Typography>
+                <TextField  sx={{ width: '25%' }} maxLength={data.totaltime} 
+                            type="number" variant="outlined" size="small" className="time" />{' '}
                 <Button variant="outlined" color="secondary" data-id={data.id} onClick={useTime}>사용</Button> 
               </Box>
             );
