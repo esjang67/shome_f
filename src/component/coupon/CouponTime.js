@@ -107,22 +107,22 @@ function CouponTime({setChange}){
     <div className="CouponTime">
       
       {
-          list.map((data) => {
-            return (
-              <Box sx={{ display: 'flex' }} 
-                   key={data.id} data-id={data.id} data-userid={data.user.name} >
-                <Typography sx={{ width: '40%', fontSize: 20, }} variant={'button'}>
-                  {data.user.name} : {data.totaltime}
-                </Typography>
-                <TextField  sx={{ width: '25%' }} maxLength={data.totaltime} 
-                            type="number" variant="outlined" size="small" className="time" />{' '}
-                <Button sx={{ mr:1 }} variant="outlined" color="secondary" data-id={data.id} onClick={useTime}>사용</Button>
-                <Button variant="outlined" color="success" data-id={data.id} data-userid={data.user.userid} onClick={handleClickOpen}>추가</Button> 
-                
-              </Box>
-            );
-          })
-        }
+        list.map((data) => {
+          return (
+            <Box sx={{ display: 'flex' }} 
+                  key={data.id} data-id={data.id} data-userid={data.user.name} >
+              <Typography sx={{ width: '40%', fontSize: 20, }} variant={'button'}>
+                {data.user.name} : {data.totaltime}
+              </Typography>
+              <TextField  sx={{ width: '25%', mr:0.5 }} maxLength={data.totaltime} 
+                          type="number" variant="outlined" size="small" className="time" />{' '}
+              <Button sx={{ mr:0.5 }} variant="outlined" color="secondary" data-id={data.id} onClick={useTime}>사용</Button>
+              <Button variant="outlined" color="success" data-id={data.id} data-userid={data.user.userid} onClick={handleClickOpen}>추가</Button> 
+              
+            </Box>
+          );
+        })
+      }
       
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>쿠폰 추가</DialogTitle>

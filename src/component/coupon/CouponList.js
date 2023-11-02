@@ -55,15 +55,13 @@ function CouponList({ grade, userid, change }){
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" sx={{ m:1 }} key={data.id} > 
-                <CardContent>
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
-                  <Typography sx={{ fontSize: 12 }}>[{data.type}]</Typography>
-                  <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>{data.content}</Typography>
-                  {grade === 'P'?
-                  <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color={data.user.name === "민찬"? "primary":"error"} >{data.user.name}</Typography> : ''}
-                  <Typography sx={{ fontSize: 14 }}>쿠폰시간 : {data.playtime}</Typography>
-                </CardContent>
+              <Card variant="outlined" sx={{ width:"45%", ml:1, mb:1, pt:1, pb:1 }} key={data.id} > 
+                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
+                <Typography sx={{ fontSize: 12 }}>[{data.type}]</Typography>
+                <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>{data.content}</Typography>
+                {grade === 'P'?
+                <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color={data.user.name === "민찬"? "primary":"error"} >{data.user.name}</Typography> : ''}
+                <Typography sx={{ fontSize: 12 }}>쿠폰시간 : {data.playtime}</Typography>
               </Card>
             );
           })

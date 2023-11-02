@@ -134,12 +134,12 @@ function SuggestList({ grade, userid }){
     <div className="SuggestList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems:"center" }}>
+      <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', alignContent:'center' }}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" sx={{ m:1, display: 'flex' }} key={data.id} >
-                <Box sx={{ p:1 }}>
+              <Card variant="outlined" sx={{ width:grade==="P"? "100%": "45%", ml:1, mb:1, display: 'flex' }} key={data.id} >
+                <Box sx={{ p:1, width:grade==="P"? "55%": "100%" }}>
                   {/* <CardContent> */}
                     <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
                     <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.user.name}</Typography>
