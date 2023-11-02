@@ -5,7 +5,7 @@ import DatePreiod from "../DatePreiod";
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
 // coupon, couponAdmin에서 공용으로 사용
-function CouponList({ grade, userid }){
+function CouponList({ grade, userid, change }){
   
   let startdate = new Date() // new Date("2023-10-01 00:00:00");
   startdate.setDate(1);
@@ -16,6 +16,7 @@ function CouponList({ grade, userid }){
   const [list, setList] = useState();
 
   function getList(){
+    
     if(grade === "P"){
       axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/all`, 
       {params: {"startDate": stdate, "endDate": eddate}})
@@ -41,7 +42,7 @@ function CouponList({ grade, userid }){
 
   useEffect(()=> {
     getList();
-  }, [isLoading])
+  }, [isLoading, change])
   
   if(isLoading)
     return(<>...</>)
@@ -50,16 +51,17 @@ function CouponList({ grade, userid }){
     <div className="CouponList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
 
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" sx={{ minWidth: 275, m:1 }} key={data.id} > 
+              <Card variant="outlined" sx={{ m:1 }} key={data.id} > 
                 <CardContent>
-                  <Typography sx={{ fontSize: 15 }}>[{data.type}] {data.content}</Typography>
-                  <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>{data.basedate} </Typography>
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
+                  <Typography sx={{ fontSize: 12 }}>[{data.type}]</Typography>
+                  <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>{data.content}</Typography>
                   {grade === 'P'?
-                  <Typography sx={{ fontSize: 14 }}>{data.user.name}</Typography> : ''}
+                  <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color={data.user.name === "민찬"? "primary":"error"} >{data.user.name}</Typography> : ''}
                   <Typography sx={{ fontSize: 14 }}>쿠폰시간 : {data.playtime}</Typography>
                 </CardContent>
               </Card>

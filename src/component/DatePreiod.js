@@ -21,13 +21,9 @@ function DatePreiod({stdate, setStdate, eddate, setEddate, getList}){
   
     return (
       <Button
-        variant="outlined"
-        id={id}
-        disabled={disabled}
-        ref={ref}
-        aria-label={ariaLabel}
-        onClick={() => setOpen?.((prev) => !prev)}
-      >
+        sx={{ height: '30px' }}
+        variant="outlined" id={id} disabled={disabled} ref={ref} aria-label={ariaLabel}
+        onClick={() => setOpen?.((prev) => !prev)}>
         {label ? `${getFormettedDate(new Date(label))}` : 'Pick a date'}
       </Button>
     );
@@ -62,7 +58,7 @@ function DatePreiod({stdate, setStdate, eddate, setEddate, getList}){
             value={dayjs(eddate)}
             onChange={(edValue)=> setEddate(edValue) }/>
           {' '}
-          <Button variant="outlined" onClick={getList} > 
+          <Button sx={{ height: '30px' }} variant="outlined" onClick={getList} > 
             <Typography><FontAwesomeIcon icon={faMagnifyingGlass} /></Typography>
           </Button>
         </LocalizationProvider>

@@ -134,22 +134,16 @@ function SuggestList({ grade, userid }){
     <div className="SuggestList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       
-      <Box sx={{ width: '100%', display: 'flex', alignItems:"center" }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems:"center" }}>
         {
           list.map((data) => {
             return (
               <Card variant="outlined" sx={{ m:1, display: 'flex' }} key={data.id} >
                 <Box sx={{ p:1 }}>
                   {/* <CardContent> */}
-                    <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-                      {data.basedate}
-                    </Typography>
-                    <Typography sx={{ fontSize: 14 }}>
-                      [{data.type}] {data.user.name}
-                    </Typography>
-                    <Typography sx={{ fontWeight: 'bold' }} variant="body1">
-                      {data.content}
-                    </Typography>
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
+                    <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.user.name}</Typography>
+                    <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>{data.content}</Typography>
                     {data.okflag === "N"? 
                       <Button size="large" color="error" 
                               data-id={data.id} data-userid={data.user.userid} data-okflag={data.okflag} 
@@ -158,7 +152,7 @@ function SuggestList({ grade, userid }){
                 </Box>
                 {grade==="P"? 
                 <Box sx={{ p:1, display: 'grid',  }}>
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary">일자선택</Typography>
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary">일자선택</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <ButtonDatePicker
                         label={seldate == null ? null : seldate}  
@@ -168,8 +162,7 @@ function SuggestList({ grade, userid }){
                     <Button color="primary" data-id={data.id} data-okflag={data.okflag} 
                             endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
                             onClick={scheduleAdd}>일정</Button>
-                </Box>
-                :''}
+                </Box> :''}
               </Card>
             );
           })
