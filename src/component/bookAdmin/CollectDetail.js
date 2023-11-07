@@ -77,7 +77,7 @@ function CollectDetail(){
 
   return(
     <div className="CollectDetail">
-      <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
+      <Card className="collectDetail" sx={{ maxWidth: 345, m:2 }} variant="outlined">
 				<CardHeader title="전집 관리" />
 				<CardContent>
           <Box sx={{ display: 'grid', alignItems: 'center' }}>

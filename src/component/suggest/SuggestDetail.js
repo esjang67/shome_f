@@ -39,12 +39,15 @@ function SuggestDetail({user}){
 
   return(
     <div className="SuggestDetail">
-      <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
+      <Card className="suggestDetail" sx={{ maxWidth: 345, m:2 }} variant="outlined">
       <CardContent>
 					<ToggleButtonGroup variant="outlined" exclusive value={type} aria-label="Platform" onChange={handleChange} >
-							<ToggleButton sx={{ width: "60px" }} size="small" color="primary" name="type" value="DO">DO</ToggleButton>
-							<ToggleButton sx={{ width: "60px" }} size="small" color="error"   name="type" value="EAT">EAT</ToggleButton>
-							<ToggleButton sx={{ width: "60px" }} size="small" color="success" name="type" value="GO">GO</ToggleButton>
+							<ToggleButton sx={{ width: "60px",fontWeight:'bold', color: 'primary.main' }} 
+                            size="small" color="primary" name="type" value="DO" >DO</ToggleButton>
+							<ToggleButton sx={{ width: "60px", fontWeight:'bold', color: 'error.main' }} 
+                            size="small" color="error"   name="type" value="EAT" >EAT</ToggleButton>
+							<ToggleButton sx={{ width: "60px", fontWeight:'bold', color: 'success.main' }} 
+                            size="small" color="success" name="type" value="GO" >GO</ToggleButton>
 						</ToggleButtonGroup>
 						<br/><br/>
 						

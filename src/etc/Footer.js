@@ -12,7 +12,7 @@ function Footer({user, page, setPage}){
         <li>
           <div className="menu">
             <Button sx={{ height:"43px", fontSize:"22px", minWidth:"40px", maxWidth:"50px" }} variant="outlined" color={page === 'schedule'? "secondary": "primary"} 
-                    onClick={()=>{navigate("/"); setPage("schedule")}}>
+                    onClick={()=>{navigate("/"); setPage("schedule")}} >
               <FontAwesomeIcon icon={faCalendar} />
             </Button>
           </div>

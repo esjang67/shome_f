@@ -77,7 +77,7 @@ console.log();
 
   return(
     <div className="ScheduleDetail">
-      <Card sx={{ maxWidth: 345, m:1 }} variant="outlined">
+      <Card className="scheduleDetail" sx={{ maxWidth: 345, m:1 }} variant="outlined">
         <CardHeader title="일정 관리" />
         <CardContent>
           <Box sx={{ py: 2,display: 'grid',alignItems: 'center' }}>

@@ -108,7 +108,7 @@ function DoitBatchDetail() {
 
   return (
     <div className='DoitBatchDetail'>
-      <Card sx={{ maxWidth: 345, m:1 }} variant="outlined">
+      <Card className='doitBatchDetail' sx={{ maxWidth: 345, m:1 }} variant="outlined">
 				<CardHeader title="할일 관리" />
 				<CardContent>
           {id === undefined ? <SelectKids kids={kids} setKids={setKids} /> : `${batch.user.name}`}
@@ -118,8 +118,8 @@ function DoitBatchDetail() {
             <FormControlLabel sx={{ m:0 }} control={<Checkbox value="수" checked={수} onChange={selData} />} label="수" labelPlacement="bottom" />
             <FormControlLabel sx={{ m:0 }} control={<Checkbox value="목" checked={목} onChange={selData} />} label="목" labelPlacement="bottom" />
             <FormControlLabel sx={{ m:0 }} control={<Checkbox value="금" checked={금} onChange={selData} />} label="금" labelPlacement="bottom" />
-            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="토" checked={토} onChange={selData} />} label="토" labelPlacement="bottom" />
-            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="일" checked={일} onChange={selData} />} label="일" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="토" checked={토} onChange={selData} color="warning" />} label="토" labelPlacement="bottom" />
+            <FormControlLabel sx={{ m:0 }} control={<Checkbox value="일" checked={일} onChange={selData} color="warning" />} label="일" labelPlacement="bottom" />
           </FormGroup>
 
           <Box sx={{ py: 2, display: 'grid', alignItems: 'center' }}>

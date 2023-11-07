@@ -20,7 +20,7 @@ export default function LabelBottomNavigation({user, page, setPage}) {
     <BottomNavigation sx={{ width: '100%' }} value={page} onChange={handleChange}>
       <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }}
         label="Schedule" value="schedule"
-        icon={<CalendarMonthIcon />} 
+        icon={<CalendarMonthIcon />}
         onClick={()=>{navigate("/"); setPage("schedule")}}
         />
       <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }} 
@@ -32,7 +32,7 @@ export default function LabelBottomNavigation({user, page, setPage}) {
       <BottomNavigationAction sx={{ width: '20%', minWidth:"50px" }} 
         disabled={user.userid ? false : true}
         label="Library" value="library"
-        icon={<AutoStoriesIcon />} 
+        icon={<AutoStoriesIcon />}
         onClick={()=>{
           if(user.grade === "P"){
             navigate("/library/admin")

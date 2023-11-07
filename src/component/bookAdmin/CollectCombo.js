@@ -30,7 +30,7 @@ function CollectCombo({collectId, setCollectId}){
 
     <Box sx={{ mb:1 }}>
       <FormControl sx={{ width: '80%' }} size="small">
-        <InputLabel id="demo-simple-select-label">전집 선택</InputLabel>
+        <InputLabel id="select-label">전집 선택</InputLabel>
         <Select value={collectId} onChange={handleChange} >
           {
             colList.map((data) => {

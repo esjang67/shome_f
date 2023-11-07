@@ -36,19 +36,19 @@ function Library({user}){
   return (
     <div className="Library">
       <h3>독후감을 써보자</h3>
-      <Paper sx={{ m:1 }} elevation={3} >
-      <h5>오늘 썼어요</h5>
-      <Box sx={{ m:1, display: 'flxed' }}>
-        {
-          todayList.map((data) => {
-            return (
-              <Typography sx={{ fontSize: 14, color: 'text.secondary' }} key={data.id} >
-                [{data.book.name}]{' '}
-              </Typography>
-            );
-          })
-        }
-      </Box>
+      <Paper sx={{ m:1,border: '1px dashed grey' }} elevation={0}  >
+        <Typography sx={{ fontSize: 15 }} >-- 오늘 썼어요 --</Typography>
+        <Box sx={{ m:1, display: 'flxed' }}>
+          {
+            todayList.map((data) => {
+              return (
+                <Typography sx={{ fontSize: 12, color: 'text.secondary' }} key={data.id} >
+                  [{data.book.name}]{' '}
+                </Typography>
+              );
+            })
+          }
+        </Box>
       </Paper>
 
       <Box sx={{ mt:2 }}>

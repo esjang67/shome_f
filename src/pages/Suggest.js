@@ -9,13 +9,14 @@ function Suggest({user}){
 
   const navigator = useNavigate();
   return(
-    <Box className="Suggest">
-      <Button sx={{ m:1 }} color="warning" 
+    <div className="Suggest">
+      <h3>너의 소원을 말해봐~</h3>
+      <Button sx={{ mb:1 }} color="warning" 
           endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
           onClick={()=> {navigator("/suggest/new")}}>새로 등록</Button>
 
       <SuggestList grade={user.grade} userid={user.userid} />
-    </Box>
+    </div>
   )
 }
 

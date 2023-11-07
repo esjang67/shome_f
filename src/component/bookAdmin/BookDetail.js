@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, Card, CardContent, CardHeader, Checkbox, TextField, Typography } from "@mui/material";
+import CollectCombo from "./CollectCombo";
 
 function BookDetail(){
   const {id, colid} = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [collectId, setCollectId] = useState(colid);
   
   const [book, setBook] = useState({
     id:'',
@@ -16,7 +18,12 @@ function BookDetail(){
   })
 
   function saveData(){
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/book`, book)
+    let booksave={
+      ...book,
+      bookcollect:{id:collectId, name:''}
+    };
+    console.log(booksave)
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/book`, booksave)
     .then(response => {
       alert("저장했습니다.");
       navigate(-1)
@@ -64,19 +71,19 @@ function BookDetail(){
         alert(error);
       })
     } else {
-      // 화면출력용 전집정보 가져오기
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/collect`, {params: {"id": colid}})
-      .then(response => {
-        // console.log(response.data)
-        setBook({
-          ...book,
-          bookcollect:response.data
-        })
+    //   // 화면출력용 전집정보 가져오기
+    //   axios.get(`${process.env.REACT_APP_SERVER_URL}/collect`, {params: {"id": colid}})
+    //   .then(response => {
+    //     // console.log(response.data)
+    //     setBook({
+    //       ...book,
+    //       bookcollect:response.data
+    //     })
         setIsLoading(false)
-      }).catch(error => {
-        console.log(error);
-        alert("collect" + error);
-      })
+    //   }).catch(error => {
+    //     console.log(error);
+    //     alert("collect" + error);
+    //   })
     }
   }
   
@@ -110,6 +117,7 @@ function BookDetail(){
           delyn:'N',
           bookcollect:{id:colid, name:''}
         }
+        
         axios.post(`${process.env.REACT_APP_SERVER_URL}/book`, booksave)
         .then(response => {
           // savecnt+=1;
@@ -128,10 +136,11 @@ function BookDetail(){
 
   return(
     <div className="BookDetail">
-      <Card sx={{ maxWidth: 345, m:1 }} variant="outlined">
-				<CardHeader title={"책 관리"} subheader={`[${book.bookcollect.name}]`} />
+      <Card className="bookDetail" sx={{ maxWidth: 345, m:1 }} variant="outlined">
+				<CardHeader title={"책 관리"} />
 				<CardContent>
           <Box sx={{ display: 'grid', alignItems: 'center' }}>
+            <CollectCombo collectId={collectId} setCollectId={setCollectId} />
             <TextField id="outlined-basic" label="이름" variant="outlined" name="name" size="small"
                   onChange={changeHandler} defaultValue={book.name} />
             <Typography> 
@@ -148,9 +157,9 @@ function BookDetail(){
 
 				</CardContent>
 			</Card>
-      <br/>
+      
       {id === undefined ?
-      <Card sx={{ maxWidth: 345, m:1, p:1 }} variant="outlined" >
+      <Card className="bookDetailAdd" sx={{ maxWidth: 345, m:1, pt:1 }} variant="outlined" >
         <Typography>목록으로 저장</Typography><Button color="primary" onClick={create_pTag}>추가</Button>
         <Box className="book-add">
         </Box>

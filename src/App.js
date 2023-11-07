@@ -73,7 +73,7 @@ function App() {
             <Route path="/library/report/:id/:userid" element={<Report user={user} />} />  {/* 선택한 책id */}
             <Route path="/library/admin" element={<LibraryAdmin />} />
             <Route path="/library/admin/books" element={<Books />} />
-            <Route path="/library/admin/books/new/:colid" element={<BookDetail />} />
+            <Route path="/library/admin/books/new" element={<BookDetail />} />
             <Route path="/library/admin/books/:id/:colid" element={<BookDetail />} />
             <Route path="/library/admin/collect" element={<Collect />} />
             <Route path="/library/admin/collect/new" element={<CollectDetail />} />

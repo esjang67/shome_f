@@ -18,7 +18,7 @@ function Schedule({grade}) {
                 endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
                 onClick={scheduleAdd}>일정</Button>
         :''}  
-
+      
       <ScheduleList grade={grade}/>
 
     </div>

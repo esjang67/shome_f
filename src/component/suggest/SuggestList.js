@@ -22,9 +22,10 @@ function SuggestList({ grade, userid }){
   const [seldate, setSeldate] = useState(getFormettedDate(new Date()));
 
   function getList(){
-    
+    let std = getFormettedDate(new Date(stdate));
+    let edd = getFormettedDate(new Date(eddate));
     axios.get(`${process.env.REACT_APP_SERVER_URL}/suggest/all`, 
-      {params: {"startDate": stdate, "endDate": eddate}})
+      {params: {"startDate": std, "endDate": edd}})
       .then(response => {
       // console.log(response.data);
       setList(response.data);
@@ -134,13 +135,17 @@ function SuggestList({ grade, userid }){
     <div className="SuggestList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       
-      <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', alignContent:'center' }}>
+      <Box sx={{ width: '100%', 
+                // display: 'flex', flexWrap: 'wrap',
+                display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
+                }}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" sx={{ width:grade==="P"? "100%": "45%", ml:1, mb:1, display: 'flex' }} key={data.id} >
-                <Box sx={{ p:1, width:grade==="P"? "55%": "100%" }}>
-                  {/* <CardContent> */}
+              <Card variant="outlined" key={data.id} 
+                    sx={{ width:grade==="P"? "95%": "95%", m:'auto', mb:1, display: 'grid' }} >
+
+                <Box sx={{ p:1 }}>
                     <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
                     <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.user.name}</Typography>
                     <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>{data.content}</Typography>
@@ -148,11 +153,10 @@ function SuggestList({ grade, userid }){
                       <Button size="large" color="error" 
                               data-id={data.id} data-userid={data.user.userid} data-okflag={data.okflag} 
                               onClick={deleteData}><ClearIcon/></Button> : ''}     
-                  {/* </CardContent> */}
                 </Box>
                 {grade==="P"? 
-                <Box sx={{ p:1, display: 'grid',  }}>
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary">일자선택</Typography>
+                <Box sx={{ p:1, display: 'flex', justifyContent: 'space-around', borderTop:'1px dashed grey' }}>
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary">일자<br/>선택</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <ButtonDatePicker
                         label={seldate == null ? null : seldate}  

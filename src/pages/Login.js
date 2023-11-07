@@ -1,7 +1,8 @@
-import { Button, Card, CardContent, CardHeader, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../App.css';
 
 function Login({user, setUser, setPage}) {
 	
@@ -41,7 +42,7 @@ function Login({user, setUser, setPage}) {
 
 	return (
 		<div className="Login">
-			<Card sx={{ maxWidth: 345, m:1 }}>
+			<Card className="login" sx={{ maxWidth: 345, m:1, alignment:'center' }}>
 				<CardHeader title="LOGIN" />
 				<CardContent>
 					<ToggleButtonGroup variant="outlined" exclusive value={alignment} aria-label="Platform" onChange={handleChange} >

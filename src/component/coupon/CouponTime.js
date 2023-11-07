@@ -1,4 +1,4 @@
-import { Box, Button, FormControlLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControlLabel, IconButton, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Dialog from '@mui/material/Dialog';
@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { getFormettedDate } from "../../util/util_date";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
 function CouponTime({setChange}){
 
@@ -105,25 +107,31 @@ function CouponTime({setChange}){
 
   return(
     <div className="CouponTime">
-      
+      <Box sx={{ m:1, p:1, border: '1px dashed grey', borderRadius:1 }}>
       {
         list.map((data) => {
           return (
             <Box sx={{ display: 'flex' }} 
-                  key={data.id} data-id={data.id} data-userid={data.user.name} >
+                 key={data.id} data-id={data.id} data-userid={data.user.name} >
               <Typography sx={{ width: '40%', fontSize: 20, }} variant={'button'}>
                 {data.user.name} : {data.totaltime}
               </Typography>
-              <TextField  sx={{ width: '25%', mr:0.5 }} maxLength={data.totaltime} 
-                          type="number" variant="outlined" size="small" className="time" />{' '}
-              <Button sx={{ mr:0.5 }} variant="outlined" color="secondary" data-id={data.id} onClick={useTime}>사용</Button>
-              <Button variant="outlined" color="success" data-id={data.id} data-userid={data.user.userid} onClick={handleClickOpen}>추가</Button> 
-              
+              <TextField  sx={{ width: '15%', mr:0.5 }} maxLength={data.totaltime} 
+                          type="number" variant="standard" size="small" className="time" />{' '}
+
+              <IconButton sx={{ mr:0.5 }} 
+                      color="secondary" size="small"
+                      data-id={data.id} 
+                      onClick={useTime}><RemoveIcon/></IconButton>
+              <IconButton color="success"  size="small"
+                      data-id={data.id} data-userid={data.user.userid} 
+                      onClick={handleClickOpen}><AddIcon/></IconButton> 
             </Box>
           );
         })
       }
-      
+      </Box>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>쿠폰 추가</DialogTitle>
         <DialogContent>

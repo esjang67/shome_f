@@ -6,6 +6,8 @@ import axios from "axios";
 import DatePreiod from "../DatePreiod";
 import { getFormettedDate } from "../../util/util_date";
 import { useEffect, useState } from "react";
+import DateCalendarServerRequest from './Calendar';
+import dayjs from 'dayjs';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
@@ -17,19 +19,14 @@ const columns = [
   {
     field: 'content',
     headerName: '일정',
-    width: 170,
+    width: '170',
   },
 ];
 
 export default function ScheduleList({grade}) {
 
   const navigate = useNavigate();
-  let today = new Date();
-  let startdate = today.setDate(1);
-  let enddate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-  
-  const [stdate, setStdate] = useState(getFormettedDate(new Date(startdate)));
-  const [eddate, setEddate] = useState(getFormettedDate(new Date(enddate)));
+  const [selDate, setSelDate] = useState(new Date());
   
   const [list, setList] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -40,9 +37,13 @@ export default function ScheduleList({grade}) {
   }
 
   function getList(){
+    let sdate = new Date(selDate).setDate(1);
+    // console.log("sdate " + sdate)
+    let eddate = new Date(new Date(selDate).getFullYear(), new Date(selDate).getMonth() + 1, 0)
+    // console.log("eddate " + eddate)
     
     axios.get(`${process.env.REACT_APP_SERVER_URL}/schedule/all`, 
-      {params: {"startDate": getFormettedDate(new Date(stdate)), "endDate": getFormettedDate(new Date(eddate))}})
+      {params: { "startDate": getFormettedDate(new Date(sdate)), "endDate": getFormettedDate(new Date(eddate)) }})
       .then(response => {
       // console.log(response.data);
       setList(response.data);
@@ -56,15 +57,17 @@ export default function ScheduleList({grade}) {
   //list 요청
   useEffect(()=> {
     getList();
-  }, [])
+  }, [selDate])
 
+  console.log('selDate ' + getFormettedDate(new Date(selDate)))
  
   if(isLoading)
     return(<>...</>)
 
   return (
     <div className='ScheduleList'>
-      <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
+      
+      <DateCalendarServerRequest selDate={selDate} setSelDate={setSelDate} list={list} />
       
       <Box sx={{ m:1 }}>
         <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} density='compact'

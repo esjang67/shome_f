@@ -1,6 +1,5 @@
 .App {
-  text-align: center;
-  /* width: 100%; */
+  margin: auto;
 }
 
 /* -------------------------------------- */
@@ -57,10 +56,12 @@ article {
 
 /* -------------------------------------- */
 
+
+/* -------------------------------------- */
+
 .Books .bookSelect-menu{
   display: flex;
   justify-content: space-around;
-
 }
 .Books .collectCombobox {
   width: 20em;
@@ -69,7 +70,48 @@ article {
 /* -------------------------------------- */
 
 .Login {
-  text-align: center;
 }
-
+.Login .login {
+  /* border: 1px solid blue; */
+  margin: auto;
+  margin-top: 5rem;
+}
 /* -------------------------------------- */
+.DoitBatchDetail .doitBatchDetail {
+  margin: auto;
+  margin-top: 5rem;
+}
+/* -------------------------------------- */
+.SuggestDetail .suggestDetail {
+  margin: auto;
+  margin-top: 5rem;
+}
+/* -------------------------------------- */
+.ScheduleDetail .scheduleDetail {
+  margin: auto;
+  margin-top: 5rem;
+}
+/* -------------------------------------- */
+.CollectDetail .collectDetail {
+  margin: auto;
+  margin-top: 5rem;
+}
+/* -------------------------------------- */
+.BookDetail .bookDetail {
+  margin: auto;
+  margin-top: 5rem;
+}
+.BookDetail .bookDetailAdd {
+  margin: auto;
+  margin-top: 2rem;
+}
+/* -------------------------------------- */
+/* .CouponList .couponList {
+  margin: auto;
+  border: 1px solid blue;
+} */
+/* -------------------------------------- */
+
+
+
+

@@ -4,17 +4,22 @@
   
 ## Program Info
 
-### `Tool`
+### Tool
 
 vsCode
 
-### `Library`
+### Library
 
 REACT, MUI, FONTAWESOME, AXIOS...
 
-### `Server` Spring Boot
+### Server 
+  
+  Spring Boot version '2.7.16'
+  Java 11
 
-### `DataBase` Oracle
+### DataBase 
+  
+  Oracle Database 11g Express Edition 
 
 ## 개요
 
