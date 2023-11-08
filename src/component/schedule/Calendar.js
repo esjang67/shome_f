@@ -79,7 +79,6 @@ export default function DateCalendarServerRequest({selDate, setSelDate, list}) {
 
     fetchHighlightedDays(dayjs(getFormettedDate(new Date(selDate))));
     // abort request on unmount
-    console.log("useEffect")
     return () => requestAbortController.current?.abort();
   }, [list]);
 

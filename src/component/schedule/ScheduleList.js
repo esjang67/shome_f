@@ -3,11 +3,9 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import DatePreiod from "../DatePreiod";
 import { getFormettedDate } from "../../util/util_date";
 import { useEffect, useState } from "react";
 import DateCalendarServerRequest from './Calendar';
-import dayjs from 'dayjs';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
@@ -59,8 +57,6 @@ export default function ScheduleList({grade}) {
     getList();
   }, [selDate])
 
-  console.log('selDate ' + getFormettedDate(new Date(selDate)))
- 
   if(isLoading)
     return(<>...</>)
 
