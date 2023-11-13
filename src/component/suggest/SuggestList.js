@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getFormettedDate } from '../../util/util_date';
 import { useEffect, useState } from "react";
 import DatePreiod from "../DatePreiod";
-import { Box, Button, Card, Typography } from "@mui/material";
+import { Box, Button, Card, Grid, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -135,44 +135,43 @@ function SuggestList({ grade, userid }){
     <div className="SuggestList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
       
-      <Box sx={{ width: '100%', 
-                // display: 'flex', flexWrap: 'wrap',
-                display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
-                }}>
+      <Grid container spacing={1}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" key={data.id} 
-                    sx={{ width:grade==="P"? "95%": "95%", m:'auto', mb:1, display: 'grid' }} >
+              <Grid item xs={6} md={3}>
+                <Card variant="outlined" key={data.id} 
+                      sx={{ width:grade==="P"? "95%": "95%", m:'auto', mb:1, display: 'grid' }} >
 
-                <Box sx={{ p:1 }}>
-                    <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
-                    <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.user.name}</Typography>
-                    <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>{data.content}</Typography>
-                    {data.okflag === "N"? 
-                      <Button size="large" color="error" 
-                              data-id={data.id} data-userid={data.user.userid} data-okflag={data.okflag} 
-                              onClick={deleteData}><ClearIcon/></Button> : ''}     
-                </Box>
-                {grade==="P"? 
-                <Box sx={{ p:1, display: 'flex', justifyContent: 'space-around', borderTop:'1px dashed grey' }}>
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary">일자<br/>선택</Typography>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <ButtonDatePicker
-                        label={seldate == null ? null : seldate}  
-                        value={dayjs(seldate)}
-                        onChange={(stValue)=> setSeldate(stValue) }/>
-                    </LocalizationProvider>
-                    <Button color="primary" data-id={data.id} data-okflag={data.okflag} 
-                            endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
-                            onClick={scheduleAdd}>일정</Button>
-                </Box> :''}
-              </Card>
+                  <Box sx={{ p:1 }}>
+                      <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
+                      <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.user.name}</Typography>
+                      <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>{data.content}</Typography>
+                      
+                      {(data.okflag === "N" && data.user.userid === userid) ? 
+                        <Button size="large" color="error" 
+                                data-id={data.id} data-userid={data.user.userid} data-okflag={data.okflag} 
+                                onClick={deleteData}><ClearIcon/></Button> : ''}     
+                  </Box>
+                  {grade==="P"? 
+                  <Box sx={{ p:1, display: 'flex', justifyContent: 'space-around', borderTop:'1px dashed grey' }}>
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary">일자<br/>선택</Typography>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <ButtonDatePicker
+                          label={seldate == null ? null : seldate}  
+                          value={dayjs(seldate)}
+                          onChange={(stValue)=> setSeldate(stValue) }/>
+                      </LocalizationProvider>
+                      <Button color="primary" data-id={data.id} data-okflag={data.okflag} 
+                              endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
+                              onClick={scheduleAdd}>일정</Button>
+                  </Box> :''}
+                </Card>
+              </Grid>
             );
           })
         }
-      </Box>
-
+      </Grid>
     </div>
     )
 }

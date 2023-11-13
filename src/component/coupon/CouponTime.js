@@ -148,8 +148,8 @@ function CouponTime({setChange}){
             type="text" fullWidth variant="standard" onChange={handleContent} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={handleClose}>닫기</Button>
+          <Button onClick={handleSave}>쿠폰추가</Button>
         </DialogActions>
       </Dialog>
     </div>

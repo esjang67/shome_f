@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getFormettedDate } from '../../util/util_date';
 import { useEffect, useState } from "react";
 import DatePreiod from "../DatePreiod";
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 
 // coupon, couponAdmin에서 공용으로 사용
 function CouponList({ grade, userid, change }){
@@ -52,24 +52,25 @@ function CouponList({ grade, userid, change }){
     <div className="CouponList">
       <DatePreiod stdate={stdate} setStdate={setStdate} eddate={eddate} setEddate={setEddate} getList={getList}/>
 
-      <Box sx={{ width: '100%', 
-                 display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',     }}>
+      <Grid container spacing={1}>
         {
           list.map((data) => {
             return (
-              <Card variant="outlined" key={data.id} 
-                    sx={{ width:"95%", m:'auto', mb:1, pt:1, pb:1, border: '1px dashed grey' }} > 
-                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
-                <Typography sx={{ fontSize: 12 }}>[{data.type}]</Typography>
-                <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>{data.content}</Typography>
-                {grade === 'P'?
-                  <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color={data.user.name === "민찬"? "primary":"error"} >{data.user.name}</Typography> : ''}
-                <Typography sx={{ fontSize: 12 }}>쿠폰시간 : {data.playtime}</Typography>
-              </Card>
+              <Grid item xs={6} md={3}>
+                <Card variant="outlined" key={data.id} 
+                      sx={{ width:"95%", m:'auto', mb:1, pt:1, pb:1, border: '1px dashed grey' }} > 
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
+                  <Typography sx={{ fontSize: 12 }}>[{data.type}]</Typography>
+                  <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>{data.content}</Typography>
+                  {grade === 'P'?
+                    <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color={data.user.name === "민찬"? "primary":"error"} >{data.user.name}</Typography> : ''}
+                  <Typography sx={{ fontSize: 12 }}>쿠폰시간 : {data.playtime}</Typography>
+                </Card>
+              </Grid>
             );
           })
         }
-      </Box>
+      </Grid>
 
     </div>
     )
