@@ -6,6 +6,7 @@ import axios from "axios";
 import { getFormettedDate } from "../../util/util_date";
 import { useEffect, useState } from "react";
 import DateCalendarServerRequest from './Calendar';
+import { Grid } from '@mui/material';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
@@ -62,17 +63,20 @@ export default function ScheduleList({grade}) {
 
   return (
     <div className='ScheduleList'>
-      
-      <DateCalendarServerRequest selDate={selDate} setSelDate={setSelDate} list={list} />
-      
-      <Box sx={{ m:1 }}>
-        <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} density='compact'
-          initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
-          pageSizeOptions={[10]} rowSelection={true}
-          disableRowSelectionOnClick
-          onRowClick={onRowHandler}
-          />
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <DateCalendarServerRequest selDate={selDate} setSelDate={setSelDate} list={list} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box sx={{ m:1 }}>
+            <DataGrid sx={{ width: '100%' }} rows={list} columns={columns} density='compact'
+              initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
+              pageSizeOptions={[10]} rowSelection={true}
+              disableRowSelectionOnClick
+              onRowClick={onRowHandler} />
+          </Box>
+        </Grid>
+      </Grid>
     </div>
   );
 }

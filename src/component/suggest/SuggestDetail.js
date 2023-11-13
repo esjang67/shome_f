@@ -22,10 +22,10 @@ function SuggestDetail({user}){
   function writeSave(){
     const suggest = {
       basedate:getFormettedDate(new Date()),
-      user:user,
-      type:type,
       content:content,
-      okflag:'N'
+      type:type,
+      okflag:'N',
+      user:user
     }
 
     axios.post(`${process.env.REACT_APP_SERVER_URL}/suggest`, suggest)

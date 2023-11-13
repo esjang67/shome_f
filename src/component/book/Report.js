@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFormettedDate } from "../../util/util_date";
-import { Box, Button, Card, CardActions, CardContent, CardHeader, TextField, TextareaAutosize } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, TextField } from "@mui/material";
 
 function Report(){
   const {id, userid} = useParams();
@@ -39,9 +39,9 @@ function Report(){
     const report = {
       id:'',
       basedate: getFormettedDate(new Date()),
-      user:{userid:userid},
-      book:{id:book.id},
-      content:content
+      content:content,
+      userid:userid,
+      bookid:book.id
     }
     axios.post(`${process.env.REACT_APP_SERVER_URL}/report`, report)
     .then(response => {
@@ -55,20 +55,18 @@ function Report(){
 
   return(
     <div className="Report">
-      <Box>
-        <Card sx={{ maxWidth: 345, m:2 }} variant="outlined">
-          <CardHeader title={`${book.name}`} subheader={`${book.bookcollect.name}`}/>
-          <CardContent>
-            <TextField sx={{ fontSize:14, width: '90%' }} id="outlined-multiline-static"
-                label="무슨 장면이 제일 기억에 남아?"
-                multiline rows={4} defaultValue="" onChange={changeHandler}
-              />
-          </CardContent>
-          <CardActions>
-            <Button variant="outlined" color="primary" onClick={saveData}>다썼어요 :)</Button>
-          </CardActions>
-        </Card>
-      </Box>
+      <Card className="report" sx={{ maxWidth: 345, m:2, alignment:'center' }} variant="outlined">
+        <CardHeader title={`${book.name}`} subheader={`${book.bookcollect.name}`}/>
+        <CardContent>
+          <TextField sx={{ fontSize:14, width: '90%' }} id="outlined-multiline-static"
+              label="무슨 장면이 제일 기억에 남아?"
+              multiline rows={4} defaultValue="" onChange={changeHandler}
+            />
+        </CardContent>
+        <CardActions>
+          <Button variant="outlined" color="primary" onClick={saveData}>다썼어요 :)</Button>
+        </CardActions>
+      </Card>
     </div>
   )
 }
