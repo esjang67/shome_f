@@ -145,12 +145,12 @@ function SuggestList({ grade, userid }){
 
                   <Box sx={{ p:1 }}>
                       <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>{data.basedate}</Typography>
-                      <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.user.name}</Typography>
+                      <Typography sx={{ fontSize: 14 }}>[{data.type}] {data.username}</Typography>
                       <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>{data.content}</Typography>
                       
-                      {(data.okflag === "N" && data.user.userid === userid) ? 
+                      {(data.okflag === "N" && data.userid === userid) ? 
                         <Button size="large" color="error" 
-                                data-id={data.id} data-userid={data.user.userid} data-okflag={data.okflag} 
+                                data-id={data.id} data-userid={data.userid} data-okflag={data.okflag} 
                                 onClick={deleteData}><ClearIcon/></Button> : ''}     
                   </Box>
                   {grade==="P"? 

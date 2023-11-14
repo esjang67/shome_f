@@ -63,7 +63,8 @@ function CouponList({ grade, userid, change }){
                   <Typography sx={{ fontSize: 12 }}>[{data.type}]</Typography>
                   <Typography sx={{ fontSize: 14, fontWeight: 'bold' }}>{data.content}</Typography>
                   {grade === 'P'?
-                    <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} color={data.user.name === "민찬"? "primary":"error"} >{data.user.name}</Typography> : ''}
+                    <Typography sx={{ fontSize: 14, fontWeight: 'bold' }} 
+                                color={data.username === "민찬"? "primary":"error"} >{data.username}</Typography> : ''}
                   <Typography sx={{ fontSize: 12 }}>쿠폰시간 : {data.playtime}</Typography>
                 </Card>
               </Grid>

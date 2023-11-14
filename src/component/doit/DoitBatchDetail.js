@@ -16,6 +16,7 @@ function DoitBatchDetail() {
     defineday:'',
     content:''
   })
+
   const [chkDay, setChkDay] = useState({
     월:false, 화:false, 수:false, 목:false, 금:false, 토:false, 일:false
   })
@@ -25,9 +26,15 @@ function DoitBatchDetail() {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/doitbatch`, {params: {"id": id}})
       .then(response => {
         // console.log(response.data)
-        setBatch(response.data);
-        setKids(response.data.user.userid);
-        findDay(response.data.defineday);
+        const result = response.data;
+        setBatch({
+          id:result.id,
+          user:{userid:result.userid, name:result.username},
+          defineday:result.defineday,
+          content:result.content
+        });
+        setKids(result.userid);
+        findDay(result.defineday);
         setIsLoading(false);
       }).catch(error => {
         console.log(error);

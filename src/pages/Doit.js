@@ -22,7 +22,7 @@ function Doit({user}) {
   // 할일 초기화
   function todayDelete(){
 
-    if(window.confirm("[경고] 오늘 일정을 삭제할까요?")){
+    if(window.confirm("[경고] 오늘의 할일을 초기화할까요?")){
       setIsLoading(true);
       
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/doit`, 

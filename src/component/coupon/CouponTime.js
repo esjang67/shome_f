@@ -112,9 +112,9 @@ function CouponTime({setChange}){
         list.map((data) => {
           return (
             <Box sx={{ display: 'flex' }} 
-                 key={data.id} data-id={data.id} data-userid={data.user.name} >
+                 key={data.id} data-id={data.id} data-userid={data.username} >
               <Typography sx={{ width: '40%', fontSize: 20, }} variant={'button'}>
-                {data.user.name} : {data.totaltime}
+                {data.username} : {data.totaltime}
               </Typography>
               <TextField  sx={{ width: '15%', mr:0.5 }} maxLength={data.totaltime} 
                           type="number" variant="standard" size="small" className="time" />{' '}
@@ -124,7 +124,7 @@ function CouponTime({setChange}){
                       data-id={data.id} 
                       onClick={useTime}><RemoveIcon/></IconButton>
               <IconButton color="success"  size="small"
-                      data-id={data.id} data-userid={data.user.userid} 
+                      data-id={data.id} data-userid={data.userid} 
                       onClick={handleClickOpen}><AddIcon/></IconButton> 
             </Box>
           );

@@ -25,7 +25,7 @@ function ReportList(){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/report/all`, 
       {params: {"startDate": stdate, "endDate": eddate}})
       .then(response => {
-      // console.log(response.data);
+      
       setList(response.data);
       setIsLoading(false);
 
@@ -50,10 +50,12 @@ function ReportList(){
           list.map((data, i) => {
             return (
 
-              <Accordion sx={{ m:1 }} variant="outlined" key={data.id} expanded={expanded === `panel${i}`} data-id={data.id} onChange={handleChange(`panel${i}`)}>
+              <Accordion sx={{ m:1 }} variant="outlined" key={data.id} 
+                         expanded={expanded === `panel${i}`} data-id={data.id} 
+                         onChange={handleChange(`panel${i}`)}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header" >
-                <Typography sx={{ width: '50%', fontSize: 14, flexShrink: 0 }}>[{data.basedate}] {data.user.name}</Typography>
-                <Typography sx={{ width: '50%', fontSize: 14, color: 'text.secondary' }}>{data.book.name}</Typography>
+                <Typography sx={{ width: '50%', fontSize: 14, flexShrink: 0 }}>[{data.basedate}] {data.username}</Typography>
+                <Typography sx={{ width: '50%', fontSize: 14, color: 'text.secondary' }}>{data.bookname}</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography sx={{ fontSize: 15, color: 'text.secondary' }}>{data.content}</Typography>

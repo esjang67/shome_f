@@ -74,8 +74,7 @@ function DoitList({user, kids}){
           initialState={{pagination: {paginationModel: {pageSize: 10,},},}}
           pageSizeOptions={[10]} rowSelection={true}
           disableRowSelectionOnClick
-          onRowClick={onRowHandler}
-          />
+          onRowClick={onRowHandler} />
       </Box>
 
     </div>
