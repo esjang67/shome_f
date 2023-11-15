@@ -1,5 +1,5 @@
 
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import SuggestList from "../component/suggest/SuggestList";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
