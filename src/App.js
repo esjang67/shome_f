@@ -57,7 +57,7 @@ function App() {
     <div className="App">
       <Suspense fallback={ <Loading /> }>
         
-        <Header user={user} />
+        <Header user={user} setPage={setPage} />
 
         <article>
           <Routes>

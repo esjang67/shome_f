@@ -117,7 +117,8 @@ function SuggestList({ grade, userid }){
 
     if(window.confirm("일정에 등록할까요?")){
       setIsLoading(false);
-      axios.put(`${process.env.REACT_APP_SERVER_URL}/suggest/ok/` + getID, {seldate:seldate})
+      // console.log(seldate)
+      axios.put(`${process.env.REACT_APP_SERVER_URL}/suggest/ok/` + getID, {seldate:getFormettedDate(new Date(seldate))})
       .then(response => {
         // console.log(response.data);
         alert("일정에 등록했습니다.")
@@ -155,16 +156,15 @@ function SuggestList({ grade, userid }){
                   </Box>
                   {grade==="P"? 
                   <Box sx={{ p:1, display: 'flex', justifyContent: 'space-around', borderTop:'1px dashed grey' }}>
-                    <Typography sx={{ fontSize: 12 }} color="text.secondary">일자<br/>선택</Typography>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <ButtonDatePicker
-                          label={seldate == null ? null : seldate}  
-                          value={dayjs(seldate)}
-                          onChange={(stValue)=> setSeldate(stValue) }/>
-                      </LocalizationProvider>
-                      <Button color="primary" data-id={data.id} data-okflag={data.okflag} 
-                              endIcon={<FontAwesomeIcon icon={faSquarePlus} />}
-                              onClick={scheduleAdd}>일정</Button>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <ButtonDatePicker
+                        label={seldate == null ? null : seldate}  
+                        value={dayjs(seldate)}
+                        onChange={(stValue)=> setSeldate(stValue) }/>
+                    </LocalizationProvider>
+                    <Button color="primary" data-id={data.id} data-okflag={data.okflag} 
+                            endIcon={<FontAwesomeIcon icon={faSquarePlus} />} size='small'
+                            onClick={scheduleAdd}>일정</Button>
                   </Box> :''}
                 </Card>
               </Grid>

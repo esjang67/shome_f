@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function Header({user}){
+function Header({user, setPage}){
   
   const navigate = useNavigate();
 
@@ -16,10 +16,15 @@ function Header({user}){
   function loginBtn(){
     navigate("/login");
   }
+
+  function goHome(){
+    navigate("/");
+    setPage('schedule');
+  }
   
   return(
     <Box className="Header">
-      <img className="logo" src={process.env.PUBLIC_URL + '/android-icon-144x144.png'} alt="SweetHome" />
+      <img className="logo" src={process.env.PUBLIC_URL + '/android-icon-144x144.png'} alt="SweetHome" onClick={goHome} />
       <Typography className="todayStr" sx={{ fontSize:15 }}>{dateFormat1}</Typography>
       <Button className="login" sx={{ minWidth:"50px" }} variant="contained" size="small" color="secondary" 
             onClick={loginBtn}>{user.name===''? 'login' : user.name}</Button>

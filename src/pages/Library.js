@@ -43,7 +43,7 @@ function Library({user}){
             todayList.map((data) => {
               return (
                 <Typography sx={{ fontSize: 12, color: 'text.secondary' }} key={data.id} >
-                  [{data.book.name}]{' '}
+                  [{data.bookname}]{' '}
                 </Typography>
               );
             })
