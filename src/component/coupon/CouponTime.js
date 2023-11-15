@@ -20,19 +20,24 @@ function CouponTime({setChange}){
   const [type, setType] = useState();
   const [content, setContent] = useState();
 
+  const [useTime, setUseTime] = useState();
+  const [sel, setSel] = useState(0);
+
   const handleClickOpen = (e) => {
-    setTime(e.target.dataset.userid)
+    e.stopPropagation();
+
+    setTime(e.target.parentNode.dataset.userid);//target.parentNode.dataset.id
     setOpen(true);
   };
 
   const handleSave = () => {
     if(!type){
-      alert("쿠폰타입을 선택하세요.")
+      alert("쿠폰타입을 선택하세요.");
       return;
     }
 
     if(!content){
-      alert("쿠폰내용을 입력하세요.")
+      alert("쿠폰내용을 입력하세요.");
       return;
     }
 
@@ -44,6 +49,7 @@ function CouponTime({setChange}){
       content:content,
       playtime:playtime
     }
+
     if(window.confirm("쿠폰을 추가할까요?")){
       setIsLoading(true);
       setChange(true);
@@ -73,7 +79,6 @@ function CouponTime({setChange}){
   function getList(){
     axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/time/all`)
     .then(response => {
-      // alert(response.data);
       setList(response.data)
       setIsLoading(false);
       
@@ -82,16 +87,15 @@ function CouponTime({setChange}){
     })
   }
   
-  function useTime(e){
-    const id = e.target.dataset.id;
-    const time = document.querySelector(".time .MuiInputBase-input").value;
-    axios.put(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, {id:id, time:time})
+  function useTimeHandler(){
+    // console.log({id:sel, time:useTime})
+    axios.put(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, {id:sel, time:useTime})
     .then(response => {
       alert("쿠폰시간을 사용했습니다.");
       getList();
-      e.target.previousSibling.value = '';
+      setUseTime('');
       setIsLoading(false);
-      document.querySelector(".time .MuiInputBase-input").value = '';
+      
     }).catch(error => {
       console.log(error);
     })
@@ -109,7 +113,7 @@ function CouponTime({setChange}){
     <div className="CouponTime">
       <Box sx={{ m:1, p:1, border: '1px dashed grey', borderRadius:1 }}>
       {
-        list.map((data) => {
+        list.map((data, i) => {
           return (
             <Box sx={{ display: 'flex' }} 
                  key={data.id} data-id={data.id} data-userid={data.username} >
@@ -117,14 +121,21 @@ function CouponTime({setChange}){
                 {data.username} : {data.totaltime}
               </Typography>
               <TextField  sx={{ width: '15%', mr:0.5 }} maxLength={data.totaltime} 
-                          type="number" variant="standard" size="small" className="time" />{' '}
+                          type="number" variant="standard" size="small" id={`time${data.id}`} 
+                          value={useTime}
+                          onChange={(e)=>{
+                            console.log(e.target.value);
+                            setUseTime(e.target.value);
+                            setSel(data.id);
+                          }}  />{' '}
 
               <IconButton sx={{ mr:0.5 }} 
                       color="secondary" size="small"
                       data-id={data.id} 
-                      onClick={useTime}><RemoveIcon/></IconButton>
+                      onClick={useTimeHandler}><RemoveIcon/></IconButton>
+
               <IconButton color="success"  size="small"
-                      data-id={data.id} data-userid={data.userid} 
+                      data-id={data.id} data-userid={data.userid} value={i}
                       onClick={handleClickOpen}><AddIcon/></IconButton> 
             </Box>
           );
@@ -133,7 +144,7 @@ function CouponTime({setChange}){
       </Box>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>쿠폰 추가</DialogTitle>
+        <DialogTitle>쿠폰 추가 {time}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             심부름을 했을 때와 칭찬으로 쿠폰을 추가할 수 있어요.
