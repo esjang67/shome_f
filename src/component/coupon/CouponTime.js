@@ -14,7 +14,7 @@ function CouponTime({setChange}){
 
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('MIN');
   
   const [open, setOpen] = useState(false);
   const [type, setType] = useState();
@@ -23,10 +23,11 @@ function CouponTime({setChange}){
   const [useTime, setUseTime] = useState();
   const [sel, setSel] = useState(0);
 
-  const handleClickOpen = (e) => {
-    e.stopPropagation();
-
-    setTime(e.target.parentNode.dataset.userid);//target.parentNode.dataset.id
+  const handleClickOpen = (id) => {
+    // e.stopProgration();
+    setTime(id); 
+    // console.log(e.target.parentNode.dataset.userid);
+    // console.log(time);
     setOpen(true);
   };
 
@@ -88,7 +89,8 @@ function CouponTime({setChange}){
   }
   
   function useTimeHandler(){
-    // console.log({id:sel, time:useTime})
+
+    console.log({id:sel, time:useTime})
     axios.put(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, {id:sel, time:useTime})
     .then(response => {
       alert("쿠폰시간을 사용했습니다.");
@@ -104,7 +106,7 @@ function CouponTime({setChange}){
   useEffect(()=> {
     getList();
     setChange(false);
-  }, [isLoading])
+  }, [isLoading, time])
 
   if(isLoading)
     return(<>...</>)
@@ -135,15 +137,15 @@ function CouponTime({setChange}){
                       onClick={useTimeHandler}><RemoveIcon/></IconButton>
 
               <IconButton color="success"  size="small"
-                      data-id={data.id} data-userid={data.userid} value={i}
-                      onClick={handleClickOpen}><AddIcon/></IconButton> 
+                      data-id={data.id} data-userid={data.userid} 
+                      onClick={() => handleClickOpen(data.id)}><AddIcon/></IconButton> 
             </Box>
           );
         })
       }
       </Box>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open && time} onClose={handleClose}>
         <DialogTitle>쿠폰 추가 {time}</DialogTitle>
         <DialogContent>
           <DialogContentText>
