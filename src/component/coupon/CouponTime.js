@@ -14,20 +14,16 @@ function CouponTime({setChange}){
 
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
-  const [time, setTime] = useState('MIN');
+  const [selUser, setSeluser] = useState('');
   
   const [open, setOpen] = useState(false);
   const [type, setType] = useState();
   const [content, setContent] = useState();
 
-  const [useTime, setUseTime] = useState();
-  const [sel, setSel] = useState(0);
+  const [useTime, setUseTime] = useState({'MIN':'', 'DO':''});
 
   const handleClickOpen = (id) => {
-    // e.stopProgration();
-    setTime(id); 
-    // console.log(e.target.parentNode.dataset.userid);
-    // console.log(time);
+    setSeluser(id); 
     setOpen(true);
   };
 
@@ -43,9 +39,10 @@ function CouponTime({setChange}){
     }
 
     const playtime = type==='ERRAND'? 5:10;
+
     const sendCoupon = {
       basedate: getFormettedDate(new Date()),
-      user: {userid: time},
+      user: {userid: selUser},
       type:type,
       content:content,
       playtime:playtime
@@ -88,25 +85,28 @@ function CouponTime({setChange}){
     })
   }
   
-  function useTimeHandler(){
-
-    console.log({id:sel, time:useTime})
-    axios.put(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, {id:sel, time:useTime})
-    .then(response => {
-      alert("쿠폰시간을 사용했습니다.");
-      getList();
-      setUseTime('');
-      setIsLoading(false);
-      
-    }).catch(error => {
-      console.log(error);
-    })
+  const timeUseHandler = (id) => {
+    // console.log({id:id, time:useTime})
+    if(useTime[id] > 0){
+      axios.put(`${process.env.REACT_APP_SERVER_URL}/coupon/time`, {id:id, time:useTime[id]})
+      .then(response => {
+        alert("쿠폰시간을 사용했습니다.");
+        getList();
+        setUseTime({'MIN':'', 'DO':''});
+        setIsLoading(false);
+        
+      }).catch(error => {
+        console.log(error);
+      })
+    }
   }
 
   useEffect(()=> {
     getList();
     setChange(false);
-  }, [isLoading, time])
+  }, [isLoading, selUser])
+
+// console.log(useTime);
 
   if(isLoading)
     return(<>...</>)
@@ -123,18 +123,22 @@ function CouponTime({setChange}){
                 {data.username} : {data.totaltime}
               </Typography>
               <TextField  sx={{ width: '15%', mr:0.5 }} maxLength={data.totaltime} 
-                          type="number" variant="standard" size="small" id={`time${data.id}`} 
-                          value={useTime}
+                          type="number" variant="standard" size="small" value={useTime[data.id]}
                           onChange={(e)=>{
-                            console.log(e.target.value);
-                            setUseTime(e.target.value);
-                            setSel(data.id);
+                            if(e.target.value < 0){
+                              e.target.value = 0;
+                            }
+                            setUseTime({
+                              ...useTime,
+                              [data.id]:e.target.value
+                            });
+
                           }}  />{' '}
 
               <IconButton sx={{ mr:0.5 }} 
                       color="secondary" size="small"
                       data-id={data.id} 
-                      onClick={useTimeHandler}><RemoveIcon/></IconButton>
+                      onClick={() => timeUseHandler(data.id)}><RemoveIcon/></IconButton>
 
               <IconButton color="success"  size="small"
                       data-id={data.id} data-userid={data.userid} 
@@ -145,8 +149,8 @@ function CouponTime({setChange}){
       }
       </Box>
 
-      <Dialog open={open && time} onClose={handleClose}>
-        <DialogTitle>쿠폰 추가 {time}</DialogTitle>
+      <Dialog open={open && selUser} onClose={handleClose}>
+        <DialogTitle>쿠폰 추가 {selUser}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             심부름을 했을 때와 칭찬으로 쿠폰을 추가할 수 있어요.
