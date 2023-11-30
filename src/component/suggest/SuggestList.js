@@ -95,10 +95,12 @@ function SuggestList({ grade, userid }){
     }
 
     if(window.confirm("삭제할까요?")){
+      setIsLoading(false);
       axios.delete(`${process.env.REACT_APP_SERVER_URL}/suggest/` + getID)
       .then(response => {
         // console.log(response.data);
         alert("삭제했습니다.")
+        setIsLoading(true);
       }).catch(error => {
         console.log(error);
       })

@@ -5,7 +5,7 @@ import DatePreiod from "../DatePreiod";
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 
 // coupon, couponAdmin에서 공용으로 사용
-function CouponList({ grade, userid, change }){
+function CouponList({ grade, userid, change, kids }){
   
   let startdate = new Date() // new Date("2023-10-01 00:00:00");
   startdate.setDate(1);
@@ -16,11 +16,15 @@ function CouponList({ grade, userid, change }){
   const [list, setList] = useState();
 
   function getList(){
+    
     let std = getFormettedDate(new Date(stdate));
     let edd = getFormettedDate(new Date(eddate));
+
     if(grade === "P"){
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/all`, 
-      {params: {"startDate": std, "endDate": edd}})
+      // axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/all`, 
+      // {params: {"startDate": std, "endDate": edd}})
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/coupon/all/user`, 
+      {params: {"userid": kids, "startDate": std, "endDate": edd}})
       .then(response => {
         // console.log(response.data);
         setList(response.data);
@@ -43,7 +47,7 @@ function CouponList({ grade, userid, change }){
 
   useEffect(()=> {
     getList();
-  }, [isLoading, change])
+  }, [isLoading, change, kids])
   
   if(isLoading)
     return(<>...</>)

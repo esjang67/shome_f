@@ -1,9 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
 import DatePreiod from "../DatePreiod";
 import axios from "axios";
 import { getFormettedDate } from "../../util/util_date";
+import ClearIcon from '@mui/icons-material/Clear';
 
 function ReportList(){
 
@@ -34,6 +35,24 @@ function ReportList(){
       })
   }
 
+  function deleteData(e){
+
+    const getID = e.target.parentNode.dataset.id;
+    
+    if(window.confirm("삭제할까요?")){
+      setIsLoading(false);
+      axios.delete(`${process.env.REACT_APP_SERVER_URL}/report/` + getID)
+      .then(response => {
+        // console.log(response.data);
+        alert("삭제했습니다.")
+        setIsLoading(true);
+      }).catch(error => {
+        console.log(error);
+      })
+    }
+  
+  }
+
   useEffect(()=> {
     getList();
   }, [])
@@ -59,6 +78,9 @@ function ReportList(){
               </AccordionSummary>
               <AccordionDetails>
                 <Typography sx={{ fontSize: 15, color: 'text.secondary' }}>{data.content}</Typography>
+                <Button size="large" color="error" 
+                                data-id={data.id} 
+                                onClick={deleteData}><ClearIcon/></Button>
               </AccordionDetails>
             </Accordion>
 
